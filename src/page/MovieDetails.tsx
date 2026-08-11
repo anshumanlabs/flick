@@ -8,6 +8,7 @@ import MovieCard from "../components/MovieCard";
 function MovieDetails() {
   const BASE_IMG_URL = "https://img.yts.gg/assets/images/movies/";
   function getMovieFolder(url: string): string {
+    console.log("URL:", url);
     return new URL(url).pathname.split("/").at(-2) ?? "";
   }
   const location = useLocation();
@@ -117,9 +118,7 @@ function MovieDetails() {
         )}
         <div className={movie.yt_trailer_code ? "w-full md:w-1/2" : "w-full"}>
           <div className="suggested-movies">
-            <h2 className="text-center text-2xl font-bold">
-              Suggested Movies
-            </h2>
+            <h2 className="text-center text-2xl font-bold">Suggested Movies</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {suggested.map((suggestedMovie) => (
                 <MovieCard key={suggestedMovie.id} movie={suggestedMovie} />
