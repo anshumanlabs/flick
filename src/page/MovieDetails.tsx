@@ -1,34 +1,25 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import type { Movie } from "../types/movies";
-import { getMovieById } from "../services/movieService";
 import "./MoviesDetails.css";
+import { useLocation } from "react-router-dom";
 
 function MovieDetails() {
-  const { id } = useParams();
-  const [movie, setMovie] = useState<Movie>();
-
-  useEffect(() => {
-    getMovieById(Number(id)).then((fetchedMovie) => {
-      setMovie(fetchedMovie.data.movie);
-    });
-  }, [id]);
+  const location = useLocation();
+  const { movie } = location.state as { movie: Movie };
 
   return (
     <div className="movie-details">
       <section
         className="movie-hero"
         style={{
-          backgroundImage: `url(${movie?.background_image})`,
+          backgroundImage: `url(${movie?.medium_cover_image})`,
         }}
       >
         <div className="hero-overlay">
           <img
             className="movie-poster"
-            src={movie?.large_cover_image}
+            src={movie?.medium_cover_image}
             alt={movie?.title}
           />
-
           <div className="movie-info">
             <h1>{movie?.title}</h1>
 

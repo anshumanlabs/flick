@@ -10,8 +10,10 @@ export interface Movie {
 
   background_image: string;
   medium_cover_image: string;
+  background_image_original: string;
   large_cover_image: string;
   description_full: string;
+  description_intro: string;
 
   yt_trailer_code: string;
   imdb_code: string;

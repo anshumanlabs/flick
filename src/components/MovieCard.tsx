@@ -12,7 +12,7 @@ function MovieCard({ movie }: MovieCardProps) {
   return (
     <div
       className="movie-card"
-      onClick={() => navigate(`/movies/${movie.id}`)}
+      onClick={() => navigate(`/movies/${movie.id}`,{ state: { movie }})}
     >
       <div className="relative overflow-hidden">
         <img
@@ -45,17 +45,16 @@ function MovieCard({ movie }: MovieCardProps) {
       </div>
 
       <div className="p-4">
-        <p
+        <h1
           className="
             mt-3
             line-clamp-2
-            text-sm
             leading-5
             text-zinc-400
           "
         >
           {movie.title}
-        </p>
+        </h1>
       </div>
     </div>
   );
