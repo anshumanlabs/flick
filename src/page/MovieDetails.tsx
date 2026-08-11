@@ -6,6 +6,10 @@ import { suggestedMovies } from "../services/movieService";
 import MovieCard from "../components/MovieCard";
 
 function MovieDetails() {
+  const BASE_IMG_URL = "https://img.yts.gg/assets/images/movies/";
+  function getMovieFolder(url: string): string {
+    return new URL(url).pathname.split("/").at(-2) ?? "";
+  }
   const location = useLocation();
   const { movie } = location.state as { movie: Movie };
   const [suggested, setSuggested] = useState<Movie[]>([]);
@@ -21,13 +25,21 @@ function MovieDetails() {
       <section
         className="movie-hero"
         style={{
-          backgroundImage: `url(${movie?.medium_cover_image})`,
+          backgroundImage: `url(${
+            BASE_IMG_URL +
+            getMovieFolder(movie.medium_cover_image) +
+            "/background.jpg"
+          })`,
         }}
       >
         <div className="hero-overlay">
           <img
             className="movie-poster"
-            src={movie?.medium_cover_image}
+            src={
+              BASE_IMG_URL +
+              getMovieFolder(movie.medium_cover_image) +
+              "/medium-cover.jpg"
+            }
             alt={movie?.title}
           />
           <div className="movie-info">
