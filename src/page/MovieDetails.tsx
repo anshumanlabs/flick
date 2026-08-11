@@ -104,26 +104,29 @@ function MovieDetails() {
           </div>
         </div>
       </section>
-      <div className="trailer-container">
+      <div className="flex flex-col gap-6 md:flex-row">
         {movie.yt_trailer_code && (
-          <iframe
-            className="w-full max-w-[640px] aspect-video rounded-xl"
-            src={`https://www.youtube.com/embed/${movie.yt_trailer_code}`}
-            title={`${movie.title} Trailer`}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          />
+          <div className="w-full md:w-1/2">
+            <iframe
+              className="aspect-video w-full rounded-xl"
+              src={`https://www.youtube.com/embed/${movie.yt_trailer_code}`}
+              title={`${movie.title} Trailer`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            />
+          </div>
         )}
-
-        {suggested.length > 0 && (
+        <div className={movie.yt_trailer_code ? "w-full md:w-1/2" : "w-full"}>
           <div className="suggested-movies">
-            <h2>Suggested Movies</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
+            <h2 className="text-center text-2xl font-bold">
+              Suggested Movies
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {suggested.map((suggestedMovie) => (
                 <MovieCard key={suggestedMovie.id} movie={suggestedMovie} />
               ))}
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
