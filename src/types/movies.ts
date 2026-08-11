@@ -18,6 +18,7 @@ export interface Movie {
   yt_trailer_code: string;
   imdb_code: string;
   language: string;
+  slug: string;
 }
 
 export interface ListMovieResponse {

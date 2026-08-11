@@ -7,16 +7,21 @@ interface MovieCardProps {
 }
 
 function MovieCard({ movie }: MovieCardProps) {
+  const BASE_IMG_URL = "https://img.yts.gg/assets/images/movies/";
   const navigate = useNavigate();
+
+  function getMovieFolder(url: string): string {
+    return new URL(url).pathname.split("/").at(-2) ?? "";
+  }
 
   return (
     <div
       className="movie-card"
-      onClick={() => navigate(`/movies/${movie.id}`,{ state: { movie }})}
+      onClick={() => navigate(`/movies/${movie.id}`, { state: { movie } })}
     >
       <div className="relative overflow-hidden">
         <img
-          src={movie.medium_cover_image}
+          src={BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + "/medium-cover.jpg"}
           alt={movie.title}
           className="
             w-full
