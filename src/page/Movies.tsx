@@ -1,9 +1,24 @@
+import { useEffect, useState } from "react";
+import { getMovies } from "../services/movieService";
+import type { Movie } from "../types/movies";
+import MovieCard from "../components/MovieCard";
+
 function Movies() {
+  const [movies, setMovies] = useState<Movie[]>([]);
 
-    return(
-        <>Movies Page</>
-    )
+  useEffect(() => {
+    getMovies().then((fetchedMovies) => {
+      setMovies(fetchedMovies.data.movies);
+    });
+  }, []);
 
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
+      {movies.map((movie) => (
+        <MovieCard key={movie.id} movie={movie} />
+      ))}
+    </div>
+  );
 }
 
-export default Movies
+export default Movies;

@@ -17,3 +17,13 @@ export async function getMovieById(id: number): Promise<MovieResponse> {
   }
   return response.json();
 }
+
+export async function suggestedMovies(id: number): Promise<ListMovieResponse> {
+  const response = await fetch(
+    `${BASE_URL}/movie_suggestions.json?movie_id=${id}`,
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch suggested movies");
+  }
+  return response.json();
+}

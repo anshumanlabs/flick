@@ -1,10 +1,20 @@
+import { useEffect, useState } from "react";
 import type { Movie } from "../types/movies";
 import "./MoviesDetails.css";
 import { useLocation } from "react-router-dom";
+import { suggestedMovies } from "../services/movieService";
+import MovieCard from "../components/MovieCard";
 
 function MovieDetails() {
   const location = useLocation();
   const { movie } = location.state as { movie: Movie };
+  const [suggested, setSuggested] = useState<Movie[]>([]);
+
+  useEffect(() => {
+    suggestedMovies(movie.id).then((fetchedMovies) => {
+      setSuggested(fetchedMovies.data.movies);
+    });
+  }, [movie.id]);
 
   return (
     <div className="movie-details">
@@ -82,6 +92,27 @@ function MovieDetails() {
           </div>
         </div>
       </section>
+      <div className="trailer-container">
+        {movie.yt_trailer_code && (
+          <iframe
+            className="w-full max-w-[640px] aspect-video rounded-xl"
+            src={`https://www.youtube.com/embed/${movie.yt_trailer_code}`}
+            title={`${movie.title} Trailer`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          />
+        )}
+
+        {suggested.length > 0 && (
+          <div className="suggested-movies">
+            <h2>Suggested Movies</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
+              {suggested.map((suggestedMovie) => (
+                <MovieCard key={suggestedMovie.id} movie={suggestedMovie} />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
