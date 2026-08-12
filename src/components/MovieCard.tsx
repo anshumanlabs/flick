@@ -1,6 +1,7 @@
 import type { Movie } from "../types/movies";
 import { useNavigate } from "react-router-dom";
 import "./MovieCard.css";
+import HoverDetails from "./HoverDetails";
 
 interface MovieCardProps {
   movie: Movie;
@@ -29,37 +30,16 @@ function MovieCard({ movie }: MovieCardProps) {
             object-cover
             transition-transform
             duration-300
+            border-[2px]
+            border-black
+            rounded-lg
+            hover:scale-105
+            hover:shadow-lg
           "
         />
-        <div
-          className="
-            absolute
-            top-3
-            right-3
-            rounded-md
-            bg-black/80
-            px-2
-            py-1
-            text-sm
-            font-semibold
-            text-white
-          "
-        >
-          ⭐ {movie.rating}
+        <div className="absolute inset-0 bg-opacity-100 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <HoverDetails movie={movie} />
         </div>
-      </div>
-
-      <div className="p-4">
-        <h1
-          className="
-            mt-3
-            line-clamp-2
-            leading-5
-            text-zinc-400
-          "
-        >
-          {movie.title}
-        </h1>
       </div>
     </div>
   );
