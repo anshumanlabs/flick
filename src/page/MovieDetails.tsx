@@ -59,12 +59,6 @@ function MovieDetails() {
             </div>
 
             <p>{movie?.description_full}</p>
-
-            <div className="actions">
-              {movie?.yt_trailer_code && <button>Watch Trailer</button>}
-
-              <button>♡ Favorite</button>
-            </div>
           </div>
         </div>
       </section>

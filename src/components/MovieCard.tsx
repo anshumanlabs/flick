@@ -26,7 +26,6 @@ function MovieCard({ movie }: MovieCardProps) {
           alt={movie.title}
           className="
             w-full
-            h-[320px]
             object-cover
             transition-transform
             duration-300
