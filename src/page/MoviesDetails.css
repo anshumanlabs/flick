@@ -10,7 +10,6 @@
   align-items: center;
   gap: 40px;
   padding: 60px 10%;
-  background: rgba(0, 0, 0, 0.75);
 }
 
 .movie-poster {
@@ -86,4 +85,9 @@
 
 .info-grid strong {
   font-size: 18px;
+}
+
+.suggested-movies {
+  display: flex;
+  justify-content: flex-end;
 }

@@ -8,12 +8,15 @@ import MovieCard from "../components/MovieCard";
 function MovieDetails() {
   const BASE_IMG_URL = "https://img.yts.gg/assets/images/movies/";
   function getMovieFolder(url: string): string {
-    console.log("URL:", url);
     return new URL(url).pathname.split("/").at(-2) ?? "";
   }
   const location = useLocation();
   const { movie } = location.state as { movie: Movie };
   const [suggested, setSuggested] = useState<Movie[]>([]);
+  const [configs] = useState<Config>({
+    width: 125, height: 100, titleSize: 15, ratingSize: 15, runtimeSize: 15,
+    fontStyle: "bold"
+  });
 
   useEffect(() => {
     suggestedMovies(movie.id).then((fetchedMovies) => {
@@ -26,11 +29,10 @@ function MovieDetails() {
       <section
         className="movie-hero"
         style={{
-          backgroundImage: `url(${
-            BASE_IMG_URL +
+          backgroundImage: `url(${BASE_IMG_URL +
             getMovieFolder(movie.medium_cover_image) +
             "/background.jpg"
-          })`,
+            })`,
         }}
       >
         <div className="hero-overlay">
@@ -110,14 +112,12 @@ function MovieDetails() {
             />
           </div>
         )}
-        <div className={movie.yt_trailer_code ? "w-full md:w-1/2" : "w-full"}>
-          <div className="suggested-movies">
-            <h2 className="text-center text-2xl font-bold">Suggested Movies</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              {suggested.map((suggestedMovie) => (
-                <MovieCard key={suggestedMovie.id} movie={suggestedMovie} />
-              ))}
-            </div>
+        <div className="suggested-movies">
+          <div className="text-center text-2xl font-bold">Suggested Movies</div>
+          <div className="grid grid-cols-2 gap-4 justify-items-center">
+            {suggested.map((suggestedMovie) => (
+              <MovieCard key={suggestedMovie.id} movie={suggestedMovie} config={configs} />
+            ))}
           </div>
         </div>
       </div>
