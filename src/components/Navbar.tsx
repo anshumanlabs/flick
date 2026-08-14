@@ -1,32 +1,40 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
+  const location = useLocation();
+  const showSearchBar = location.pathname === "/movies";
+  const [, setSearchParams] = useSearchParams();
+
+  const handleSearch = (movieName: string) => {
+    setSearchParams({
+      page: "1",
+      search: movieName
+    });
+  };
+
   return (
     <header className="navbar">
       <div className="navbar-container">
-
-        {/* Logo */}
         <Link to="/" className="logo">
           FLICK<span>.</span>
         </Link>
-
-        {/* Navigation */}
         <nav className="nav-links">
           <Link to="/">Home</Link>
           <Link to="/movies">Movies</Link>
           <Link to="/favorites">Favorites</Link>
         </nav>
-
-        {/* Search */}
-        <div className="nav-search">
-          <input
-            type="text"
-            placeholder="Search movies..."
-          />
-          <button>⌕</button>
-        </div>
-
+        {showSearchBar && (
+          <div className="nav-search">
+            <input
+              type="text"
+              placeholder="Search movies..."
+              onChange={(e) => handleSearch(e.target.value)}
+            />
+            <button>⌕</button>
+          </div>
+        )}
       </div>
     </header>
   );

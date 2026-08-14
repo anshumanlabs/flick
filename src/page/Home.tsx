@@ -18,7 +18,7 @@ function Home() {
   const [page] = useState<number>(1);
 
   useEffect(() => {
-    getMovies(page).then((fetchedMovies) => {
+    getMovies(page, "").then((fetchedMovies) => {
       setMovies(fetchedMovies.data.movies);
     });
   }, [page]);
