@@ -157,8 +157,6 @@ function MovieDetails() {
       <div>
         {mediumScreenshots.length > 0 && (
           <div className="screenshots">
-            <h2>Screenshots</h2>
-
             <div className="screenshot-carousel">
               {mediumScreenshots.map((screenshot, index) => (
                 <div

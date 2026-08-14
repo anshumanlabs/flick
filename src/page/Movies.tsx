@@ -31,7 +31,7 @@ function Movies() {
     setSearchParams({
       page: page.toString(),
     });
-  }, [])
+  }, []);
 
   useEffect(() => {
     getMovies(page, search).then((fetchedMovies) => {
@@ -56,9 +56,16 @@ function Movies() {
         currentPage: page,
         offset: (page - 1) * paginationData.limit,
       }));
-      setSearchParams({
-        page: page.toString(),
-      });
+      if (search) {
+        setSearchParams({
+          page: page.toString(),
+          search:search
+        });
+      } else {
+        setSearchParams({
+          page: page.toString(),
+        });
+      }
     });
   }
 

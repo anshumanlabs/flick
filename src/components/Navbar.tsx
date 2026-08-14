@@ -22,7 +22,7 @@ function Navbar() {
         </Link>
         <nav className="nav-links">
           <Link to="/">Home</Link>
-          <Link to="/movies">Movies</Link>
+          <Link to="/movies?page=1">Movies</Link>
           <Link to="/favorites">Favorites</Link>
         </nav>
         {showSearchBar && (

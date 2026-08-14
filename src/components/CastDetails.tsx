@@ -7,7 +7,7 @@ function CastDetails({ cast }: { cast: Cast }) {
     console.log("Actor URLs:", url);
     if(url)
         return BASE_IMG_URL + url.split("/").at(-1);
-    return "https://via.placeholder.com/300x450?text=No+Image";
+    return BASE_IMG_URL + "default_avatar.jpg";
   }
   return (
     <div className="flex flex-col items-center">
