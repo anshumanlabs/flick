@@ -7,7 +7,6 @@ interface PaginationUIProps {
 }
 
 function PaginationUI({ paginationData, onPageChange }: PaginationUIProps) {
-  console.log("Pagination Data:", paginationData);
   return (
     <Pagination
       className="mt-3 mb-3 flex justify-center"

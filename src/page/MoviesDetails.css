@@ -91,3 +91,43 @@
   display: flex;
   justify-content: flex-end;
 }
+
+
+.screenshots {
+  margin-top: 30px;
+}
+
+.screenshots h2 {
+  margin-bottom: 15px;
+}
+
+.screenshot-carousel {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
+}
+
+.screenshot-carousel::-webkit-scrollbar {
+  height: 8px;
+}
+
+.screenshot-carousel::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 10px;
+}
+
+.screenshot-slide {
+  flex: 0 0 70%;
+  scroll-snap-align: start;
+}
+
+.screenshot-slide img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
