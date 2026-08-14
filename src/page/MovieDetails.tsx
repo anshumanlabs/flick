@@ -18,8 +18,8 @@ function MovieDetails() {
   const { movie } = location.state as { movie: Movie };
   const [suggested, setSuggested] = useState<Movie[]>([]);
   const [configs] = useState<Config>({
-    width: 125,
-    height: 100,
+    width: 150,
+    height: 190,
     titleSize: 15,
     ratingSize: 15,
     runtimeSize: 15,
@@ -42,19 +42,19 @@ function MovieDetails() {
       setMediumScreenshots(
         fetchedMovie.data.movie.medium_screenshot_image1
           ? [
-              new Map([
-                ["medium", fetchedMovie.data.movie.medium_screenshot_image1],
-                ["large", fetchedMovie.data.movie.large_screenshot_image1],
-              ]),
-              new Map([
-                ["medium", fetchedMovie.data.movie.medium_screenshot_image2],
-                ["large", fetchedMovie.data.movie.large_screenshot_image2],
-              ]),
-              new Map([
-                ["medium", fetchedMovie.data.movie.medium_screenshot_image3],
-                ["large", fetchedMovie.data.movie.large_screenshot_image3],
-              ]),
-            ]
+            new Map([
+              ["medium", fetchedMovie.data.movie.medium_screenshot_image1],
+              ["large", fetchedMovie.data.movie.large_screenshot_image1],
+            ]),
+            new Map([
+              ["medium", fetchedMovie.data.movie.medium_screenshot_image2],
+              ["large", fetchedMovie.data.movie.large_screenshot_image2],
+            ]),
+            new Map([
+              ["medium", fetchedMovie.data.movie.medium_screenshot_image3],
+              ["large", fetchedMovie.data.movie.large_screenshot_image3],
+            ]),
+          ]
           : [],
       );
       setCastDetails(fetchedMovie.data.movie.cast);
@@ -71,14 +71,13 @@ function MovieDetails() {
       <section
         className="movie-hero"
         style={{
-          backgroundImage: `url(${
-            BASE_IMG_URL +
+          backgroundImage: `url(${BASE_IMG_URL +
             getMovieFolder(movie.medium_cover_image) +
             "/background.jpg"
-          })`,
+            })`,
         }}
       >
-        <div className="hero-overlay">
+        <div className="hero-overlay grid grid-cols-3">
           <img
             className="movie-poster"
             src={
@@ -102,8 +101,21 @@ function MovieDetails() {
                 <span key={genre}>{genre}</span>
               ))}
             </div>
-
             <p>{movie?.description_full}</p>
+          </div>
+          <div>
+            <div className="text-center text-2xl font-bold mb-3">Similar Movies</div>
+            <div className="grid grid-cols-2">
+              {suggested.map((suggestedMovie) => (
+                <div className="grid grid-row-2 m-5">
+                  <MovieCard
+                    key={suggestedMovie.id}
+                    movie={suggestedMovie}
+                    config={configs}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -185,18 +197,6 @@ function MovieDetails() {
             />
           </div>
         )}
-        <div className="suggested-movies">
-          <div className="text-center text-2xl font-bold">Suggested Movies</div>
-          <div className="grid grid-cols-2 gap-4 justify-items-center">
-            {suggested.map((suggestedMovie) => (
-              <MovieCard
-                key={suggestedMovie.id}
-                movie={suggestedMovie}
-                config={configs}
-              />
-            ))}
-          </div>
-        </div>
       </div>
       <Popup
         open={showPopUp}

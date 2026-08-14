@@ -32,7 +32,6 @@ function MovieCard({ movie, config }: MovieCardProps) {
             transition-transform
             duration-300
             border-[8px]
-            border-black
             hover:scale-105
             hover:shadow-lg
           "

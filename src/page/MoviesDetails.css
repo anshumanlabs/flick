@@ -7,9 +7,8 @@
 .hero-overlay {
   min-height: 550px;
   display: flex;
-  align-items: center;
   gap: 40px;
-  padding: 60px 10%;
+  padding: 60px 5%;
 }
 
 .movie-poster {
@@ -18,7 +17,7 @@
 }
 
 .movie-info {
-  max-width: 700px;
+  max-width: 600px;
   color: white;
 }
 

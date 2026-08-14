@@ -5,11 +5,6 @@
 }
 
 .movie-card:hover {
-  transform: translateY(-6px);
-  border-color: #3f3f46;
+  border-color: #203319;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-}
-
-.movie-card:hover img {
-  transform: scale(1.05);
 }
