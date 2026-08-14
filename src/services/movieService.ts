@@ -2,8 +2,8 @@ import type { ListMovieResponse, MovieResponse } from "../types/movies";
 
 const BASE_URL = "https://movies-api.accel.li/api/v2";
 
-export async function getMovies(): Promise<ListMovieResponse> {
-  const response = await fetch(`${BASE_URL}/list_movies.json?limit=20`);
+export async function getMovies(page: number): Promise<ListMovieResponse> {
+  const response = await fetch(`${BASE_URL}/list_movies.json?limit=20&page=${page}`);
   if (!response.ok) {
     throw new Error("Failed to fetch movies");
   }
