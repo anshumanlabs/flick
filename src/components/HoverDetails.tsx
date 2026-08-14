@@ -1,15 +1,21 @@
 import type { Movie } from "../types/movies";
+import type {Config} from "../types/config";
 
-function HoverDetails({ movie }: { movie: Movie }) {
+interface HoverDetailsProps {
+    movie:Movie,
+    config: Config
+}
+
+function HoverDetails({ movie, config }: HoverDetailsProps) {
     return (
-        <div className="hover-details text-center">
-            <div className="text-white text-xl font-bold mb-2">
+        <div className="hover-details text-center text-white">
+            <div className="mb-2" style={{fontSize:config.titleSize, fontWeight:config.fontStyle}}>
                 {movie.title}
             </div>
-            <div className="text-white text-lg font-bold">
+            <div style={{fontSize:config.ratingSize, fontWeight:config.fontStyle}}>
                 ⭐ {movie.rating} / 10
             </div>
-            <div className="text-white text-sm">
+            <div style={{fontSize:config.runtimeSize}}>
                 ⏱ {movie.runtime} min
             </div>
         </div>

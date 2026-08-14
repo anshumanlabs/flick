@@ -7,10 +7,8 @@
 .hero-overlay {
   min-height: 550px;
   display: flex;
-  align-items: center;
   gap: 40px;
-  padding: 60px 10%;
-  background: rgba(0, 0, 0, 0.75);
+  padding: 60px 5%;
 }
 
 .movie-poster {
@@ -19,7 +17,7 @@
 }
 
 .movie-info {
-  max-width: 700px;
+  max-width: 600px;
   color: white;
 }
 
@@ -86,4 +84,49 @@
 
 .info-grid strong {
   font-size: 18px;
+}
+
+.suggested-movies {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+.screenshots {
+  margin-top: 30px;
+}
+
+.screenshots h2 {
+  margin-bottom: 15px;
+}
+
+.screenshot-carousel {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
+}
+
+.screenshot-carousel::-webkit-scrollbar {
+  height: 8px;
+}
+
+.screenshot-carousel::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 10px;
+}
+
+.screenshot-slide {
+  flex: 0 0 70%;
+  scroll-snap-align: start;
+}
+
+.screenshot-slide img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
 }

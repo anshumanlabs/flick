@@ -2,38 +2,82 @@ import { useEffect, useState } from "react";
 import type { Movie } from "../types/movies";
 import "./MoviesDetails.css";
 import { useLocation } from "react-router-dom";
-import { suggestedMovies } from "../services/movieService";
+import { getMovieById, suggestedMovies } from "../services/movieService";
 import MovieCard from "../components/MovieCard";
+import type { Config } from "../types/config";
+import type { Cast } from "../types/cast";
+import Popup from "../components/Popup";
+import CastDetails from "../components/CastDetails";
 
 function MovieDetails() {
   const BASE_IMG_URL = "https://img.yts.gg/assets/images/movies/";
   function getMovieFolder(url: string): string {
-    console.log("URL:", url);
     return new URL(url).pathname.split("/").at(-2) ?? "";
   }
   const location = useLocation();
   const { movie } = location.state as { movie: Movie };
   const [suggested, setSuggested] = useState<Movie[]>([]);
+  const [configs] = useState<Config>({
+    width: 150,
+    height: 190,
+    titleSize: 15,
+    ratingSize: 15,
+    runtimeSize: 15,
+    fontStyle: "bold",
+  });
+
+  const [mediumScreenshots, setMediumScreenshots] = useState<
+    Map<string, string>[]
+  >([]);
+  const [castDetails, setCastDetails] = useState<Cast[]>([]);
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [popUpImage, setPopUpImage] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     suggestedMovies(movie.id).then((fetchedMovies) => {
       setSuggested(fetchedMovies.data.movies);
     });
+
+    getMovieById(movie.id).then((fetchedMovie) => {
+      setMediumScreenshots(
+        fetchedMovie.data.movie.medium_screenshot_image1
+          ? [
+            new Map([
+              ["medium", fetchedMovie.data.movie.medium_screenshot_image1],
+              ["large", fetchedMovie.data.movie.large_screenshot_image1],
+            ]),
+            new Map([
+              ["medium", fetchedMovie.data.movie.medium_screenshot_image2],
+              ["large", fetchedMovie.data.movie.large_screenshot_image2],
+            ]),
+            new Map([
+              ["medium", fetchedMovie.data.movie.medium_screenshot_image3],
+              ["large", fetchedMovie.data.movie.large_screenshot_image3],
+            ]),
+          ]
+          : [],
+      );
+      setCastDetails(fetchedMovie.data.movie.cast);
+    });
   }, [movie.id]);
+
+  const openPopUp = (imageUrl: string | undefined) => () => {
+    setPopUpImage(imageUrl);
+    setShowPopUp(true);
+  };
 
   return (
     <div className="movie-details">
       <section
         className="movie-hero"
         style={{
-          backgroundImage: `url(${
-            BASE_IMG_URL +
+          backgroundImage: `url(${BASE_IMG_URL +
             getMovieFolder(movie.medium_cover_image) +
             "/background.jpg"
-          })`,
+            })`,
         }}
       >
-        <div className="hero-overlay">
+        <div className="hero-overlay grid grid-cols-3">
           <img
             className="movie-poster"
             src={
@@ -57,13 +101,20 @@ function MovieDetails() {
                 <span key={genre}>{genre}</span>
               ))}
             </div>
-
             <p>{movie?.description_full}</p>
-
-            <div className="actions">
-              {movie?.yt_trailer_code && <button>Watch Trailer</button>}
-
-              <button>♡ Favorite</button>
+          </div>
+          <div>
+            <div className="text-center text-2xl font-bold mb-3">Similar Movies</div>
+            <div className="grid grid-cols-2">
+              {suggested.map((suggestedMovie) => (
+                <div className="grid grid-row-2 m-5">
+                  <MovieCard
+                    key={suggestedMovie.id}
+                    movie={suggestedMovie}
+                    config={configs}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -105,6 +156,36 @@ function MovieDetails() {
           </div>
         </div>
       </section>
+      {castDetails && castDetails.length > 0 && (
+        <section className="cast-details text-center">
+          <h2>Cast</h2>
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mt-4">
+            {castDetails.map((castMember) => (
+              <CastDetails key={castMember.imdb_code} cast={castMember} />
+            ))}
+          </div>
+        </section>
+      )}
+      <div>
+        {mediumScreenshots.length > 0 && (
+          <div className="screenshots">
+            <div className="screenshot-carousel">
+              {mediumScreenshots.map((screenshot, index) => (
+                <div
+                  className="screenshot-slide"
+                  key={index}
+                  onClick={openPopUp(screenshot.get("large"))}
+                >
+                  <img
+                    src={screenshot.get("medium")}
+                    alt={screenshot.get("medium")}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
       <div className="flex flex-col gap-6 md:flex-row">
         {movie.yt_trailer_code && (
           <div className="w-full md:w-1/2">
@@ -116,17 +197,12 @@ function MovieDetails() {
             />
           </div>
         )}
-        <div className={movie.yt_trailer_code ? "w-full md:w-1/2" : "w-full"}>
-          <div className="suggested-movies">
-            <h2 className="text-center text-2xl font-bold">Suggested Movies</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              {suggested.map((suggestedMovie) => (
-                <MovieCard key={suggestedMovie.id} movie={suggestedMovie} />
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
+      <Popup
+        open={showPopUp}
+        onClose={() => setShowPopUp(false)}
+        imageUrl={popUpImage || ""}
+      ></Popup>
     </div>
   );
 }

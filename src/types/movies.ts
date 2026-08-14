@@ -1,3 +1,5 @@
+import type { Cast } from "./cast";
+
 export interface Movie {
   id: number;
   title: string;
@@ -19,6 +21,15 @@ export interface Movie {
   imdb_code: string;
   language: string;
   slug: string;
+
+  medium_screenshot_image1: string;
+  medium_screenshot_image2: string;
+  medium_screenshot_image3: string;
+
+  large_screenshot_image1: string;
+  large_screenshot_image2: string;
+  large_screenshot_image3: string;
+  cast: Cast[];
 }
 
 export interface ListMovieResponse {
