@@ -170,32 +170,32 @@ function MovieDetails() {
           </div>
         </section>
       )}
-      {mediumScreenshots.length > 0 && (
-        <div className="grid grid-cols-4 mt-3 justify-items-center">
-          {movie.yt_trailer_code && (
-            <div className="p-2">
-              <iframe
-                className="aspect-video w-full h-full rounded-xl"
-                src={`https://www.youtube.com/embed/${movie.yt_trailer_code}`}
-                title={`${movie.title} Trailer`}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              />
-            </div>
-          )}
-          {mediumScreenshots.map((screenshot, index) => (
-            <div
-              className="p-2"
-              key={index}
-              onClick={openPopUp(screenshot.get("large"))}
-            >
-              <img
-                src={screenshot.get("medium")}
-                alt={screenshot.get("medium")}
-              />
-            </div>
-          ))}
-        </div>
-      )}
+      <div className="grid grid-cols-4 mt-3 gap-3">
+        {movie.yt_trailer_code && (
+          <div className="aspect-video w-full p-2">
+            <iframe
+              className="w-full h-full rounded-xl"
+              src={`https://www.youtube.com/embed/${movie.yt_trailer_code}`}
+              title={`${movie.title} Trailer`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            />
+          </div>
+        )}
+
+        {mediumScreenshots.map((screenshot, index) => (
+          <div
+            key={index}
+            className="aspect-video w-full p-2 cursor-pointer"
+            onClick={openPopUp(screenshot.get("large"))}
+          >
+            <img
+              src={screenshot.get("medium")}
+              alt="Screenshot"
+              className="w-full h-full object-cover rounded-xl"
+            />
+          </div>
+        ))}
+      </div>
       <Popup
         key={popUpImage}
         open={showPopUp}

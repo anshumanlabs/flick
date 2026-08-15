@@ -22,8 +22,8 @@ function Movies() {
     ratingSize: 15,
     runtimeSize: 15,
     fontStyle: "bold",
-    border:"8px solid #f7f7f7",
-    hover:false
+    border: "8px solid #f7f7f7",
+    hover: true,
   });
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get("search") || "";
@@ -36,18 +36,20 @@ function Movies() {
   }, []);
 
   useEffect(() => {
-    getMovies(page, search).then((fetchedMovies) => {
-      setMovies(fetchedMovies.data.movies);
-      setPaginationData({
-        currentPage: 1,
-        totalPages: Math.ceil(
-          fetchedMovies.data.movie_count / paginationData.limit,
-        ),
-        offset: 0,
-        limit: paginationData.limit,
+    const timer = setTimeout(() => {
+      getMovies(page, search).then((fetchedMovies) => {
+        setMovies(fetchedMovies.data.movies);
+        setPaginationData((prev) => ({
+          currentPage: page,
+          totalPages: Math.ceil(fetchedMovies.data.movie_count / prev.limit),
+          offset: (page - 1) * prev.limit,
+          limit: prev.limit,
+        }));
       });
-    });
-  }, [search]);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [search, page]);
 
   function getMoviesForPage(page: number) {
     setMovies([]);
@@ -61,7 +63,7 @@ function Movies() {
       if (search) {
         setSearchParams({
           page: page.toString(),
-          search: search
+          search: search,
         });
       } else {
         setSearchParams({
@@ -88,17 +90,15 @@ function Movies() {
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
-          {
-            Array.from({ length: 20 }).map((_, index) => (
-              <Skeletons
-                key={index}
-                config={{
-                  width: 210,
-                  height: 250,
-                }}
-              />
-            ))
-          }
+          {Array.from({ length: 20 }).map((_, index) => (
+            <Skeletons
+              key={index}
+              config={{
+                width: 210,
+                height: 250,
+              }}
+            />
+          ))}
         </div>
       )}
     </div>
