@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Movie } from "../types/movies";
+import type { Movie, Torrent } from "../types/movies";
 import "./MoviesDetails.css";
 import { useLocation } from "react-router-dom";
 import { getMovieById, suggestedMovies } from "../services/movieService";
@@ -8,6 +8,7 @@ import type { Config } from "../types/config";
 import type { Cast } from "../types/cast";
 import Popup from "../components/Popup";
 import CastDetails from "../components/CastDetails";
+import Button from "@mui/material/Button";
 
 function MovieDetails() {
   const BASE_IMG_URL = "https://img.yts.gg/assets/images/movies/";
@@ -34,6 +35,7 @@ function MovieDetails() {
   const [castDetails, setCastDetails] = useState<Cast[]>([]);
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpImage, setPopUpImage] = useState<string | undefined>(undefined);
+  const [torrentDetails, setTorrentDetails] = useState<Torrent[]>([]);
 
   useEffect(() => {
     suggestedMovies(movie.id).then((fetchedMovies) => {
@@ -60,6 +62,7 @@ function MovieDetails() {
           : [],
       );
       setCastDetails(fetchedMovie.data.movie.cast);
+      setTorrentDetails(fetchedMovie.data.movie.torrents);
     });
   }, [movie.id]);
 
@@ -68,15 +71,23 @@ function MovieDetails() {
     setShowPopUp(true);
   };
 
+  function downloadTorrent(torrent: Torrent) {
+    console.log(torrent.url)
+    const link = document.createElement("a");
+    link.href = torrent.url;
+    link.download = `${movie.title}-${torrent.quality}.torrent`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   return (
     <div className="movie-details">
       <section
         className="movie-hero"
         style={{
-          backgroundImage: `url(${BASE_IMG_URL +
-            getMovieFolder(movie.medium_cover_image) +
-            "/background.jpg"
-            })`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+            url(${BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + "/background.jpg"})`,
         }}
       >
         <div className="hero-overlay grid grid-cols-20">
@@ -91,21 +102,56 @@ function MovieDetails() {
               alt={movie?.title}
             />
           </div>
-          <div className="movie-info col-span-11">
-            <h1>{movie?.title}</h1>
-
+          <div
+            className="movie-info col-span-11">
+            <h1
+              style={{
+                fontSize: "2.5em",
+                marginBottom: "24px",
+                lineHeight: "42px",
+                fontWeight: "bold"
+              }}>{movie?.title}</h1>
             <div className="movie-meta">
               <span>⭐ {movie?.rating}</span>
               <span>{movie?.year}</span>
               <span>{movie?.runtime} min</span>
             </div>
 
-            <div className="genres">
-              {movie?.genres.map((genre) => (
-                <span key={genre}>{genre}</span>
+            <div className="flex flex-wrap gap-2 mb-4">
+              {movie.genres.map((genre) => (
+                <span
+                  key={genre}
+                  className="
+                          px-3 py-1
+                          rounded-md
+                          bg-black/40
+                          border border-green-500/40
+                          text-green-400
+                          text-xs
+                          font-semibold
+                          uppercase
+                          tracking-wide
+                          backdrop-blur-md
+                        "
+                >
+                  {genre}
+                </span>
               ))}
             </div>
             <p>{movie?.description_full}</p>
+            {torrentDetails?.length > 0 && <div className="mt-5">
+              <div className="font-bold mb-3">Download Torrent File</div>
+              {torrentDetails?.map((torrent, index) =>
+              (<Button sx={{
+                mr: 1, backgroundColor: "#49c916",
+                color: "#fff",
+                fontWeight: 600,
+                "&:hover": {
+                  backgroundColor: "#3da912",
+                },
+              }} key={index} variant="contained" onClick={() => downloadTorrent(torrent)}>{torrent.quality}</Button>)
+              )}
+            </div>}
           </div>
           <div className="col-span-4">
             <div className="text-center text-2xl font-bold mb-3">Similar Movies</div>
@@ -124,7 +170,6 @@ function MovieDetails() {
         </div>
       </section>
 
-      {/* Movie Information */}
       <section className="movie-details-info">
         <h2>Movie Information</h2>
 
