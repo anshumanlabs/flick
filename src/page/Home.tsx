@@ -13,6 +13,8 @@ function Home() {
     ratingSize: 15,
     runtimeSize: 15,
     fontStyle: "bold",
+    border:"8px solid #f7f7f7",
+    hover:true
   });
 
   const [page] = useState<number>(1);

@@ -1,18 +1,15 @@
 .movie-hero {
-  min-height: 550px;
+  min-height: 450px;
   background-size: cover;
   background-position: center;
 }
 
 .hero-overlay {
-  min-height: 550px;
-  display: flex;
   gap: 40px;
   padding: 60px 5%;
 }
 
 .movie-poster {
-  width: 280px;
   border-radius: 8px;
 }
 
@@ -30,6 +27,7 @@
   display: flex;
   gap: 20px;
   margin-bottom: 20px;
+  align-items: center;
 }
 
 .genres {

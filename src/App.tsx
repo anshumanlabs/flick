@@ -1,7 +1,8 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Skeletons from "./components/Skeletons";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 const Home = lazy(() => import("./page/Home"));
 const Movies = lazy(() => import("./page/Movies"));
@@ -12,7 +13,14 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <Suspense fallback={<Skeletons numberOfSkeletons={20}/>}>
+      <Suspense fallback={<Box sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "300px",
+      }}>
+        <CircularProgress aria-label="Loading…" />
+      </Box>}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Movies />} />

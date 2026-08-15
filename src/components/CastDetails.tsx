@@ -1,10 +1,10 @@
 import type { Cast } from "../types/cast";
 
 function CastDetails({ cast }: { cast: Cast }) {
-  const BASE_IMG_URL = "https://yts.gg/assets/images/actors/thumb/";
+
+  const BASE_IMG_URL = "https://img.yts.gg/assets/images/actors/thumb/";
 
   function getActorFolder(url: string): string {
-    console.log("Actor URLs:", url);
     if(url)
         return BASE_IMG_URL + url.split("/").at(-1);
     return BASE_IMG_URL + "default_avatar.jpg";

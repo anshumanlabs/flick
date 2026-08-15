@@ -4,5 +4,7 @@ export interface Config {
     titleSize:number,
     ratingSize:number,
     runtimeSize:number,
-    fontStyle: string
+    fontStyle: string,
+    border:string,
+    hover:boolean
 }

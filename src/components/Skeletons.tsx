@@ -1,12 +1,16 @@
 import Skeleton from '@mui/material/Skeleton';
+interface SkeletonsProps {
+    width: number | string;
+    height: number | string;
+}
 
-function Skeletons({ numberOfSkeletons }: { numberOfSkeletons: number }) {
+function Skeletons({ config }: { config: SkeletonsProps }) {
     return (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4 justify-center">
-            {Array.from({ length: numberOfSkeletons }).map((_, index) => (
-                <Skeleton key={index} variant="rectangular" width={210} height={250} className="bg-[#ffffff1f]" />
-            ))}
-        </div>
+        <Skeleton variant="rectangular"
+            style={{ width: config.width, height: config.height }}
+            sx={{
+                bgcolor: "rgba(255, 255, 255, 0.59)"
+            }} />
     )
 }
 
