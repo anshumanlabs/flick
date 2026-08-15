@@ -36,6 +36,7 @@ function MovieDetails() {
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpImage, setPopUpImage] = useState<string | undefined>(undefined);
   const [torrentDetails, setTorrentDetails] = useState<Torrent[]>([]);
+  const [likedCount, setLikedCount] = useState<number>();
 
   useEffect(() => {
     suggestedMovies(movie.id).then((fetchedMovies) => {
@@ -63,6 +64,7 @@ function MovieDetails() {
       );
       setCastDetails(fetchedMovie.data.movie.cast);
       setTorrentDetails(fetchedMovie.data.movie.torrents);
+      setLikedCount(fetchedMovie.data.movie.like_count);
     });
   }, [movie.id]);
 
@@ -110,14 +112,20 @@ function MovieDetails() {
                 marginBottom: "24px",
                 lineHeight: "42px",
                 fontWeight: "bold"
-              }}>{movie?.title}</h1>
+              }}>{movie?.title}
+              <span>{"  "}({movie?.year})</span></h1>
             <div className="movie-meta">
-              <span>⭐ {movie?.rating}</span>
-              <span>{movie?.year}</span>
-              <span>{movie?.runtime} min</span>
+              <img
+                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/IMDB_Logo_2016.svg"
+                alt="IMDb"
+                className="h-6"
+              />
+              <span>{movie?.rating} / 10</span>
+              <span><span className="text-xl">🕒</span>{movie?.runtime} min</span>
             </div>
+            <div><span className="text-xl">🩷 </span><>{likedCount}</></div>
 
-            <div className="flex flex-wrap gap-2 mb-4">
+            <div className="flex flex-wrap gap-2 mb-4 mt-4">
               {movie.genres.map((genre) => (
                 <span
                   key={genre}
@@ -169,45 +177,9 @@ function MovieDetails() {
           </div>
         </div>
       </section>
-
-      <section className="movie-details-info">
-        <h2>Movie Information</h2>
-
-        <div className="info-grid">
-          <div>
-            <span>IMDb</span>
-            <strong>{movie?.imdb_code}</strong>
-          </div>
-
-          <div>
-            <span>Language</span>
-            <strong>{movie?.language?.toUpperCase()}</strong>
-          </div>
-
-          <div>
-            <span>Year</span>
-            <strong>{movie?.year}</strong>
-          </div>
-
-          <div>
-            <span>Runtime</span>
-            <strong>{movie?.runtime} minutes</strong>
-          </div>
-
-          <div>
-            <span>Rating</span>
-            <strong>⭐ {movie?.rating}</strong>
-          </div>
-
-          <div>
-            <span>Genre</span>
-            <strong>{movie?.genres?.join(", ")}</strong>
-          </div>
-        </div>
-      </section>
       {castDetails && castDetails.length > 0 && (
-        <section className="cast-details text-center">
-          <h2>Cast</h2>
+        <section className="cast-details text-center m-3">
+          <h2>Cast & Crew</h2>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mt-4">
             {castDetails.map((castMember) => (
               <CastDetails key={castMember.imdb_code} cast={castMember} />

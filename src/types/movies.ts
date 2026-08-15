@@ -9,6 +9,7 @@ export interface Movie {
   runtime: number;
   genres: string[];
   summary: string;
+  like_count:number;
 
   background_image: string;
   medium_cover_image: string;
