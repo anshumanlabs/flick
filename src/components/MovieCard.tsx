@@ -19,7 +19,7 @@ function MovieCard({ movie, config }: MovieCardProps) {
 
   return (
     <div
-      style = {{width: config.width == 0 ? "auto" : config.width, height: config.height == 0 ? "auto" : config.height}}
+      style={{ width: config.width == 0 ? "auto" : config.width, height: config.height == 0 ? "auto" : config.height }}
       className="movie-card"
       onClick={() => navigate(`/movies/${movie.id}`, { state: { movie } })}
     >
@@ -28,6 +28,8 @@ function MovieCard({ movie, config }: MovieCardProps) {
           src={BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + "/medium-cover.jpg"}
           alt={movie.title}
           className="
+          block
+          w-full
             object-cover
             transition-transform
             duration-300
@@ -36,7 +38,7 @@ function MovieCard({ movie, config }: MovieCardProps) {
             hover:shadow-lg
           "
         />
-        <div className="absolute inset-0 bg-opacity-100 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+        <div className="absolute inset-0 border-[8px] border-transparent hover:border-[#49c916] bg-black/10 backdrop-blur-[2px] opacity-0 hover:opacity-100 transition-all duration-300 flex items-center justify-center">
           <HoverDetails movie={movie} config={config} />
         </div>
       </div>

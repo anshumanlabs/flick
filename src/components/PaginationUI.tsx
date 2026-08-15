@@ -35,14 +35,14 @@ function PaginationUI({ paginationData, onPageChange }: PaginationUIProps) {
         },
 
         "& .MuiPaginationItem-root.Mui-selected": {
-          backgroundColor: "#ef4444",
+          backgroundColor: "#49c916",
           color: "#fff",
-          borderColor: "#ef4444",
+          borderColor: "#49c916",
         },
 
         "& .MuiPaginationItem-root.Mui-selected:hover": {
-          backgroundColor: "#dc2626",
-          borderColor: "#dc2626",
+          backgroundColor: "#49c916",
+          borderColor: "#49c916",
         },
       }}
     />

@@ -12,7 +12,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <Suspense fallback={<Skeletons numberOfSkeletons={20}/>}>
+      <Suspense fallback={<Skeletons config={{width:"95vh", height:"95 vh"}}/>}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Movies />} />
