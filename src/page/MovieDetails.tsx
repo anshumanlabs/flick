@@ -24,8 +24,8 @@ function MovieDetails() {
     ratingSize: 15,
     runtimeSize: 15,
     fontStyle: "bold",
-    border:"3px",
-    hover:false
+    border: "4px solid #f7f7f7",
+    hover: false
   });
 
   const [mediumScreenshots, setMediumScreenshots] = useState<
@@ -173,15 +173,15 @@ function MovieDetails() {
       {mediumScreenshots.length > 0 && (
         <div className="grid grid-cols-4 mt-3 justify-items-center">
           {movie.yt_trailer_code && (
-          <div className="p-2">
-            <iframe
-              className="aspect-video w-full h-full rounded-xl"
-              src={`https://www.youtube.com/embed/${movie.yt_trailer_code}`}
-              title={`${movie.title} Trailer`}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            />
-          </div>
-        )}
+            <div className="p-2">
+              <iframe
+                className="aspect-video w-full h-full rounded-xl"
+                src={`https://www.youtube.com/embed/${movie.yt_trailer_code}`}
+                title={`${movie.title} Trailer`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              />
+            </div>
+          )}
           {mediumScreenshots.map((screenshot, index) => (
             <div
               className="p-2"
