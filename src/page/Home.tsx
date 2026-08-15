@@ -39,8 +39,8 @@ function Home() {
   }, [page]);
 
   return (
-    <>
-      {recentAddedMovies?.length > 0 && (<>
+    <div className="p-5">
+      {recentAddedMovies?.length > 0 && (<div className="">
         <div className="text-xl font-bold text-white mx-5 mt-3">Recent Added Movies on Torrent
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
@@ -48,7 +48,7 @@ function Home() {
             <MovieCard key={movie.id} movie={movie} config={configs} />
           ))}
         </div>
-      </>)}
+      </div>)}
 
       {topRatedMovies?.length > 0 && (<>
         <div className="text-xl font-bold text-white mx-5 mt-3">Top Rated Action Movies
@@ -80,7 +80,7 @@ function Home() {
         </div>
       </>)}
 
-    </>
+    </div>
   );
 }
 
