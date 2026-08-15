@@ -18,12 +18,14 @@ function MovieDetails() {
   const { movie } = location.state as { movie: Movie };
   const [suggested, setSuggested] = useState<Movie[]>([]);
   const [configs] = useState<Config>({
-    width: 150,
-    height: 190,
+    width: 92,
+    height: 140,
     titleSize: 15,
     ratingSize: 15,
     runtimeSize: 15,
     fontStyle: "bold",
+    border:"3px",
+    hover:false
   });
 
   const [mediumScreenshots, setMediumScreenshots] = useState<
@@ -77,17 +79,19 @@ function MovieDetails() {
             })`,
         }}
       >
-        <div className="hero-overlay grid grid-cols-3">
-          <img
-            className="movie-poster"
-            src={
-              BASE_IMG_URL +
-              getMovieFolder(movie.medium_cover_image) +
-              "/medium-cover.jpg"
-            }
-            alt={movie?.title}
-          />
-          <div className="movie-info">
+        <div className="hero-overlay grid grid-cols-20">
+          <div className="col-span-5">
+            <img
+              className="border-[8px] border-[#49c916]"
+              src={
+                BASE_IMG_URL +
+                getMovieFolder(movie.medium_cover_image) +
+                "/medium-cover.jpg"
+              }
+              alt={movie?.title}
+            />
+          </div>
+          <div className="movie-info col-span-11">
             <h1>{movie?.title}</h1>
 
             <div className="movie-meta">
@@ -103,11 +107,11 @@ function MovieDetails() {
             </div>
             <p>{movie?.description_full}</p>
           </div>
-          <div>
+          <div className="col-span-4">
             <div className="text-center text-2xl font-bold mb-3">Similar Movies</div>
             <div className="grid grid-cols-2">
               {suggested.map((suggestedMovie) => (
-                <div className="grid grid-row-2 m-5">
+                <div className="grid grid-row-2">
                   <MovieCard
                     key={suggestedMovie.id}
                     movie={suggestedMovie}
@@ -166,38 +170,32 @@ function MovieDetails() {
           </div>
         </section>
       )}
-      <div>
-        {mediumScreenshots.length > 0 && (
-          <div className="screenshots">
-            <div className="screenshot-carousel">
-              {mediumScreenshots.map((screenshot, index) => (
-                <div
-                  className="screenshot-slide"
-                  key={index}
-                  onClick={openPopUp(screenshot.get("large"))}
-                >
-                  <img
-                    src={screenshot.get("medium")}
-                    alt={screenshot.get("medium")}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-      <div className="flex flex-col gap-6 md:flex-row">
-        {movie.yt_trailer_code && (
-          <div className="w-full md:w-1/2">
+      {mediumScreenshots.length > 0 && (
+        <div className="grid grid-cols-4 mt-3 justify-items-center">
+          {movie.yt_trailer_code && (
+          <div className="p-2">
             <iframe
-              className="aspect-video w-full rounded-xl"
+              className="aspect-video w-full h-full rounded-xl"
               src={`https://www.youtube.com/embed/${movie.yt_trailer_code}`}
               title={`${movie.title} Trailer`}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             />
           </div>
         )}
-      </div>
+          {mediumScreenshots.map((screenshot, index) => (
+            <div
+              className="p-2"
+              key={index}
+              onClick={openPopUp(screenshot.get("large"))}
+            >
+              <img
+                src={screenshot.get("medium")}
+                alt={screenshot.get("medium")}
+              />
+            </div>
+          ))}
+        </div>
+      )}
       <Popup
         key={popUpImage}
         open={showPopUp}

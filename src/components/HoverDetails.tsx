@@ -8,7 +8,7 @@ interface HoverDetailsProps {
 
 function HoverDetails({ movie, config }: HoverDetailsProps) {
     return (
-        <div className="hover-details text-center text-white" style={{ padding: "0px 20px 10px 0px" }}>
+        <div className="hover-details text-center text-white">
             <div className="mb-2 text-center" style={{ fontSize: config.titleSize, fontWeight: config.fontStyle }}>
                 {movie.title}
             </div>

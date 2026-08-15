@@ -5,14 +5,11 @@
 }
 
 .hero-overlay {
-  min-height: 550px;
-  display: flex;
   gap: 40px;
   padding: 60px 5%;
 }
 
 .movie-poster {
-  width: 280px;
   border-radius: 8px;
 }
 

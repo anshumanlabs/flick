@@ -28,8 +28,8 @@ function MovieCard({ movie, config }: MovieCardProps) {
           src={BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + "/medium-cover.jpg"}
           alt={movie.title}
           className="
-          block
-          w-full
+            block
+            w-full
             object-cover
             transition-transform
             duration-300

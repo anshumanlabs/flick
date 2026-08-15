@@ -22,6 +22,8 @@ function Movies() {
     ratingSize: 15,
     runtimeSize: 15,
     fontStyle: "bold",
+    border:"8px",
+    hover:false
   });
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get("search") || "";
