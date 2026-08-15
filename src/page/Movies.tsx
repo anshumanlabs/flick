@@ -78,14 +78,14 @@ function Movies() {
           getMoviesForPage(page);
         }}
       />
-      {movies.length > 0 ? (
+      {movies.length < 0 ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
           {movies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} config={configs} />
           ))}
         </div>
       ) : (
-        <Skeletons numberOfSkeletons={20} />
+        <Skeletons config={{width:210, height:250, numberOfSkeletons:20}}  />
       )}
     </div>
   );

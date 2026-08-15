@@ -43,16 +43,16 @@ function MovieDetails() {
         fetchedMovie.data.movie.medium_screenshot_image1
           ? [
             new Map([
-              ["medium", fetchedMovie.data.movie.medium_screenshot_image1],
-              ["large", fetchedMovie.data.movie.large_screenshot_image1],
+              ["medium", fetchedMovie.data.movie?.medium_screenshot_image1?.replace("https://yts.gg/", "https://img.yts.gg/")],
+              ["large", fetchedMovie.data.movie?.large_screenshot_image1?.replace("https://yts.gg/", "https://img.yts.gg/")],
             ]),
             new Map([
-              ["medium", fetchedMovie.data.movie.medium_screenshot_image2],
-              ["large", fetchedMovie.data.movie.large_screenshot_image2],
+              ["medium", fetchedMovie.data.movie.medium_screenshot_image2?.replace("https://yts.gg/", "https://img.yts.gg/")],
+              ["large", fetchedMovie.data.movie.large_screenshot_image2?.replace("https://yts.gg/", "https://img.yts.gg/")],
             ]),
             new Map([
-              ["medium", fetchedMovie.data.movie.medium_screenshot_image3],
-              ["large", fetchedMovie.data.movie.large_screenshot_image3],
+              ["medium", fetchedMovie.data.movie.medium_screenshot_image3?.replace("https://yts.gg/", "https://img.yts.gg/")],
+              ["large", fetchedMovie.data.movie.large_screenshot_image3?.replace("https://yts.gg/", "https://img.yts.gg/")],
             ]),
           ]
           : [],
@@ -199,6 +199,7 @@ function MovieDetails() {
         )}
       </div>
       <Popup
+        key={popUpImage}
         open={showPopUp}
         onClose={() => setShowPopUp(false)}
         imageUrl={popUpImage || ""}
