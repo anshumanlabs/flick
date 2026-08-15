@@ -12,7 +12,7 @@ const Popup = ({ open, imageUrl, onClose }: PopupProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="lg" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth="lg">
       <IconButton
         onClick={onClose}
         sx={{
@@ -38,7 +38,7 @@ const Popup = ({ open, imageUrl, onClose }: PopupProps) => {
           backgroundColor: "#000",
         }}
       >
-        {!imageLoaded && <Skeletons config={{ width: 0, height: 0, numberOfSkeletons: 1 }} />}
+        {!imageLoaded && <Skeletons config={{ width: "95vh", height: "90vh" } }/>}
         <img
           src={imageUrl}
           alt="Screenshot"
