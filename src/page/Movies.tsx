@@ -26,7 +26,7 @@ function Movies() {
     hover: true,
   });
   const [searchParams, setSearchParams] = useSearchParams();
-  const search = searchParams.get("search") || "";
+  const query_term = searchParams.get("search") || "";
   const page = parseInt(searchParams.get("page") || "1");
 
   useEffect(() => {
@@ -37,7 +37,7 @@ function Movies() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      getMovies(page, search).then((fetchedMovies) => {
+      getMovies({page, query_term}).then((fetchedMovies) => {
         setMovies(fetchedMovies.data.movies);
         setPaginationData((prev) => ({
           currentPage: page,
@@ -49,21 +49,21 @@ function Movies() {
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [search, page]);
+  }, [query_term, page]);
 
   function getMoviesForPage(page: number) {
     setMovies([]);
-    getMovies(page, search).then((fetchedMovies) => {
+    getMovies({page, query_term}).then((fetchedMovies) => {
       setMovies(fetchedMovies.data.movies);
       setPaginationData((prev) => ({
         ...prev,
         currentPage: page,
         offset: (page - 1) * paginationData.limit,
       }));
-      if (search) {
+      if (query_term) {
         setSearchParams({
           page: page.toString(),
-          search: search,
+          search: query_term,
         });
       } else {
         setSearchParams({

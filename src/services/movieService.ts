@@ -1,12 +1,25 @@
+import type { MovieSearchParams } from "../types/apiParams";
 import type { ListMovieResponse, MovieResponse } from "../types/movies";
 
 const BASE_URL = "https://movies-api.accel.li/api/v2";
 
-export async function getMovies(page: number, term: string): Promise<ListMovieResponse> {
-  const response = await fetch(`${BASE_URL}/list_movies.json?limit=20&page=${page}&query_term=${term}`);
+export async function getMovies(params: MovieSearchParams): Promise<ListMovieResponse> {
+  const searchParams = new URLSearchParams();
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== "") {
+      searchParams.append(key, String(value));
+    }
+  });
+
+  const response = await fetch(
+    `${BASE_URL}/list_movies.json?${searchParams.toString()}`
+  );
+
   if (!response.ok) {
     throw new Error("Failed to fetch movies");
   }
+
   return response.json();
 }
 
