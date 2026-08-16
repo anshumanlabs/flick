@@ -8,6 +8,7 @@ import Popup from "../components/Popup";
 import MovieSuggestion from "../components/MoviesDetails/MovieSuggestion";
 import CastDetails from "../components/MoviesDetails/CastDetails";
 import TorrentInfo from "../components/TorrentInfo";
+import { Box, CircularProgress } from "@mui/material";
 
 function MovieDetails() {
   const BASE_IMG_URL = "https://img.yts.gg/assets/images/movies/";
@@ -23,6 +24,7 @@ function MovieDetails() {
   const [popUpImage, setPopUpImage] = useState<string | undefined>(undefined);
   const [torrentDetails, setTorrentDetails] = useState<Torrent[]>([]);
   const [likedCount, setLikedCount] = useState<number>();
+  const [language, setLanguage] = useState<string>();
 
   const params = useParams();
 
@@ -76,6 +78,7 @@ function MovieDetails() {
       setTorrentDetails(fetchedMovie.data.movie.torrents);
       setLikedCount(fetchedMovie.data.movie.like_count);
       setMovie(fetchedMovie.data.movie);
+      setLanguage(fetchedMovie.data.movie.language);
     });
   }, [params.id]);
 
@@ -85,7 +88,14 @@ function MovieDetails() {
   };
 
   if (!movie) {
-    return <div>Loading...</div>;
+    return <Box sx={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      minHeight: "300px",
+    }}>
+      <CircularProgress aria-label="Loading…" />
+    </Box>
   }
 
   return (
@@ -126,9 +136,12 @@ function MovieDetails() {
                 className="h-6"
               />
               <span>{movie?.rating} / 10</span>
-              <span><span className="text-xl">🕒</span>{movie?.runtime} min</span>
+              <span><span className="text-xl">🕒  </span>{movie?.runtime} min</span>
             </div>
-            <div><span className="text-xl">🩷 </span><>{likedCount}</></div>
+            <div>
+              {likedCount && <><span className="text-xl">🩷 </span>{likedCount}</>}
+              {language && <><span className="text-xl ml-5">🗣️ </span>{language.toUpperCase()}</>}
+            </div>
 
             <div className="flex flex-wrap gap-2 mb-4 mt-4">
               {movie?.genres?.map((genre) => (
@@ -172,7 +185,7 @@ function MovieDetails() {
         </section>
       )}
       <div>
-        <div className="text-2xl text-center font-bold mb-3 ml-5">Trailor / Screenshot</div>
+        <div className="text-2xl text-center font-bold mb-3 ml-5 mt-3">Trailor / Screenshot</div>
         <div className="grid grid-cols-4 mt-3 gap-3">
           {movie?.yt_trailer_code && (
             <div className="aspect-video w-full p-2">

@@ -29,7 +29,7 @@ function MovieSuggestion() {
         <div className="text-center text-2xl font-bold mb-3">Similar Movies</div>
         <div className="grid grid-cols-2">
             {suggestedMovies.map((suggestedMovie) => (
-                <div className="grid grid-row-2">
+                <div className="grid grid-row-2 mt-2">
                     <MovieCard
                         key={suggestedMovie.id}
                         movie={suggestedMovie}

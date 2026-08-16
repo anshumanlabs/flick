@@ -1,6 +1,6 @@
 export interface Config {
-    width:number,
-    height:number,
+    width:number | string,
+    height:number | string,
     titleSize:number,
     ratingSize:number,
     runtimeSize:number,
