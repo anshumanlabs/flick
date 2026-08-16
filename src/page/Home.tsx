@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { getMovies } from "../services/movieService";
 import type { Movie } from "../types/movies";
 import MovieCard from "../components/MovieCard";
-import type { Config } from "../types/config";
 
 function Home() {
   const [recentAddedMovies, setRecentAddedMovies] = useState<Movie[]>([]);
@@ -10,7 +9,7 @@ function Home() {
   const [animeMovies, setAnimeMovies] = useState<Movie[]>([]);
   const [mostLikedMovies, setMostLikedmovies] = useState<Movie[]>([]);
 
-  const [configs] = useState<Config>({
+  const configs = {
     width: 0,
     height: 0,
     titleSize: 25,
@@ -18,24 +17,22 @@ function Home() {
     fontStyle: "bold",
     border: "8px solid #f7f7f7",
     hover: true,
-  });
-
-  const [page] = useState<number>(1);
+  };
 
   useEffect(() => {
-    getMovies({ page, query_term: "", limit: 5 }).then((fetchedMovies) => {
+    getMovies({ query_term: "", limit: 5 }).then((fetchedMovies) => {
       setRecentAddedMovies(fetchedMovies.data.movies);
     });
-    getMovies({ page, query_term: "", limit: 5, genre: "Action", sort_by: "rating", order_by: "desc" }).then((fetchedMovies) => {
+    getMovies({ query_term: "", limit: 5, genre: "Action", sort_by: "rating", order_by: "desc" }).then((fetchedMovies) => {
       setTopRatedMovies(fetchedMovies.data.movies);
     });
-    getMovies({ page, query_term: "", limit: 5, genre: "Animation", sort_by: "rating" }).then((fetchedMovies) => {
+    getMovies({ query_term: "", limit: 5, genre: "Animation", sort_by: "rating" }).then((fetchedMovies) => {
       setAnimeMovies(fetchedMovies.data.movies);
     });
-    getMovies({ page, query_term: "", limit: 5, sort_by: "like_count" }).then((fetchedMovies) => {
+    getMovies({ query_term: "", limit: 5, sort_by: "like_count" }).then((fetchedMovies) => {
       setMostLikedmovies(fetchedMovies.data.movies);
     });
-  }, [page]);
+  }, []);
 
   return (
     <div className="p-5">

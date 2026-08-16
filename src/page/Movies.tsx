@@ -5,6 +5,7 @@ import MovieCard from "../components/MovieCard";
 import PaginationUI from "../components/PaginationUI";
 import { useSearchParams } from "react-router-dom";
 import Skeletons from "../components/Skeletons";
+import Filter from "../components/Filter";
 
 function Movies() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -25,10 +26,11 @@ function Movies() {
   const [searchParams, setSearchParams] = useSearchParams();
   const query_term = searchParams.get("search") || "";
   const page = parseInt(searchParams.get("page") || "1");
-  
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      getMovies({ page, query_term }).then((fetchedMovies) => {
+      const params = Object.fromEntries(searchParams.entries());
+      getMovies(params).then((fetchedMovies) => {
         setMovies(fetchedMovies.data.movies);
         setPaginationData(() => ({
           currentPage: page,
@@ -38,16 +40,23 @@ function Movies() {
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [page, query_term]);
+  }, [page, query_term, searchParams]);
 
   return (
     <div>
-      <PaginationUI
-        paginationData={paginationData}
-        onPageChange={(page) => {
-          setSearchParams((prev) => ({ ...prev, page: page }));
-        }}
-      />
+      <div className="grid grid-cols-12 items-center">
+        <div className="col-span-10 justify-center ">
+          <PaginationUI
+            paginationData={paginationData}
+            onPageChange={(page) => {
+              setSearchParams((prev) => ({ ...prev, page: page }));
+            }}
+          />
+        </div>
+        <div className="col-span-2 justify-end">
+          <Filter />
+        </div>
+      </div>
       {movies?.length > 0 ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-5">
           {movies.map((movie) => (
