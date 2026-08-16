@@ -5,12 +5,12 @@ import "./Navbar.css";
 function Navbar() {
   const location = useLocation();
   const showSearchBar = location.pathname === "/movies";
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleSearch = (movieName: string) => {
+  const handleSearch = (query: string) => {
     setSearchParams({
-      page: "1",
-      search: movieName
+      ...Object.fromEntries(searchParams),
+      query_term: query
     });
   };
 

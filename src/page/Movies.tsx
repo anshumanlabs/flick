@@ -6,9 +6,11 @@ import PaginationUI from "../components/PaginationUI";
 import { useSearchParams } from "react-router-dom";
 import Skeletons from "../components/Skeletons";
 import Filter from "../components/Filter";
+import RecordNotFound from "../components/RecordNotFound";
 
 function Movies() {
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [paginationData, setPaginationData] = useState({
     currentPage: 1,
     totalPages: 1
@@ -32,6 +34,7 @@ function Movies() {
       const params = Object.fromEntries(searchParams.entries());
       getMovies(params).then((fetchedMovies) => {
         setMovies(fetchedMovies.data.movies);
+        setLoading(false);
         setPaginationData(() => ({
           currentPage: page,
           totalPages: Math.ceil(fetchedMovies.data.movie_count / 20)
@@ -57,27 +60,28 @@ function Movies() {
           <Filter />
         </div>
       </div>
-      {movies?.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-5">
+
+      {loading ? (<><div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
+        {Array.from({ length: 20 }).map((_, index) => (
+          <Skeletons
+            key={index}
+            config={{
+              width: 210,
+              height: 250,
+            }}
+          />
+        ))}
+      </div></>) : (<>
+
+        {movies?.length > 0 ? (<><div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-5">
           {movies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} config={configs} />
           ))}
-        </div>
-      ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
-          {Array.from({ length: 20 }).map((_, index) => (
-            <Skeletons
-              key={index}
-              config={{
-                width: 210,
-                height: 250,
-              }}
-            />
-          ))}
-        </div>
-      )}
+        </div></>) : (<><RecordNotFound /></>)}
+
+      </>)}
     </div>
-  );
+  )
 }
 
 export default Movies;
