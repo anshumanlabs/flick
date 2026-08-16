@@ -5,7 +5,6 @@ const BASE_URL = "https://movies-api.accel.li/api/v2";
 
 export async function getMovies(params: MovieSearchParams): Promise<ListMovieResponse> {
   const searchParams = new URLSearchParams();
-  const limit = import.meta.env.VITE_LIMIT;
 
   Object.entries(params).forEach(([key, value]) => {
     if (value !== undefined && value !== null && value !== "") {
@@ -13,7 +12,9 @@ export async function getMovies(params: MovieSearchParams): Promise<ListMovieRes
     }
   });
 
-  searchParams.append("limit", limit);
+  if (!params?.limit) {
+    searchParams.append("limit", import.meta.env.VITE_LIMIT);
+  }
 
   const response = await fetch(
     `${BASE_URL}/list_movies.json?${searchParams.toString()}`
