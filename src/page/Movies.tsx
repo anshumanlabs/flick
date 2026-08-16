@@ -26,7 +26,7 @@ function Movies() {
     hover: true,
   };
   const [searchParams, setSearchParams] = useSearchParams();
-  const query_term = searchParams.get("search") || "";
+  const query_term = searchParams.get("query_term");
   const page = parseInt(searchParams.get("page") || "1");
   const limit = import.meta.env.VITE_LIMIT;
 
