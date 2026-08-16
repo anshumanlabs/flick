@@ -2,15 +2,12 @@ import { Button, Dialog, DialogContent, IconButton } from "@mui/material";
 import type { Torrent } from "../types/movies";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
-
 interface TorrentInfoProps {
     title: string,
     torrent: Torrent[]
 }
 
 function TorrentInfo(props: TorrentInfoProps) {
-
-    console.log("torrent infoooo", props);
 
     function downloadTorrent(torrent: Torrent) {
         console.log(torrent.url)
@@ -54,11 +51,10 @@ function TorrentInfo(props: TorrentInfoProps) {
                 <CloseIcon />
             </IconButton>
             <DialogContent sx={{
-                backgroundColor: "#000",
+                backgroundColor: "#000000d4",
                 color: "#fff",
             }}>
                 <div className="font-bold mb-3">Download Torrent File</div>
-                <div>
                     {sortedBySeeds.map((torrent, index) => (
                         <div key={index} className="border border-gray-700 rounded-lg p-4 mb-4 text-center">
                             <div className="grid grid-cols-5 mb-3">
@@ -128,7 +124,6 @@ function TorrentInfo(props: TorrentInfoProps) {
 
                         </div>
                     ))}
-                </div>
             </DialogContent>
         </Dialog >
     </>)

@@ -3,7 +3,6 @@ export interface Config {
     height:number | string,
     titleSize:number,
     ratingSize:number,
-    runtimeSize:number,
     fontStyle: string,
     border:string,
     hover:boolean

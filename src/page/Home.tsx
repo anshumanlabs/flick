@@ -13,9 +13,8 @@ function Home() {
   const [configs] = useState<Config>({
     width: 0,
     height: 0,
-    titleSize: 20,
+    titleSize: 25,
     ratingSize: 15,
-    runtimeSize: 15,
     fontStyle: "bold",
     border: "8px solid #f7f7f7",
     hover: true,

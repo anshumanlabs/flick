@@ -11,7 +11,6 @@ function MovieSuggestion() {
         height: 140,
         titleSize: 15,
         ratingSize: 15,
-        runtimeSize: 15,
         fontStyle: "bold",
         border: "4px solid #f7f7f7",
         hover: false
