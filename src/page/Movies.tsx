@@ -28,6 +28,7 @@ function Movies() {
   const [searchParams, setSearchParams] = useSearchParams();
   const query_term = searchParams.get("search") || "";
   const page = parseInt(searchParams.get("page") || "1");
+  const limit = import.meta.env.VITE_LIMIT;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -37,7 +38,7 @@ function Movies() {
         setLoading(false);
         setPaginationData(() => ({
           currentPage: page,
-          totalPages: Math.ceil(fetchedMovies.data.movie_count / 20)
+          totalPages: Math.ceil(fetchedMovies.data.movie_count / limit)
         }));
       });
     }, 500);
@@ -62,7 +63,7 @@ function Movies() {
       </div>
 
       {loading ? (<><div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
-        {Array.from({ length: 20 }).map((_, index) => (
+        {Array.from({ length: limit }).map((_, index) => (
           <Skeletons
             key={index}
             config={{
