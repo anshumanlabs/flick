@@ -26,25 +26,31 @@ function Movies() {
     hover: true,
   };
   const [searchParams, setSearchParams] = useSearchParams();
-  const query_term = searchParams.get("query_term");
-  const page = parseInt(searchParams.get("page") || "1");
-  const limit = import.meta.env.VITE_LIMIT;
+  const limit = Number(import.meta.env.VITE_LIMIT ?? 20);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       const params = Object.fromEntries(searchParams.entries());
       getMovies(params).then((fetchedMovies) => {
-        setMovies(fetchedMovies.data.movies);
+        const idSet = new Set<number>();
+        const removedDuplicateMovies = fetchedMovies?.data?.movies.filter((movie) => {
+          if (idSet.has(movie.id)) {
+            return false;
+          }
+          idSet.add(movie.id);
+          return true;
+        });
+        setMovies(removedDuplicateMovies);
         setLoading(false);
+        const page = Number(searchParams.get("page") ?? 1);
         setPaginationData(() => ({
           currentPage: page,
           totalPages: Math.ceil(fetchedMovies.data.movie_count / limit)
         }));
       });
     }, 500);
-
     return () => clearTimeout(timer);
-  }, [page, query_term, searchParams]);
+  }, [searchParams, limit]);
 
   return (
     <div>
@@ -53,7 +59,7 @@ function Movies() {
           <PaginationUI
             paginationData={paginationData}
             onPageChange={(page) => {
-              setSearchParams((prev) => ({ ...prev, page: page }));
+              setSearchParams({ ...Object.fromEntries(searchParams), page: String(page) });
             }}
           />
         </div>
@@ -73,7 +79,6 @@ function Movies() {
           />
         ))}
       </div></>) : (<>
-
         {movies?.length > 0 ? (<><div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-5">
           {movies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} config={configs} />
