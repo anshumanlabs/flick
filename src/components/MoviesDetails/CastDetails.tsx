@@ -1,4 +1,4 @@
-import type { Cast } from "../types/cast";
+import type { Cast } from "../../types/cast";
 
 function CastDetails({ cast }: { cast: Cast }) {
 
