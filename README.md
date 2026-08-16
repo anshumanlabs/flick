@@ -2,7 +2,7 @@
 
 A modern movie discovery app built with **React, TypeScript, Vite, MUI & Tailwind CSS**.
 
-🔗 **Live Demo:** https://iflick.netlify.app/
+🔗 **Live Demo:** https://iflick.vercel.app/
 
 ## Features
 
