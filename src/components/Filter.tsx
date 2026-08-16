@@ -1,7 +1,7 @@
 import { Box, Button, Drawer, MenuItem, Select, Slider, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useState } from "react"
-import { genreOptions, resolutionOption, sortByOption } from "../types/FilterOption";
 import { useSearchParams } from "react-router-dom";
+import { genreOptions, resolutionOption, sortByOption } from "../types/filterOption";
 
 export default function Filter() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -9,7 +9,7 @@ export default function Filter() {
     const [resolution, setResolution] = useState<string | null>(searchParams.get("quality"));
     const [genre, setGenre] = useState<string | null>(searchParams.get("genre"));
     const [orderBy, setOrderBy] = useState<string | null>(searchParams.get("order_by"));
-    const [minimumRating, setMinimumRating] = useState<number>(Number(searchParams.get("minimum_rating")));
+    const [minimumRating, setMinimumRating] = useState<number | undefined>(Number(searchParams.get("minimum_rating")));
     const [sortBy, setSortBy] = useState<string | null>(searchParams.get("sort_by"));
 
     function applyFilter(): void {
@@ -34,13 +34,31 @@ export default function Filter() {
         setShowFilter(false);
     }
 
+    function clearFilter(): void {
+        setSearchParams({
+            page: "1"
+        })
+        setResolution("");
+        setGenre("");
+        setOrderBy("");
+        setMinimumRating(undefined);
+        setSortBy("");
+    }
+
     return (<>
-        {!showFilter && <Button onClick={() => setShowFilter(true)}>Open Filter</Button>}
+        {!showFilter && <Button sx={{
+            color: "#aaa",
+            border: "1px solid #555",
+            "&:hover": {
+                backgroundColor: "#333",
+                color: "#fff",
+            },
+        }} onClick={() => setShowFilter(true)}>Open Filter</Button>}
         {showFilter &&
             <Drawer anchor="right" open={showFilter} onClose={() => setShowFilter(false)}
             >
                 <Box sx={{
-                    width: 350, height: "100%", padding: 2, background: "black", color: "white",
+                    width: 400, height: "100%", padding: 2, background: "black", color: "white",
                     fontWeight: 700, paddingX: 5, paddingY: 5
                 }}>
                     <h3 className="mt-3 mb-2 text-center text-2xl">Select Filters</h3>
@@ -207,11 +225,36 @@ export default function Filter() {
                             <ToggleButton value="asc">ASC</ToggleButton>
                             <ToggleButton value="desc">DESC</ToggleButton>
                         </ToggleButtonGroup>
-                        <div className="fixed bottom-3 mt-5">
-                            <Button className="mx-5" onClick={() => setShowFilter(false)}>Cancel</Button>
+                        <div className="fixed bottom-3 mt-5 flex gap-2">
                             <Button
                                 sx={{
-                                    marginLeft: "10vh",
+                                    color: "#aaa",
+                                    border: "1px solid #555",
+                                    "&:hover": {
+                                        backgroundColor: "#333",
+                                        color: "#fff",
+                                    },
+                                }}
+                                onClick={() => setShowFilter(false)}
+                            >
+                                Cancel
+                            </Button>
+
+                            <Button
+                                sx={{
+                                    color: "#ff4d4d",
+                                    border: "1px solid #ff4d4d",
+                                    "&:hover": {
+                                        backgroundColor: "rgba(255, 77, 77, 0.1)",
+                                    },
+                                }}
+                                onClick={() => clearFilter()}
+                            >
+                                Clear Filter
+                            </Button>
+
+                            <Button
+                                sx={{
                                     backgroundColor: "#49c916",
                                     color: "#fff",
                                     fontWeight: 600,
@@ -219,7 +262,10 @@ export default function Filter() {
                                         backgroundColor: "#3da912",
                                     },
                                 }}
-                                onClick={() => applyFilter()}>Apply Filter</Button>
+                                onClick={applyFilter}
+                            >
+                                Apply Filter
+                            </Button>
                         </div>
                     </form>
                 </Box>

@@ -36,7 +36,7 @@ export const sortByOption = [
     { value: "year", display: "Year" },
     { value: "rating", display: "IMDB Rating" },
     { value: "peers", display: "Peers" },
-    { value: "peers", display: "Seeds" },
+    { value: "seeds", display: "Seeds" },
     { value: "download_count", display: "Download Count" },
     { value: "like_count", display: "Like Count" },
     { value: "date_added", display: "Date Added" },
