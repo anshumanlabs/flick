@@ -1,7 +1,7 @@
 import { Box, Button, Drawer, MenuItem, Select, Slider, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useState } from "react"
 import { useSearchParams } from "react-router-dom";
-import { genreOptions, resolutionOption, sortByOption } from "../types/filterOption";
+import { genreOptions, resolutionOption, sortByOption } from "../types/filterOptions";
 
 export default function Filter() {
     const [searchParams, setSearchParams] = useSearchParams();
