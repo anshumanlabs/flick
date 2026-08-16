@@ -23,7 +23,7 @@ export async function getMovies(params: MovieSearchParams): Promise<ListMovieRes
   return response.json();
 }
 
-export async function getMovieById(id: number): Promise<MovieResponse> {
+export async function getMovieById(id: string | undefined): Promise<MovieResponse> {
   const response = await fetch(`${BASE_URL}/movie_details.json?movie_id=${id}&with_images=true&with_cast=true`);
   if (!response.ok) {
     throw new Error("Failed to fetch movie details");
@@ -31,7 +31,7 @@ export async function getMovieById(id: number): Promise<MovieResponse> {
   return response.json();
 }
 
-export async function suggestedMovies(id: number): Promise<ListMovieResponse> {
+export async function getSuggestedMovies(id: string | undefined): Promise<ListMovieResponse> {
   const response = await fetch(
     `${BASE_URL}/movie_suggestions.json?movie_id=${id}`,
   );

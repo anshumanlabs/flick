@@ -70,3 +70,7 @@ export interface Torrent {
   date_uploaded: string;
   date_uploaded_unix: number;
 }
+export interface Screenshot {
+  medium: string;
+  large: string;
+};

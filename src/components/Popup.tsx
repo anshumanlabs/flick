@@ -43,7 +43,7 @@ const Popup = ({ open, imageUrl, onClose }: PopupProps) => {
           src={imageUrl}
           alt="Screenshot"
           onLoad={() => setImageLoaded(true)}
-          onError={() => setImageLoaded(true)}
+          onError={() => setImageLoaded(false)}
           style={{
             display: imageLoaded ? "block" : "none",
             maxWidth: "100%",

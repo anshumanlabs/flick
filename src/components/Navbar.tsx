@@ -1,4 +1,4 @@
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { NavLink, useLocation, useSearchParams } from "react-router-dom";
 import { } from "react-router-dom";
 import "./Navbar.css";
 
@@ -17,13 +17,13 @@ function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="logo">
+        <NavLink to="/" className="logo">
           FLICK<span>.</span>
-        </Link>
+        </NavLink>
         <nav className="nav-links">
-          <Link to="/">Home</Link>
-          <Link to="/movies?page=1">Movies</Link>
-          <Link to="/favorites">Favorites</Link>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/movies?page=1">Movies</NavLink>
+          <NavLink to="/favorites">Favorites</NavLink>
         </nav>
         {showSearchBar && (
           <div className="nav-search">

@@ -107,3 +107,12 @@
 .nav-search button:hover {
   color: white;
 }
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.nav-links a.active {
+  color: #49c916;
+}
