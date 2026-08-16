@@ -10,7 +10,8 @@ function Navbar() {
   const handleSearch = (query: string) => {
     setSearchParams({
       ...Object.fromEntries(searchParams),
-      query_term: query
+      query_term: query,
+      page:"1"
     });
   };
 
