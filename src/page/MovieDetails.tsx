@@ -111,8 +111,7 @@ function MovieDetails() {
                 marginBottom: "24px",
                 lineHeight: "42px",
                 fontWeight: "bold"
-              }}>{movie?.title}
-              <span>{"  "}({movie?.year})</span></h1>
+              }}>{movie.title_long}</h1>
             <div className="movie-meta">
               <img
                 src="https://commons.wikimedia.org/wiki/Special:Redirect/file/IMDB_Logo_2016.svg"
@@ -150,7 +149,7 @@ function MovieDetails() {
             </div>
             <p>{movie?.description_full}</p>
             {torrentDetails?.length > 0 && <div className="mt-5">
-              <TorrentInfo title={movie.title} torrent={torrentDetails} />
+              <TorrentInfo title={movie.title_long} torrent={torrentDetails} />
             </div>}
           </div>
           <div className="col-span-4">
@@ -176,7 +175,7 @@ function MovieDetails() {
               <iframe
                 className="w-full h-full rounded-xl"
                 src={`https://www.youtube.com/embed/${movie.yt_trailer_code}`}
-                title={`${movie.title} Trailer`}
+                title={`${movie.title_long} Trailer`}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               />
             </div>

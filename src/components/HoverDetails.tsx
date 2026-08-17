@@ -10,7 +10,7 @@ function HoverDetails({ movie, config }: HoverDetailsProps) {
     return (
         <div className="hover-details text-center text-white">
             <div className="mb-2 text-center p-1" style={{ fontSize: config.titleSize, fontWeight: config.fontStyle }}>
-                {movie.title}
+                {movie.title_long}
             </div>
             <div style={{ fontSize: config.ratingSize, fontWeight: config.fontStyle }}>
                 ⭐ {movie.rating} / 10
