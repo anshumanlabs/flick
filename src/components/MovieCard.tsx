@@ -45,7 +45,7 @@ function MovieCard({ movie, config }: MovieCardProps) {
           "
         />
         {config.hover &&
-          <div className={`absolute inset-0 border-[8px] border-transparent hover:border-[#49c916] bg-black/10 backdrop-blur-[2px] opacity-0 hover:opacity-100 transition-all duration-300 flex items-center justify-center`}>
+          <div className={`absolute inset-0 border-[4px] border-transparent hover:border-[#49c916] bg-black/10 backdrop-blur-[2px] opacity-0 hover:opacity-100 transition-all duration-300 flex items-center justify-center`}>
             <HoverDetails movie={movie} config={config} />
           </div>
         }

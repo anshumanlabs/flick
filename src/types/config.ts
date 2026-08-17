@@ -11,9 +11,9 @@ export interface Config {
 export const defaultConfig: Config = {
     width: "80%",
     height: "80%",
-    titleSize: 25,
-    ratingSize: 15,
+    titleSize: 20,
+    ratingSize: 10,
     fontStyle: "bold",
-    border: "8px solid #f7f7f7",
+    border: "4px solid #f7f7f7",
     hover: true,
 };
