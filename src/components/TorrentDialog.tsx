@@ -1,29 +1,33 @@
 import { Button, Dialog, DialogContent, IconButton } from "@mui/material";
 import type { Torrent } from "../types/movies";
 import CloseIcon from "@mui/icons-material/Close";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 interface TorrentInfoProps {
     title: string,
     torrent: Torrent[]
 }
 
-function TorrentInfo(props: TorrentInfoProps) {
+function TorrentDialog({ title, torrent }: TorrentInfoProps) {
 
     function downloadTorrent(torrent: Torrent) {
         console.log(torrent.url)
         const link = document.createElement("a");
         link.href = torrent.url;
-        link.download = `${props?.title}-${torrent.quality}.torrent`;
+        link.download = `${title}-${torrent.quality}.torrent`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
     }
 
-    const [open, SetOpen] = useState<boolean>(false);
-    const sortedBySeeds = [...props.torrent].sort(
-        (a, b) => b.seeds - a.seeds
-    );
-    
+    const [open, setOpen] = useState<boolean>(false);
+
+    const sortedBySeeds = useMemo(() => {
+        const sorted = [...torrent].sort(
+            (a, b) => b.seeds - a.seeds
+        );
+        return sorted;
+    }, [torrent]);
+
     const torrentEnabled = import.meta.env.VITE_TORRENT === "true";
 
     return (<>
@@ -35,10 +39,11 @@ function TorrentInfo(props: TorrentInfoProps) {
             "&:hover": {
                 backgroundColor: "#3da912",
             },
-        }} onClick={() => SetOpen(true)}>Click To see Torrent Info</Button>
-        <Dialog open={open} onClose={() => SetOpen(false)} maxWidth="lg" className="p-2">
+        }} onClick={() => setOpen(true)}>Click To see Torrent Info</Button>
+        <Dialog open={open} onClose={() => setOpen(false)} maxWidth="lg" fullWidth className="p-2">
             <IconButton
-                onClick={() => SetOpen(false)}
+                aria-label="close"
+                onClick={() => setOpen(false)}
                 sx={{
                     position: "absolute",
                     right: 8,
@@ -53,13 +58,18 @@ function TorrentInfo(props: TorrentInfoProps) {
                 <CloseIcon />
             </IconButton>
             <DialogContent sx={{
-                backgroundColor: "#000000d4",
+                background: "linear-gradient(145deg, #111827, #000000)",
                 color: "#fff",
             }}>
                 <div className="font-bold mb-3">Download Torrent File</div>
-                {sortedBySeeds.map((torrent, index) => (
-                    <div key={index} className="border border-gray-700 rounded-lg p-4 mb-4 text-center">
-                        <div className="grid grid-cols-5 mb-3">
+                {sortedBySeeds.length === 0 && (
+                    <div className="text-center">
+                        No torrent available
+                    </div>
+                )}
+                {sortedBySeeds.map((torrent) => (
+                    <div key={`${torrent.quality}-${torrent.size}`} className="border border-gray-700 rounded-lg p-4 mb-4 text-center">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-3">
                             <div>
                                 <strong>Quality</strong>
                                 <div>{torrent.quality}</div>
@@ -82,7 +92,7 @@ function TorrentInfo(props: TorrentInfoProps) {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-5">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                             <div>
                                 <strong>Size</strong>
                                 <div>{torrent.size}</div>
@@ -130,4 +140,4 @@ function TorrentInfo(props: TorrentInfoProps) {
     </>)
 }
 
-export default TorrentInfo;
+export default TorrentDialog;

@@ -56,9 +56,19 @@ export default function Filter() {
         }} onClick={() => setShowFilter(true)}>Open Filter</Button>}
         {showFilter &&
             <Drawer anchor="right" open={showFilter} onClose={() => setShowFilter(false)}
+                slotProps={{
+                    paper: {
+                        sx: {
+                            height: 650,
+                            width: 350,
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                        },
+                    },
+                }}
             >
                 <Box sx={{
-                    width: 400, height: "100%", padding: 2, background: "black", color: "white",
+                    width: 350, height: "650px !important", padding: 2, background: "black", color: "white",
                     fontWeight: 700, paddingX: 5, paddingY: 5
                 }}>
                     <h3 className="mt-3 mb-2 text-center text-2xl">Select Filters</h3>
@@ -225,7 +235,7 @@ export default function Filter() {
                             <ToggleButton value="asc">ASC</ToggleButton>
                             <ToggleButton value="desc">DESC</ToggleButton>
                         </ToggleButtonGroup>
-                        <div className="fixed bottom-3 mt-5 flex gap-2">
+                        <div className="mt-5 flex gap-2 justify-evenly">
                             <Button
                                 sx={{
                                     color: "#aaa",
@@ -250,7 +260,7 @@ export default function Filter() {
                                 }}
                                 onClick={() => clearFilter()}
                             >
-                                Clear Filter
+                                Clear
                             </Button>
 
                             <Button
@@ -264,7 +274,7 @@ export default function Filter() {
                                 }}
                                 onClick={applyFilter}
                             >
-                                Apply Filter
+                                Apply
                             </Button>
                         </div>
                     </form>

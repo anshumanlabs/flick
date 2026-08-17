@@ -10,7 +10,10 @@ function PaginationUI({ paginationData, onPageChange }: PaginationUIProps) {
   return (
     <Pagination
       className="mt-3 mb-3 flex justify-center"
-      count={paginationData.totalPages}
+      count={Math.min(
+        paginationData.currentPage + 5,
+        paginationData.totalPages
+      )}
       page={paginationData.currentPage}
       onChange={(_, page) => onPageChange(page)}
       variant="outlined"

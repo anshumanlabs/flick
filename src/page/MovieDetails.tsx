@@ -7,7 +7,7 @@ import type { Cast } from "../types/cast";
 import Popup from "../components/Popup";
 import MovieSuggestion from "../components/MoviesDetails/MovieSuggestion";
 import CastDetails from "../components/MoviesDetails/CastDetails";
-import TorrentInfo from "../components/TorrentInfo";
+import TorrentInfo from "../components/TorrentDialog";
 import { Box, CircularProgress } from "@mui/material";
 
 function MovieDetails() {
@@ -25,6 +25,8 @@ function MovieDetails() {
   const [torrentDetails, setTorrentDetails] = useState<Torrent[]>([]);
   const [likedCount, setLikedCount] = useState<number>();
   const [language, setLanguage] = useState<string>();
+  const olderUrl = "https://yts.gg/";
+  const newUrl = "https://img.yts.gg/"
 
   const params = useParams();
 
@@ -37,39 +39,21 @@ function MovieDetails() {
           ? [
             {
               medium:
-                movie.medium_screenshot_image1.replace(
-                  "https://yts.gg/",
-                  "https://img.yts.gg/"
-                ),
+                movie.medium_screenshot_image1?.replace(olderUrl, newUrl) ?? "",
               large:
-                movie.large_screenshot_image1?.replace(
-                  "https://yts.gg/",
-                  "https://img.yts.gg/"
-                ) ?? "",
+                movie.large_screenshot_image1?.replace(olderUrl, newUrl) ?? "",
             },
             {
               medium:
-                movie.medium_screenshot_image2?.replace(
-                  "https://yts.gg/",
-                  "https://img.yts.gg/"
-                ) ?? "",
+                movie.medium_screenshot_image2?.replace(olderUrl, newUrl) ?? "",
               large:
-                movie.large_screenshot_image2?.replace(
-                  "https://yts.gg/",
-                  "https://img.yts.gg/"
-                ) ?? "",
+                movie.large_screenshot_image2?.replace(olderUrl, newUrl) ?? "",
             },
             {
               medium:
-                movie.medium_screenshot_image3?.replace(
-                  "https://yts.gg/",
-                  "https://img.yts.gg/"
-                ) ?? "",
+                movie.medium_screenshot_image3?.replace(olderUrl, newUrl) ?? "",
               large:
-                movie.large_screenshot_image3?.replace(
-                  "https://yts.gg/",
-                  "https://img.yts.gg/"
-                ) ?? "",
+                movie.large_screenshot_image3?.replace(olderUrl, newUrl) ?? "",
             },
           ]
           : []
@@ -127,8 +111,7 @@ function MovieDetails() {
                 marginBottom: "24px",
                 lineHeight: "42px",
                 fontWeight: "bold"
-              }}>{movie?.title}
-              <span>{"  "}({movie?.year})</span></h1>
+              }}>{movie.title_long}</h1>
             <div className="movie-meta">
               <img
                 src="https://commons.wikimedia.org/wiki/Special:Redirect/file/IMDB_Logo_2016.svg"
@@ -166,7 +149,7 @@ function MovieDetails() {
             </div>
             <p>{movie?.description_full}</p>
             {torrentDetails?.length > 0 && <div className="mt-5">
-              <TorrentInfo title={movie.title} torrent={torrentDetails} />
+              <TorrentInfo title={movie.title_long} torrent={torrentDetails} />
             </div>}
           </div>
           <div className="col-span-4">
@@ -174,25 +157,35 @@ function MovieDetails() {
           </div>
         </div>
       </section>
-      {castDetails && castDetails.length > 0 && (
-        <section className="cast-details m-3">
-          <div className="text-2xl text-center font-bold mb-3 ml-5">Cast</div>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mt-4">
-            {castDetails.map((castMember) => (
-              <CastDetails key={castMember.imdb_code} cast={castMember} />
-            ))}
+      <section className="p-5">
+        {castDetails && castDetails.length > 0 && (
+          <div className="cast-details m-3">
+            <div className="flex items-center gap-3 ml-5">
+              <div className="h-6 w-1 rounded-full bg-[#49c916]" />
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white ml-2">
+                Cast
+              </h2>
+            </div>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mt-4">
+              {castDetails.map((castMember) => (
+                <CastDetails key={castMember.imdb_code} cast={castMember} />
+              ))}
+            </div>
           </div>
-        </section>
-      )}
-      <div>
-        <div className="text-2xl text-center font-bold mb-3 ml-5 mt-3">Trailor / Screenshot</div>
+        )}
+        <div className="flex items-center gap-3 ml-5 mt-5">
+          <div className="h-6 w-1 rounded-full bg-[#49c916]" />
+          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white ml-2">
+            Trailor and Screenshots
+          </h2>
+        </div>
         <div className="grid grid-cols-4 mt-3 gap-3">
           {movie?.yt_trailer_code && (
             <div className="aspect-video w-full p-2">
               <iframe
                 className="w-full h-full rounded-xl"
                 src={`https://www.youtube.com/embed/${movie.yt_trailer_code}`}
-                title={`${movie.title} Trailer`}
+                title={`${movie.title_long} Trailer`}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               />
             </div>
@@ -212,13 +205,13 @@ function MovieDetails() {
             </div>
           ))}
         </div>
-      </div>
-      <Popup
-        key={popUpImage}
-        open={showPopUp}
-        onClose={() => setShowPopUp(false)}
-        imageUrl={popUpImage || ""}
-      ></Popup>
+        <Popup
+          key={popUpImage}
+          open={showPopUp}
+          onClose={() => setShowPopUp(false)}
+          imageUrl={popUpImage || ""}
+        ></Popup>
+      </section>
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { useSearchParams } from "react-router-dom";
 import Skeletons from "../components/Skeletons";
 import Filter from "../components/Filter";
 import RecordNotFound from "../components/RecordNotFound";
+import { defaultConfig } from "../types/config";
 
 function Movies() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -15,16 +16,6 @@ function Movies() {
     currentPage: 1,
     totalPages: 1
   });
-  const configs = {
-    width: 0,
-    height: 0,
-    titleSize: 25,
-    ratingSize: 15,
-    runtimeSize: 15,
-    fontStyle: "bold",
-    border: "8px solid #f7f7f7",
-    hover: true,
-  };
   const [searchParams, setSearchParams] = useSearchParams();
   const limit = Number(import.meta.env.VITE_LIMIT ?? 20);
 
@@ -68,7 +59,7 @@ function Movies() {
         </div>
       </div>
 
-      {loading ? (<><div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
+      {loading ? (<><div style={{ justifyItems: "center" }} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
         {Array.from({ length: limit }).map((_, index) => (
           <Skeletons
             key={index}
@@ -79,12 +70,14 @@ function Movies() {
           />
         ))}
       </div></>) : (<>
-        {movies?.length > 0 ? (<><div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-5">
-          {movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} config={configs} />
-          ))}
-        </div></>) : (<><RecordNotFound /></>)}
-
+        {movies?.length > 0 ? (
+          <>
+            <div style={{ justifyItems: "center" }} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
+              {movies.map((movie) => (
+                  <MovieCard key={movie.id} movie={movie} config={defaultConfig}/>
+              ))}
+            </div>
+          </>) : (<><RecordNotFound /></>)}
       </>)}
     </div>
   )
