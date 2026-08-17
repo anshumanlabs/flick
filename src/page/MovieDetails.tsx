@@ -39,21 +39,21 @@ function MovieDetails() {
           ? [
             {
               medium:
-                movie.medium_screenshot_image1?.replace(olderUrl,newUrl) ?? "",
+                movie.medium_screenshot_image1?.replace(olderUrl, newUrl) ?? "",
               large:
-                movie.large_screenshot_image1?.replace(olderUrl,newUrl) ?? "",
+                movie.large_screenshot_image1?.replace(olderUrl, newUrl) ?? "",
             },
             {
               medium:
-                movie.medium_screenshot_image2?.replace(olderUrl,newUrl) ?? "",
+                movie.medium_screenshot_image2?.replace(olderUrl, newUrl) ?? "",
               large:
-                movie.large_screenshot_image2?.replace(olderUrl,newUrl) ?? "",
+                movie.large_screenshot_image2?.replace(olderUrl, newUrl) ?? "",
             },
             {
               medium:
-                movie.medium_screenshot_image3?.replace(olderUrl,newUrl) ?? "",
+                movie.medium_screenshot_image3?.replace(olderUrl, newUrl) ?? "",
               large:
-                movie.large_screenshot_image3?.replace(olderUrl,newUrl) ?? "",
+                movie.large_screenshot_image3?.replace(olderUrl, newUrl) ?? "",
             },
           ]
           : []
@@ -157,18 +157,28 @@ function MovieDetails() {
           </div>
         </div>
       </section>
-      {castDetails && castDetails.length > 0 && (
-        <section className="cast-details m-3">
-          <div className="text-2xl text-center font-bold mb-3 ml-5">Cast</div>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mt-4">
-            {castDetails.map((castMember) => (
-              <CastDetails key={castMember.imdb_code} cast={castMember} />
-            ))}
+      <section className="p-5">
+        {castDetails && castDetails.length > 0 && (
+          <div className="cast-details m-3">
+            <div className="flex items-center gap-3 ml-5">
+              <div className="h-6 w-1 rounded-full bg-[#49c916]" />
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white ml-2">
+                Cast
+              </h2>
+            </div>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mt-4">
+              {castDetails.map((castMember) => (
+                <CastDetails key={castMember.imdb_code} cast={castMember} />
+              ))}
+            </div>
           </div>
-        </section>
-      )}
-      <div>
-        <div className="text-2xl text-center font-bold mb-3 ml-5 mt-3">Trailor / Screenshot</div>
+        )}
+        <div className="flex items-center gap-3 ml-5 mt-5">
+          <div className="h-6 w-1 rounded-full bg-[#49c916]" />
+          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white ml-2">
+            Trailor and Screenshots
+          </h2>
+        </div>
         <div className="grid grid-cols-4 mt-3 gap-3">
           {movie?.yt_trailer_code && (
             <div className="aspect-video w-full p-2">
@@ -195,13 +205,13 @@ function MovieDetails() {
             </div>
           ))}
         </div>
-      </div>
-      <Popup
-        key={popUpImage}
-        open={showPopUp}
-        onClose={() => setShowPopUp(false)}
-        imageUrl={popUpImage || ""}
-      ></Popup>
+        <Popup
+          key={popUpImage}
+          open={showPopUp}
+          onClose={() => setShowPopUp(false)}
+          imageUrl={popUpImage || ""}
+        ></Popup>
+      </section>
     </div>
   );
 }
