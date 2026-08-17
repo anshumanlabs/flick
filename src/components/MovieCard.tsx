@@ -26,7 +26,7 @@ function MovieCard({ movie, config }: MovieCardProps) {
       className="movie-card"
       onClick={() => navigate(`/movies/${movie.id}`)}
     >
-      <div className="relative overflow-hidden">
+      <div className="group relative overflow-hidden">
         <img
           src={
             BASE_IMG_URL +
@@ -39,16 +39,15 @@ function MovieCard({ movie, config }: MovieCardProps) {
             block
             w-full
             transition-transform
-            duration-300
-            hover:scale-105
-            hover:shadow-lg
-          "
+            duration-1000
+            group-hover:scale-110
+        "
         />
-        {config.hover &&
-          <div className={`absolute inset-0 border-[4px] border-transparent hover:border-[#49c916] bg-black/10 backdrop-blur-[2px] opacity-0 hover:opacity-100 transition-all duration-300 flex items-center justify-center`}>
+        {config.hover && (
+          <div className="absolute inset-0 border-[4px] border-transparent group-hover:border-[#49c916] backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
             <HoverDetails movie={movie} config={config} />
           </div>
-        }
+        )}
       </div>
     </div>
   );
