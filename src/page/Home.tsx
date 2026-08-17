@@ -16,12 +16,11 @@ function Home() {
       getMovies({ limit, sort_by: "like_count" })
     ]).then(([recent, top, anime, liked]) => {
       const data = [
-        { title: "Recent Added Movies on Torrent", data: recent.data.movies },
-        { title: "Top Rated Action Movies", data: top.data.movies },
-        { title: "Best Rated Animation Movies", data: anime.data.movies },
-        { title: "Most Liked Movies", data: liked.data.movies }
+        { title: "Recent Added", data: recent.data.movies },
+        { title: "Top Rated Action", data: top.data.movies },
+        { title: "Best Rated Animation", data: anime.data.movies },
+        { title: "Most Liked", data: liked.data.movies }
       ];
-      console.log(data);
       setHomePageConfig(data);
     });
   }, []);
@@ -31,7 +30,17 @@ function Home() {
       {homePageConfig.map((page, index) => (
         page?.data?.length > 0 && (
           <div key={index}>
-            <div className="text-xl font-bold text-white mx-5 mt-3">{page.title}
+            <div className="mt-5 ml-5 mr-5 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="h-6 w-1 rounded-full bg-[#49c916]"/>
+                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white ml-2">
+                  {page.title}
+                </h2>
+              </div>
+
+              {/* <button className="text-sm font-semibold text-[#49c916] hover:underline">
+                View All
+              </button> */}
             </div>
             <div style={{ justifyItems: "center" }} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
               {page?.data?.map((movie) => (

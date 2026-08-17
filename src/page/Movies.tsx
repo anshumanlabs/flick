@@ -59,7 +59,7 @@ function Movies() {
         </div>
       </div>
 
-      {loading ? (<><div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
+      {loading ? (<><div style={{ justifyItems: "center" }} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
         {Array.from({ length: limit }).map((_, index) => (
           <Skeletons
             key={index}
@@ -72,9 +72,9 @@ function Movies() {
       </div></>) : (<>
         {movies?.length > 0 ? (
           <>
-            <div style={{ justifyItems: "center" }} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-5">
+            <div style={{ justifyItems: "center" }} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
               {movies.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} config={defaultConfig} />
+                  <MovieCard key={movie.id} movie={movie} config={defaultConfig}/>
               ))}
             </div>
           </>) : (<><RecordNotFound /></>)}

@@ -20,11 +20,11 @@ function MovieCard({ movie, config }: MovieCardProps) {
   return (
     <div
       style={{
-        width: config.width == 0 ? "auto" : config.width,
-        height: config.height == 0 ? "auto" : config.height,
+        width: config.width,
+        height: config.height
       }}
       className="movie-card"
-      onClick={() => navigate(`/movies/${movie.id}`, { state: { movie } })}
+      onClick={() => navigate(`/movies/${movie.id}`)}
     >
       <div className="relative overflow-hidden">
         <img

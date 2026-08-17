@@ -7,7 +7,7 @@ import type { Cast } from "../types/cast";
 import Popup from "../components/Popup";
 import MovieSuggestion from "../components/MoviesDetails/MovieSuggestion";
 import CastDetails from "../components/MoviesDetails/CastDetails";
-import TorrentInfo from "../components/TorrentInfo";
+import TorrentInfo from "../components/TorrentDialog";
 import { Box, CircularProgress } from "@mui/material";
 
 function MovieDetails() {
