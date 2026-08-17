@@ -25,6 +25,8 @@ function MovieDetails() {
   const [torrentDetails, setTorrentDetails] = useState<Torrent[]>([]);
   const [likedCount, setLikedCount] = useState<number>();
   const [language, setLanguage] = useState<string>();
+  const olderUrl = "https://yts.gg/";
+  const newUrl = "https://img.yts.gg/"
 
   const params = useParams();
 
@@ -37,39 +39,21 @@ function MovieDetails() {
           ? [
             {
               medium:
-                movie.medium_screenshot_image1.replace(
-                  "https://yts.gg/",
-                  "https://img.yts.gg/"
-                ),
+                movie.medium_screenshot_image1?.replace(olderUrl,newUrl) ?? "",
               large:
-                movie.large_screenshot_image1?.replace(
-                  "https://yts.gg/",
-                  "https://img.yts.gg/"
-                ) ?? "",
+                movie.large_screenshot_image1?.replace(olderUrl,newUrl) ?? "",
             },
             {
               medium:
-                movie.medium_screenshot_image2?.replace(
-                  "https://yts.gg/",
-                  "https://img.yts.gg/"
-                ) ?? "",
+                movie.medium_screenshot_image2?.replace(olderUrl,newUrl) ?? "",
               large:
-                movie.large_screenshot_image2?.replace(
-                  "https://yts.gg/",
-                  "https://img.yts.gg/"
-                ) ?? "",
+                movie.large_screenshot_image2?.replace(olderUrl,newUrl) ?? "",
             },
             {
               medium:
-                movie.medium_screenshot_image3?.replace(
-                  "https://yts.gg/",
-                  "https://img.yts.gg/"
-                ) ?? "",
+                movie.medium_screenshot_image3?.replace(olderUrl,newUrl) ?? "",
               large:
-                movie.large_screenshot_image3?.replace(
-                  "https://yts.gg/",
-                  "https://img.yts.gg/"
-                ) ?? "",
+                movie.large_screenshot_image3?.replace(olderUrl,newUrl) ?? "",
             },
           ]
           : []

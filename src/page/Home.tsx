@@ -4,14 +4,11 @@ import type { Movie } from "../types/movies";
 import MovieCard from "../components/MovieCard";
 
 function Home() {
-  const [recentAddedMovies, setRecentAddedMovies] = useState<Movie[]>([]);
-  const [topRatedMovies, setTopRatedMovies] = useState<Movie[]>([]);
-  const [animeMovies, setAnimeMovies] = useState<Movie[]>([]);
-  const [mostLikedMovies, setMostLikedmovies] = useState<Movie[]>([]);
-
+  const limit = 4;
+  const [homePageConfig, setHomePageConfig] = useState<{ title: string, data: Movie[] }[]>([]);
   const configs = {
-    width: 0,
-    height: 0,
+    width: "80%",
+    height: "80%",
     titleSize: 25,
     ratingSize: 15,
     fontStyle: "bold",
@@ -20,62 +17,40 @@ function Home() {
   };
 
   useEffect(() => {
-    getMovies({ query_term: "", limit: 5 }).then((fetchedMovies) => {
-      setRecentAddedMovies(fetchedMovies.data.movies);
-    });
-    getMovies({ query_term: "", limit: 5, genre: "Action", sort_by: "rating", order_by: "desc" }).then((fetchedMovies) => {
-      setTopRatedMovies(fetchedMovies.data.movies);
-    });
-    getMovies({ query_term: "", limit: 5, genre: "Animation", sort_by: "rating" }).then((fetchedMovies) => {
-      setAnimeMovies(fetchedMovies.data.movies);
-    });
-    getMovies({ query_term: "", limit: 5, sort_by: "like_count" }).then((fetchedMovies) => {
-      setMostLikedmovies(fetchedMovies.data.movies);
+    Promise.all([
+      getMovies({ limit }),
+      getMovies({ limit, genre: "Action", sort_by: "rating", order_by: "desc" }),
+      getMovies({ limit, genre: "Animation", sort_by: "rating" }),
+      getMovies({ limit, sort_by: "like_count" })
+    ]).then(([recent, top, anime, liked]) => {
+      const data = [
+        { title: "Recent Added Movies on Torrent", data: recent.data.movies },
+        { title: "Top Rated Action Movies", data: top.data.movies },
+        { title: "Best Rated Animation Movies", data: anime.data.movies },
+        { title: "Most Liked Movies", data: liked.data.movies }
+      ];
+      console.log(data);
+      setHomePageConfig(data);
     });
   }, []);
 
   return (
     <div className="p-5">
-      {recentAddedMovies?.length > 0 && (<div className="">
-        <div className="text-xl font-bold text-white mx-5 mt-3">Recent Added Movies on Torrent
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
-          {recentAddedMovies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} config={configs} />
-          ))}
-        </div>
-      </div>)}
-
-      {topRatedMovies?.length > 0 && (<>
-        <div className="text-xl font-bold text-white mx-5 mt-3">Top Rated Action Movies
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
-          {topRatedMovies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} config={configs} />
-          ))}
-        </div>
-      </>)}
-
-      {animeMovies?.length > 0 && (<>
-        <div className="text-xl font-bold text-white mx-5 mt-3  ">Best Rated Animation Movies
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
-          {animeMovies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} config={configs} />
-          ))}
-        </div>
-      </>)}
-
-      {mostLikedMovies?.length > 0 && (<>
-        <div className="text-xl font-bold text-white mx-5 mt-3  ">Most Liked Movies
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
-          {mostLikedMovies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} config={configs} />
-          ))}
-        </div>
-      </>)}
-
+      {homePageConfig.map((page, index) => {
+        {
+          <div className="text-xl font-bold text-white mx-5 mt-3">{page.title}</div>
+          page?.data?.length > 0 && (
+            <div>
+              <div className="text-xl font-bold text-white mx-5 mt-3">{page.title}
+              </div>
+              <div style={{ justifyItems: "center" }} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 p-4">
+                {page?.data?.map((movie) => (
+                  <MovieCard key={movie.id} movie={movie} config={configs} />
+                ))}
+              </div>
+            </div>)
+        }
+      })}
     </div>
   );
 }
