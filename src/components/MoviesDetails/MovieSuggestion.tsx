@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import type { Movie } from '../../types/movies';
 import { getSuggestedMovies } from '../../services/movieService';
 import MovieCard from '../MovieCard';
+import { removeDuplicate } from '../../utils/movies';
 
 function MovieSuggestion() {
     const [suggestedMovies, setSuggestedMovie] = useState<Movie[]>([]);
@@ -20,7 +21,7 @@ function MovieSuggestion() {
 
     useEffect(() => {
         getSuggestedMovies(params.id).then((fetchedMovies) => {
-            setSuggestedMovie(fetchedMovies.data.movies);
+            setSuggestedMovie(removeDuplicate(fetchedMovies.data.movies));
         })
     }, [params.id]);
 

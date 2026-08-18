@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./MovieCard.css";
 import HoverDetails from "./HoverDetails";
 import type { Config } from "../types/config";
+import React from "react";
 
 interface MovieCardProps {
   movie: Movie;
@@ -36,6 +37,8 @@ function MovieCard({ movie, config }: MovieCardProps) {
           alt={movie.title}
           style={{ border: config.border }}
           className="
+            contrast-110
+            saturate-110
             block
             w-full
             transition-transform
@@ -53,4 +56,4 @@ function MovieCard({ movie, config }: MovieCardProps) {
   );
 }
 
-export default MovieCard;
+export default React.memo(MovieCard);

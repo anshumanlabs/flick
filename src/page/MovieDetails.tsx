@@ -92,7 +92,7 @@ function MovieDetails() {
         }}
       >
         <div className="hero-overlay grid grid-cols-20">
-          <div className="col-span-5">
+          <div className="col-span-4">
             <img
               className="border-[8px] border-[#49c916]"
               src={
@@ -122,7 +122,7 @@ function MovieDetails() {
               <span><span className="text-xl">🕒  </span>{movie?.runtime} min</span>
             </div>
             <div>
-              {likedCount && <><span className="text-xl">🩷 </span>{likedCount}</>}
+              {likedCount !== undefined && likedCount !== null && <><span className="text-xl">🩷 </span>{likedCount}</>}
               {language && <><span className="text-xl ml-5">🗣️ </span>{language.toUpperCase()}</>}
             </div>
 

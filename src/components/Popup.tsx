@@ -22,7 +22,7 @@ const Popup = ({ open, imageUrl, onClose }: PopupProps) => {
           zIndex: 1,
           color: "white",
           "&:hover": {
-            backgroundColor: "rgba(0,0,0,0.8)",
+            backgroundColor: "#49c916",
           },
         }}
       >
@@ -38,8 +38,9 @@ const Popup = ({ open, imageUrl, onClose }: PopupProps) => {
           backgroundColor: "#000",
         }}
       >
-        {!imageLoaded && <Skeletons config={{ width: "95vh", height: "90vh" } }/>}
+        {!imageLoaded && <Skeletons config={{ width: 1200, height: 500 }} />}
         <img
+          className="contrast-120 saturate-120"
           src={imageUrl}
           alt="Screenshot"
           onLoad={() => setImageLoaded(true)}

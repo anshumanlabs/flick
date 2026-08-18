@@ -10,7 +10,6 @@ interface TorrentInfoProps {
 function TorrentDialog({ title, torrent }: TorrentInfoProps) {
 
     function downloadTorrent(torrent: Torrent) {
-        console.log(torrent.url)
         const link = document.createElement("a");
         link.href = torrent.url;
         link.download = `${title}-${torrent.quality}.torrent`;
@@ -51,7 +50,7 @@ function TorrentDialog({ title, torrent }: TorrentInfoProps) {
                     zIndex: 1,
                     color: "white",
                     "&:hover": {
-                        backgroundColor: "rgba(0,0,0,0.8)",
+                        backgroundColor: "#49c916",
                     },
                 }}
             >
