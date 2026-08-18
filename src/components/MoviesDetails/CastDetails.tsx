@@ -15,6 +15,9 @@ function CastDetails({ cast }: { cast: Cast }) {
         src={getActorFolder(cast.url_small_image)}
         className="w-24 h-24 rounded-full object-cover mb-2 contrast-120
             saturate-120"
+        onError={(e) => {
+          e.currentTarget.src = "https://placehold.co/300x450/111111/aaaaaa?text=POSTER%0ANOT%0AAVAILABLE";
+        }}
       />
       <h3 className="text-lg font-semibold">{cast.name}</h3>
       <p className="text-sm text-gray-600">{cast.character_name}</p>

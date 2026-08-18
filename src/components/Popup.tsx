@@ -42,9 +42,11 @@ const Popup = ({ open, imageUrl, onClose }: PopupProps) => {
         <img
           className="contrast-120 saturate-120"
           src={imageUrl}
+          onError={(e) => {
+            e.currentTarget.src = "https://placehold.co/300x450/111111/aaaaaa?text=POSTER%0ANOT%0AAVAILABLE";
+          }}
           alt="Screenshot"
           onLoad={() => setImageLoaded(true)}
-          onError={() => setImageLoaded(false)}
           style={{
             display: imageLoaded ? "block" : "none",
             maxWidth: "100%",

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import type { Movie, Screenshot, Torrent } from "../types/movies";
+import type { Movie, Screenshot } from "../types/movies";
 import "./MoviesDetails.css";
 import { useParams } from "react-router-dom";
 import { getMovieById } from "../services/movieService";
-import type { Cast } from "../types/cast";
 import Popup from "../components/Popup";
 import MovieSuggestion from "../components/MoviesDetails/MovieSuggestion";
 import CastDetails from "../components/MoviesDetails/CastDetails";
@@ -19,12 +18,8 @@ function MovieDetails() {
   const [mediumScreenshots, setMediumScreenshots] = useState<
     Screenshot[]
   >([]);
-  const [castDetails, setCastDetails] = useState<Cast[]>([]);
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpImage, setPopUpImage] = useState<string | undefined>(undefined);
-  const [torrentDetails, setTorrentDetails] = useState<Torrent[]>([]);
-  const [likedCount, setLikedCount] = useState<number>();
-  const [language, setLanguage] = useState<string>();
   const olderUrl = "https://yts.gg/";
   const newUrl = "https://img.yts.gg/"
 
@@ -34,6 +29,7 @@ function MovieDetails() {
     getMovieById(params.id).then((fetchedMovie) => {
       setMovie(fetchedMovie.data.movie);
       const movie = fetchedMovie.data.movie;
+      setMovie(fetchedMovie.data.movie);
       setMediumScreenshots(
         movie.medium_screenshot_image1
           ? [
@@ -58,11 +54,6 @@ function MovieDetails() {
           ]
           : []
       );
-      setCastDetails(fetchedMovie.data.movie.cast);
-      setTorrentDetails(fetchedMovie.data.movie.torrents);
-      setLikedCount(fetchedMovie.data.movie.like_count);
-      setMovie(fetchedMovie.data.movie);
-      setLanguage(fetchedMovie.data.movie.language);
     });
   }, [params.id]);
 
@@ -100,6 +91,9 @@ function MovieDetails() {
                 getMovieFolder(movie.medium_cover_image) +
                 "/medium-cover.jpg"
               }
+              onError={(e) => {
+                e.currentTarget.src = "https://placehold.co/300x450/111111/aaaaaa?text=POSTER%0ANOT%0AAVAILABLE";
+              }}
               alt={movie?.title}
             />
           </div>
@@ -122,8 +116,8 @@ function MovieDetails() {
               <span><span className="text-xl">🕒  </span>{movie?.runtime} min</span>
             </div>
             <div>
-              {likedCount !== undefined && likedCount !== null && <><span className="text-xl">🩷 </span>{likedCount}</>}
-              {language && <><span className="text-xl ml-5">🗣️ </span>{language.toUpperCase()}</>}
+              {movie.like_count !== undefined && movie.like_count !== null && <><span className="text-xl">🩷 </span>{movie.like_count}</>}
+              {movie.language && <><span className="text-xl ml-5">🗣️ </span>{movie.language.toUpperCase()}</>}
             </div>
 
             <div className="flex flex-wrap gap-2 mb-4 mt-4">
@@ -148,8 +142,8 @@ function MovieDetails() {
               ))}
             </div>
             <p>{movie?.description_full}</p>
-            {torrentDetails?.length > 0 && <div className="mt-5">
-              <TorrentInfo title={movie.title_long} torrent={torrentDetails} />
+            {movie.torrents?.length > 0 && <div className="mt-5">
+              <TorrentInfo title={movie.title_long} torrent={movie.torrents} />
             </div>}
           </div>
           <div className="col-span-4">
@@ -158,7 +152,7 @@ function MovieDetails() {
         </div>
       </section>
       <section className="p-5">
-        {castDetails && castDetails.length > 0 && (
+        {movie?.cast?.length > 0 && (
           <div className="cast-details m-3">
             <div className="flex items-center gap-3 ml-5">
               <div className="h-6 w-1 rounded-full bg-[#49c916]" />
@@ -167,7 +161,7 @@ function MovieDetails() {
               </h2>
             </div>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mt-4">
-              {castDetails.map((castMember) => (
+              {movie?.cast.map((castMember) => (
                 <CastDetails key={castMember.imdb_code} cast={castMember} />
               ))}
             </div>
@@ -201,6 +195,9 @@ function MovieDetails() {
                 src={screenshot.medium}
                 alt="Screenshot"
                 className="w-full h-full object-cover rounded-xl"
+                onError={(e) => {
+                  e.currentTarget.src = "https://placehold.co/300x450/111111/aaaaaa?text=POSTER%0ANOT%0AAVAILABLE";
+                }}
               />
             </div>
           ))}

@@ -34,6 +34,9 @@ function MovieCard({ movie, config }: MovieCardProps) {
             getMovieFolder(movie.medium_cover_image) +
             "/medium-cover.jpg"
           }
+          onError={(e) => {
+            e.currentTarget.src = "https://placehold.co/300x450/111111/aaaaaa?text=POSTER%0ANOT%0AAVAILABLE";
+          }}
           alt={movie.title}
           style={{ border: config.border }}
           className="

@@ -44,7 +44,6 @@ export function useMovies(
                     controller.signal
                 );
                 setMovies(removeDuplicate(response.data.movies));
-
                 const currentPage = Number(params.page ?? 1);
                 setPaginationData({
                     currentPage,
