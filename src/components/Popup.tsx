@@ -22,7 +22,7 @@ const Popup = ({ open, imageUrl, onClose }: PopupProps) => {
           zIndex: 1,
           color: "white",
           "&:hover": {
-            backgroundColor: "rgba(0,0,0,0.8)",
+            backgroundColor: "#49c916",
           },
         }}
       >
@@ -35,15 +35,18 @@ const Popup = ({ open, imageUrl, onClose }: PopupProps) => {
           p: 0,
           display: "flex",
           justifyContent: "center",
-          backgroundColor: "#000",
+          backgroundColor: "#000"
         }}
       >
-        {!imageLoaded && <Skeletons config={{ width: "95vh", height: "90vh" } }/>}
+        {!imageLoaded && <Skeletons config={{ width: 1200, height: 500 }} />}
         <img
+          className="contrast-120 saturate-120"
           src={imageUrl}
+          onError={(e) => {
+            e.currentTarget.src = "https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD";
+          }}
           alt="Screenshot"
           onLoad={() => setImageLoaded(true)}
-          onError={() => setImageLoaded(false)}
           style={{
             display: imageLoaded ? "block" : "none",
             maxWidth: "100%",

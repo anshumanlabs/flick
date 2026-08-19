@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./MovieCard.css";
 import HoverDetails from "./HoverDetails";
 import type { Config } from "../types/config";
+import React from "react";
 
 interface MovieCardProps {
   movie: Movie;
@@ -33,9 +34,14 @@ function MovieCard({ movie, config }: MovieCardProps) {
             getMovieFolder(movie.medium_cover_image) +
             "/medium-cover.jpg"
           }
+          onError={(e) => {
+            e.currentTarget.src = "https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD";
+          }}
           alt={movie.title}
           style={{ border: config.border }}
           className="
+            contrast-110
+            saturate-110
             block
             w-full
             transition-transform
@@ -53,4 +59,4 @@ function MovieCard({ movie, config }: MovieCardProps) {
   );
 }
 
-export default MovieCard;
+export default React.memo(MovieCard);

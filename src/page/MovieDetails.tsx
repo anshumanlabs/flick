@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import type { Movie, Screenshot, Torrent } from "../types/movies";
+import type { Movie, Screenshot } from "../types/movies";
 import "./MoviesDetails.css";
 import { useParams } from "react-router-dom";
 import { getMovieById } from "../services/movieService";
-import type { Cast } from "../types/cast";
 import Popup from "../components/Popup";
 import MovieSuggestion from "../components/MoviesDetails/MovieSuggestion";
 import CastDetails from "../components/MoviesDetails/CastDetails";
 import TorrentInfo from "../components/TorrentDialog";
 import { Box, CircularProgress } from "@mui/material";
+import SectionTitle from "../components/SectionTitle";
+import Description from "../components/Description";
 
 function MovieDetails() {
   const BASE_IMG_URL = "https://img.yts.gg/assets/images/movies/";
@@ -19,12 +20,8 @@ function MovieDetails() {
   const [mediumScreenshots, setMediumScreenshots] = useState<
     Screenshot[]
   >([]);
-  const [castDetails, setCastDetails] = useState<Cast[]>([]);
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpImage, setPopUpImage] = useState<string | undefined>(undefined);
-  const [torrentDetails, setTorrentDetails] = useState<Torrent[]>([]);
-  const [likedCount, setLikedCount] = useState<number>();
-  const [language, setLanguage] = useState<string>();
   const olderUrl = "https://yts.gg/";
   const newUrl = "https://img.yts.gg/"
 
@@ -34,6 +31,7 @@ function MovieDetails() {
     getMovieById(params.id).then((fetchedMovie) => {
       setMovie(fetchedMovie.data.movie);
       const movie = fetchedMovie.data.movie;
+      setMovie(fetchedMovie.data.movie);
       setMediumScreenshots(
         movie.medium_screenshot_image1
           ? [
@@ -58,11 +56,6 @@ function MovieDetails() {
           ]
           : []
       );
-      setCastDetails(fetchedMovie.data.movie.cast);
-      setTorrentDetails(fetchedMovie.data.movie.torrents);
-      setLikedCount(fetchedMovie.data.movie.like_count);
-      setMovie(fetchedMovie.data.movie);
-      setLanguage(fetchedMovie.data.movie.language);
     });
   }, [params.id]);
 
@@ -92,19 +85,22 @@ function MovieDetails() {
         }}
       >
         <div className="hero-overlay grid grid-cols-20">
-          <div className="col-span-5">
+          <div className="col-span-4">
             <img
-              className="border-[8px] border-[#49c916]"
+              className="border-[6px] border-[#49c916]"
               src={
                 BASE_IMG_URL +
                 getMovieFolder(movie.medium_cover_image) +
                 "/medium-cover.jpg"
               }
+              onError={(e) => {
+                e.currentTarget.src = "https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD";
+              }}
               alt={movie?.title}
             />
           </div>
           <div
-            className="movie-info col-span-11">
+            className="col-span-11">
             <h1
               style={{
                 fontSize: "2.5em",
@@ -122,8 +118,8 @@ function MovieDetails() {
               <span><span className="text-xl">🕒  </span>{movie?.runtime} min</span>
             </div>
             <div>
-              {likedCount && <><span className="text-xl">🩷 </span>{likedCount}</>}
-              {language && <><span className="text-xl ml-5">🗣️ </span>{language.toUpperCase()}</>}
+              {movie.like_count !== undefined && movie.like_count !== null && <><span className="text-xl">🩷 </span>{movie.like_count}</>}
+              {movie.language && <><span className="text-xl ml-5">🗣️ </span>{movie.language.toUpperCase()}</>}
             </div>
 
             <div className="flex flex-wrap gap-2 mb-4 mt-4">
@@ -147,10 +143,9 @@ function MovieDetails() {
                 </span>
               ))}
             </div>
-            <p>{movie?.description_full}</p>
-            {torrentDetails?.length > 0 && <div className="mt-5">
-              <TorrentInfo title={movie.title_long} torrent={torrentDetails} />
-            </div>}
+            <Description description={movie?.description_full} />
+            {movie.torrents?.length > 0 &&
+              <TorrentInfo title={movie.title_long} torrent={movie.torrents} />}
           </div>
           <div className="col-span-4">
             <MovieSuggestion />
@@ -158,27 +153,17 @@ function MovieDetails() {
         </div>
       </section>
       <section className="p-5">
-        {castDetails && castDetails.length > 0 && (
+        {movie?.cast?.length > 0 && (
           <div className="cast-details m-3">
-            <div className="flex items-center gap-3 ml-5">
-              <div className="h-6 w-1 rounded-full bg-[#49c916]" />
-              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white ml-2">
-                Cast
-              </h2>
-            </div>
+            <SectionTitle title={"Cast"} />
             <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mt-4">
-              {castDetails.map((castMember) => (
+              {movie?.cast.map((castMember) => (
                 <CastDetails key={castMember.imdb_code} cast={castMember} />
               ))}
             </div>
           </div>
         )}
-        <div className="flex items-center gap-3 ml-5 mt-5">
-          <div className="h-6 w-1 rounded-full bg-[#49c916]" />
-          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white ml-2">
-            Trailor and Screenshots
-          </h2>
-        </div>
+        <SectionTitle title={"Trailor and Screenshots"} />
         <div className="grid grid-cols-4 mt-3 gap-3">
           {movie?.yt_trailer_code && (
             <div className="aspect-video w-full p-2">
@@ -201,6 +186,9 @@ function MovieDetails() {
                 src={screenshot.medium}
                 alt="Screenshot"
                 className="w-full h-full object-cover rounded-xl"
+                onError={(e) => {
+                  e.currentTarget.src = "https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD";
+                }}
               />
             </div>
           ))}

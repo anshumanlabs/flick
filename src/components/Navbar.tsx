@@ -1,19 +1,33 @@
 import { NavLink, useLocation, useSearchParams } from "react-router-dom";
 import { } from "react-router-dom";
 import "./Navbar.css";
+import { useDebounce } from "../hooks/useDebounce";
+import { useEffect, useState } from "react";
 
 function Navbar() {
   const location = useLocation();
   const showSearchBar = location.pathname === "/movies";
   const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState(
+    searchParams.get("query_term") ?? ""
+  );
+  const debouncedSearch = useDebounce(search, 1000);
 
-  const handleSearch = (query: string) => {
+  useEffect(() => {
+    if (!showSearchBar) {
+      return;
+    }
+    if (!debouncedSearch.trim()) {
+      setSearchParams({
+        page: "1"
+      });
+      return;
+    }
     setSearchParams({
-      ...Object.fromEntries(searchParams),
-      query_term: query,
-      page:"1"
+      page: "1",
+      query_term: search
     });
-  };
+  }, [debouncedSearch]);
 
   return (
     <header className="navbar">
@@ -31,7 +45,7 @@ function Navbar() {
             <input
               type="text"
               placeholder="Search movies..."
-              onChange={(e) => handleSearch(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
             />
             <button>⌕</button>
           </div>
