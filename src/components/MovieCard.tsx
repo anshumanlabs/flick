@@ -35,7 +35,7 @@ function MovieCard({ movie, config }: MovieCardProps) {
             "/medium-cover.jpg"
           }
           onError={(e) => {
-            e.currentTarget.src = "https://placehold.co/300x450/111111/aaaaaa?text=POSTER%0ANOT%0AAVAILABLE";
+            e.currentTarget.src = "https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD";
           }}
           alt={movie.title}
           style={{ border: config.border }}

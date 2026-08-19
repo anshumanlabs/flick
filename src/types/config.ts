@@ -3,7 +3,7 @@ export interface Config {
     height: number | string,
     titleSize: number,
     ratingSize: number,
-    fontStyle: string,
+    fontWeight: string,
     border: string,
     hover: boolean
 }
@@ -13,7 +13,7 @@ export const defaultConfig: Config = {
     height: "80%",
     titleSize: 20,
     ratingSize: 10,
-    fontStyle: "bold",
+    fontWeight: "bold",
     border: "4px solid #f7f7f7",
     hover: true,
 };

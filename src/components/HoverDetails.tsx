@@ -2,21 +2,21 @@ import type { Movie } from "../types/movies";
 import type { Config } from "../types/config";
 
 interface HoverDetailsProps {
-    movie: Movie,
-    config: Config
+    readonly movie: Movie,
+    readonly config: Config
 }
 
 function HoverDetails({ movie, config }: HoverDetailsProps) {
     return (
         <div className="hover-details text-center text-white font-bold">
-            <div className="mb-2 text-center p-2 line-clamp-4" style={{ fontSize: config.titleSize, fontWeight: config.fontStyle }}>
+            <div className="mb-2 p-2 line-clamp-4" style={{ fontSize: config.titleSize, fontWeight: config.fontWeight }}>
                 {movie.title_long}
             </div>
             <div className="text-xl">
                 ⭐ {movie.rating} / 10
             </div>
             <div className="flex justify-center gap-2 flex-wrap mt-3">
-                {movie.genres?.slice(0, 2).map((genre) => (
+                {movie.genres.slice(0, 2).map((genre) => (
                     <span
                         key={genre}
                         className="rounded-full bg-[#1b5e20]/80 text-[#7cff6b] px-3 py-1 text-sm"

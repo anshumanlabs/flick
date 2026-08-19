@@ -8,6 +8,8 @@ import MovieSuggestion from "../components/MoviesDetails/MovieSuggestion";
 import CastDetails from "../components/MoviesDetails/CastDetails";
 import TorrentInfo from "../components/TorrentDialog";
 import { Box, CircularProgress } from "@mui/material";
+import SectionTitle from "../components/SectionTitle";
+import Description from "../components/Description";
 
 function MovieDetails() {
   const BASE_IMG_URL = "https://img.yts.gg/assets/images/movies/";
@@ -85,20 +87,20 @@ function MovieDetails() {
         <div className="hero-overlay grid grid-cols-20">
           <div className="col-span-4">
             <img
-              className="border-[8px] border-[#49c916]"
+              className="border-[6px] border-[#49c916]"
               src={
                 BASE_IMG_URL +
                 getMovieFolder(movie.medium_cover_image) +
                 "/medium-cover.jpg"
               }
               onError={(e) => {
-                e.currentTarget.src = "https://placehold.co/300x450/111111/aaaaaa?text=POSTER%0ANOT%0AAVAILABLE";
+                e.currentTarget.src = "https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD";
               }}
               alt={movie?.title}
             />
           </div>
           <div
-            className="movie-info col-span-11">
+            className="col-span-11">
             <h1
               style={{
                 fontSize: "2.5em",
@@ -141,10 +143,9 @@ function MovieDetails() {
                 </span>
               ))}
             </div>
-            <p>{movie?.description_full}</p>
-            {movie.torrents?.length > 0 && <div className="mt-5">
-              <TorrentInfo title={movie.title_long} torrent={movie.torrents} />
-            </div>}
+            <Description description={movie?.description_full} />
+            {movie.torrents?.length > 0 &&
+              <TorrentInfo title={movie.title_long} torrent={movie.torrents} />}
           </div>
           <div className="col-span-4">
             <MovieSuggestion />
@@ -154,12 +155,7 @@ function MovieDetails() {
       <section className="p-5">
         {movie?.cast?.length > 0 && (
           <div className="cast-details m-3">
-            <div className="flex items-center gap-3 ml-5">
-              <div className="h-6 w-1 rounded-full bg-[#49c916]" />
-              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white ml-2">
-                Cast
-              </h2>
-            </div>
+            <SectionTitle title={"Cast"} />
             <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mt-4">
               {movie?.cast.map((castMember) => (
                 <CastDetails key={castMember.imdb_code} cast={castMember} />
@@ -167,12 +163,7 @@ function MovieDetails() {
             </div>
           </div>
         )}
-        <div className="flex items-center gap-3 ml-5 mt-5">
-          <div className="h-6 w-1 rounded-full bg-[#49c916]" />
-          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white ml-2">
-            Trailor and Screenshots
-          </h2>
-        </div>
+        <SectionTitle title={"Trailor and Screenshots"} />
         <div className="grid grid-cols-4 mt-3 gap-3">
           {movie?.yt_trailer_code && (
             <div className="aspect-video w-full p-2">
@@ -196,7 +187,7 @@ function MovieDetails() {
                 alt="Screenshot"
                 className="w-full h-full object-cover rounded-xl"
                 onError={(e) => {
-                  e.currentTarget.src = "https://placehold.co/300x450/111111/aaaaaa?text=POSTER%0ANOT%0AAVAILABLE";
+                  e.currentTarget.src = "https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD";
                 }}
               />
             </div>

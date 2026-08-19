@@ -4,6 +4,7 @@ import type { Movie } from "../types/movies";
 import MovieCard from "../components/MovieCard";
 import { defaultConfig } from "../types/config";
 import { removeDuplicate } from "../utils/movies";
+import SectionTitle from "../components/SectionTitle";
 
 function Home() {
   const limit = 5;
@@ -24,7 +25,7 @@ function Home() {
       ];
       setHomePageConfig(data);
     });
-  }, []);
+  }, [limit]);
 
   return (
     <div className="p-5">
@@ -32,12 +33,7 @@ function Home() {
         page?.data?.length > 0 && (
           <div key={page.title}>
             <div className="mt-5 ml-5 mr-5 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="h-6 w-1 rounded-full bg-[#49c916]" />
-                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white ml-2">
-                  {page.title}
-                </h2>
-              </div>
+              <SectionTitle title={page.title}/>
 
               {/* <button className="text-sm font-semibold text-[#49c916] hover:underline">
                 View All

@@ -16,7 +16,7 @@ function CastDetails({ cast }: { cast: Cast }) {
         className="w-24 h-24 rounded-full object-cover mb-2 contrast-120
             saturate-120"
         onError={(e) => {
-          e.currentTarget.src = "https://placehold.co/300x450/111111/aaaaaa?text=POSTER%0ANOT%0AAVAILABLE";
+          e.currentTarget.src = "https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD";
         }}
       />
       <h3 className="text-lg font-semibold">{cast.name}</h3>
