@@ -15,7 +15,9 @@ function MovieCard({ movie, config }: MovieCardProps) {
   const navigate = useNavigate();
 
   function getMovieFolder(url: string): string {
-    return new URL(url).pathname.split("/").at(-2) ?? "";
+    if (!url)
+      return "";
+    return new URL(url).pathname?.split("/").at(-2) ?? "";
   }
 
   return (

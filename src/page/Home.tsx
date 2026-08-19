@@ -33,7 +33,7 @@ function Home() {
         page?.data?.length > 0 && (
           <div key={page.title}>
             <div className="mt-5 ml-5 mr-5 flex items-center justify-between">
-              <SectionTitle title={page.title}/>
+              <SectionTitle title={page.title} />
 
               {/* <button className="text-sm font-semibold text-[#49c916] hover:underline">
                 View All

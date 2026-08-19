@@ -3,6 +3,7 @@ import { } from "react-router-dom";
 import "./Navbar.css";
 import { useDebounce } from "../hooks/useDebounce";
 import { useEffect, useState } from "react";
+import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/react";
 
 function Navbar() {
   const location = useLocation();
@@ -36,9 +37,23 @@ function Navbar() {
           FLICK<span>.</span>
         </NavLink>
         <nav className="nav-links">
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/movies?page=1">Movies</NavLink>
-          <NavLink to="/favorites">Favorites</NavLink>
+          <div className="nav-main-links">
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/movies?page=1">Movies</NavLink>
+            <NavLink to="/favorites">Favorites</NavLink>
+          </div>
+
+          <div className="nav-auth">
+            <Show when="signed-out">
+              <SignInButton />
+              <SignUpButton />
+            </Show>
+            <div className="usericon">
+              <Show when="signed-in">
+                <UserButton />
+              </Show>
+            </div>
+          </div>
         </nav>
         {showSearchBar && (
           <div className="nav-search">
