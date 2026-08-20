@@ -1,14 +1,20 @@
 import { useAuth } from "@clerk/react";
-import { useEffect, useState } from "react";
-import type { FavouriteMovie } from "../types/favourites";
+import { useContext, useEffect } from "react";
 import { getFavoutiteMovieForUserId } from "../services/favouriteService";
 import MovieCard from "../components/MovieCard";
 import { defaultConfig } from "../types/config";
 import type { Movie } from "../types/movies";
+import { FavouriteContext } from "../context/FavouriteContext";
 
 function Favorites() {
     const { userId, isSignedIn, isLoaded } = useAuth();
-    const [favorites, setFavorites] = useState<FavouriteMovie[]>();
+    const favouriteContext = useContext(FavouriteContext);
+    if (!favouriteContext) {
+        throw new Error(
+            "Favorites must be used inside FavouriteProvider"
+        );
+    }
+    const { favourites, dispatch } = favouriteContext;
 
     useEffect(() => {
         if (!isSignedIn || !userId) {
@@ -16,10 +22,12 @@ function Favorites() {
         }
         const loadFavorites = async () => {
             const favorites = await getFavoutiteMovieForUserId(userId);
-            setFavorites(favorites.map((fav) => fav.movie));
+            dispatch({
+                type: "SET_FAVOURITES",
+                payload: favorites,
+            });
         };
         loadFavorites();
-        console.log("favorites" + favorites);
     }, [userId]);
 
     if (!isLoaded) {
@@ -36,15 +44,30 @@ function Favorites() {
     }
     return (
         <>
-            <div style={{ justifyItems: "center" }} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
-                {favorites?.map((movie) => (
-                    <MovieCard key={movie.id} movie={{
-                        id: movie.id, genres: movie.genres,
-                        rating: movie.rating, title_long: movie.name,
-                        medium_cover_image: movie.medium_cover_image
-                    } as Movie} config={defaultConfig} />
-                ))}
-            </div>
+            {favourites?.length > 0 ?
+                <div style={{ justifyItems: "center" }} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
+                    {favourites?.map((favourite) => (
+                        <MovieCard key={favourite.id} movie={{
+                            id: favourite.movie.id, genres: favourite.movie.genres,
+                            rating: favourite.movie.rating, title_long: favourite.movie.name,
+                            medium_cover_image: favourite.movie.medium_cover_image
+                        } as Movie} config={defaultConfig} />
+                    ))}
+                </div> :
+                <>
+                    <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4">
+                        <div className="text-7xl mb-4">🎬</div>
+
+                        <h1 className="text-4xl font-bold text-white mb-3">
+                            Movie Not Found
+                        </h1>
+
+                        <p className="text-gray-400 max-w-md mb-6">
+                            No Favoutite Movies added.
+                        </p>
+                    </div>
+                </>
+            }
         </>
     )
 }

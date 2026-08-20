@@ -7,13 +7,11 @@ import Popup from "../components/Popup";
 import MovieSuggestion from "../components/MoviesDetails/MovieSuggestion";
 import CastDetails from "../components/MoviesDetails/CastDetails";
 import TorrentInfo from "../components/TorrentDialog";
-import { Box, Button, CircularProgress } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import SectionTitle from "../components/SectionTitle";
 import Description from "../components/Description";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import { useAuth } from "@clerk/react";
-import { addAsFavMovie } from "../services/favouriteService";
+import AddToFavourite from "../components/AddOrRemoveFavourite";
 
 function MovieDetails() {
   const BASE_IMG_URL = "https://img.yts.gg/assets/images/movies/";
@@ -30,7 +28,6 @@ function MovieDetails() {
   const newUrl = "https://img.yts.gg/"
 
   const params = useParams();
-  const { userId } = useAuth();
 
   useEffect(() => {
     getMovieById(params.id).then((fetchedMovie) => {
@@ -80,10 +77,6 @@ function MovieDetails() {
     </Box>
   }
 
-  function addToFavMovie(movie: Movie) {
-    addAsFavMovie(movie, userId);
-  }
-
   return (
     <div className="movie-details">
       <Box
@@ -92,8 +85,7 @@ function MovieDetails() {
           width: "100vw",
           position: "relative",
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
-      url(${BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + "/background.jpg"})
-    `,
+          url(${BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + "/background.jpg"})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -123,11 +115,7 @@ function MovieDetails() {
                 lineHeight: "42px",
                 fontWeight: "bold"
               }}>{movie.title_long}
-              <Button sx={{
-                color: "white",
-              }} onClick={() => addToFavMovie(movie)}>
-                <FavoriteIcon />
-              </Button>
+              <AddToFavourite movie={movie} />
             </h1>
             <div className="movie-meta">
               <img

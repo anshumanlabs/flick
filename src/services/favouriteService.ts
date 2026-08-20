@@ -1,9 +1,8 @@
-
-import { getFavoutiteMovieByUserId, saveFavouriteMovie } from '../repository/favouriteRepo';
+import { getFavoutiteMovieByUserId, removeFavouriteMovieByUserId, saveFavouriteMovie } from '../repository/favouriteRepo';
 import type { Favourite } from '../types/favourites';
 import type { Movie } from '../types/movies';
 
-export async function addAsFavMovie(movie: Movie, userId: string | null | undefined): Promise<void> {
+export async function addAsFavMovie(movie: Movie, userId: string | null | undefined): Promise<boolean> {
     const favouriteMovie = {
         id: movie.id,
         name: movie.title_long,
@@ -16,9 +15,13 @@ export async function addAsFavMovie(movie: Movie, userId: string | null | undefi
         movie_id: movie.id,
         movie: favouriteMovie
     }
-    saveFavouriteMovie(favoutite);
+    return saveFavouriteMovie(favoutite);
 }
 
 export async function getFavoutiteMovieForUserId(userId: string): Promise<Favourite[]> {
     return getFavoutiteMovieByUserId(userId);
 }
+
+export async function removeFavouriteMovie(userId: string, movieId: number): Promise<boolean> {
+    return removeFavouriteMovieByUserId(userId, movieId);
+} 

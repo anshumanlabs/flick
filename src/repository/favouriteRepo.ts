@@ -4,14 +4,16 @@ import { supabase } from '../utils/superbase';
 
 export async function saveFavouriteMovie(
     favourite: CreateFavourite
-): Promise<void> {
+): Promise<boolean> {
     const { error } = await supabase
         .from("favorites")
         .insert(favourite);
 
     if (error) {
         console.error("Failed to save favorites:", error);
+        return false;
     }
+    return true;
 }
 
 export async function getFavoutiteMovieByUserId(userId: string): Promise<Favourite[]> {
@@ -24,6 +26,19 @@ export async function getFavoutiteMovieByUserId(userId: string): Promise<Favouri
         console.error("Failed to fetch favorites:", error);
         return [];
     }
-
     return data;
+}
+
+export async function removeFavouriteMovieByUserId(userId: string, movieId: number): Promise<boolean> {
+    const { error } = await supabase
+        .from("favorites")
+        .delete()
+        .eq("user_id", userId)
+        .eq("movie_id", movieId);
+
+    if (error) {
+        console.error("Failed to fetch favorites:", error);
+        return false;
+    }
+    return true;
 }
