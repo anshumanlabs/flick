@@ -18,8 +18,10 @@ function CastDetails({ cast }: { cast: Cast }) {
                         'https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD';
                 }}
             />
-            <h3 className="text-lg font-semibold">{cast.name}</h3>
-            <p className="text-sm text-gray-600">{cast.character_name}</p>
+            <div className="flex flex-col items-center justify-center text-center">
+                <h3 className="text-lg font-semibold">{cast.name}</h3>
+                <p className="text-sm text-gray-600">{cast.character_name}</p>
+            </div>
         </div>
     );
 }
