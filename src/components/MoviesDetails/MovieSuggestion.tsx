@@ -4,6 +4,7 @@ import type { Movie } from '../../types/movies';
 import { getSuggestedMovies } from '../../services/movieService';
 import MovieCard from '../MovieCard';
 import { removeDuplicate } from '../../utils/movies';
+import SectionTitle from '../SectionTitle';
 
 function MovieSuggestion() {
     const [suggestedMovies, setSuggestedMovie] = useState<Movie[]>([]);
@@ -27,15 +28,13 @@ function MovieSuggestion() {
 
     return (
         <>
-            <div className="text-center text-2xl font-bold mb-3">Similar Movies</div>
+            <div className="mt-5 flex items-center">
+                <SectionTitle title={'Similar Movies'} />
+            </div>
             <div className="grid grid-cols-2">
                 {suggestedMovies.map((suggestedMovie) => (
-                    <div className="grid grid-row-2 mt-2 justify-center">
-                        <MovieCard
-                            key={suggestedMovie.id}
-                            movie={suggestedMovie}
-                            config={configs}
-                        />
+                    <div className="grid grid-row-2 mt-2 justify-start">
+                        <MovieCard key={suggestedMovie.imdb_code} movie={suggestedMovie} config={configs} />
                     </div>
                 ))}
             </div>

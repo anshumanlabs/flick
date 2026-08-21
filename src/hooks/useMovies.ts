@@ -28,9 +28,7 @@ export function useMovies(queryString: string, limit: number): UseMoviesResult {
 
     useEffect(() => {
         const controller = new AbortController();
-        const params = Object.fromEntries(
-            new URLSearchParams(queryString).entries(),
-        ) as MovieSearchParams;
+        const params = Object.fromEntries(new URLSearchParams(queryString).entries()) as MovieSearchParams;
         const fetchMovies = async () => {
             try {
                 setLoading(true);

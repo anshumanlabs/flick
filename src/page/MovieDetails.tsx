@@ -35,22 +35,19 @@ function MovieDetails() {
             setMediumScreenshots(
                 movie.medium_screenshot_image1
                     ? [
-                          {
-                              medium:
-                                  movie.medium_screenshot_image1?.replace(olderUrl, newUrl) ?? '',
-                              large: movie.large_screenshot_image1?.replace(olderUrl, newUrl) ?? '',
-                          },
-                          {
-                              medium:
-                                  movie.medium_screenshot_image2?.replace(olderUrl, newUrl) ?? '',
-                              large: movie.large_screenshot_image2?.replace(olderUrl, newUrl) ?? '',
-                          },
-                          {
-                              medium:
-                                  movie.medium_screenshot_image3?.replace(olderUrl, newUrl) ?? '',
-                              large: movie.large_screenshot_image3?.replace(olderUrl, newUrl) ?? '',
-                          },
-                      ]
+                        {
+                            medium: movie.medium_screenshot_image1?.replace(olderUrl, newUrl) ?? '',
+                            large: movie.large_screenshot_image1?.replace(olderUrl, newUrl) ?? '',
+                        },
+                        {
+                            medium: movie.medium_screenshot_image2?.replace(olderUrl, newUrl) ?? '',
+                            large: movie.large_screenshot_image2?.replace(olderUrl, newUrl) ?? '',
+                        },
+                        {
+                            medium: movie.medium_screenshot_image3?.replace(olderUrl, newUrl) ?? '',
+                            large: movie.large_screenshot_image3?.replace(olderUrl, newUrl) ?? '',
+                        },
+                    ]
                     : [],
             );
         });
@@ -81,23 +78,20 @@ function MovieDetails() {
             <Box
                 className="movie-hero"
                 sx={{
-                    width: '100vw',
                     position: 'relative',
                     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
-          url(${BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + '/background.jpg'})`,
+                    url(${BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + '/background.jpg'})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                 }}
             >
                 <div className="hero-overlay grid lg:grid-cols-20 md:grid-cols-12">
-                    <div className="lg:col-span-4 md:col-span-4">
+                    <div className="lg:col-span-5 md:col-span-4 sm:col-span-1 flex justify-center">
                         <img
                             className="border-[6px] border-[#49c916]"
                             src={
-                                BASE_IMG_URL +
-                                getMovieFolder(movie.medium_cover_image) +
-                                '/medium-cover.jpg'
+                                BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + '/medium-cover.jpg'
                             }
                             onError={(e) => {
                                 e.currentTarget.src =
@@ -106,15 +100,8 @@ function MovieDetails() {
                             alt={movie?.title}
                         />
                     </div>
-                    <div className="lg:col-span-11 md:col-span-4">
-                        <h1
-                            style={{
-                                fontSize: '2.5em',
-                                marginBottom: '24px',
-                                lineHeight: '42px',
-                                fontWeight: 'bold',
-                            }}
-                        >
+                    <div className="lg:col-span-10 md:col-span-4">
+                        <h1 className="mb-6 text-xl font-bold leading-tight sm:text-3xl md:text-3xl lg:text-[2.5rem] lg:leading-[42px]">
                             {movie.title_long}
                             <AddToFavourite movie={movie} />
                         </h1>
@@ -178,7 +165,7 @@ function MovieDetails() {
                             <TorrentInfo title={movie.title_long} torrent={movie.torrents} />
                         )}
                     </div>
-                    <div className="lg:col-span-4 md:col-span-4">
+                    <div className="lg:col-span-5 md:col-span-4">
                         <MovieSuggestion />
                     </div>
                 </div>
@@ -194,7 +181,9 @@ function MovieDetails() {
                         </div>
                     </div>
                 )}
-                <SectionTitle title={'Trailor and Screenshots'} />
+                <div className="m-3">
+                    <SectionTitle title={'Trailor and Screenshots'} />
+                </div>
                 <div className="grid lg:grid-cols-4 mt-3 md:grid-cols-3 sm:grid-cols-2 gap-3">
                     {movie?.yt_trailer_code && (
                         <div className="aspect-video w-full p-2">

@@ -16,8 +16,7 @@ export default function RecordNotFound() {
             <h1 className="text-4xl font-bold text-white mb-3">Movie Not Found</h1>
 
             <p className="text-gray-400 max-w-md mb-6">
-                We couldn't find any movies matching your filters. Try changing your filters and
-                search again.
+                We couldn't find any movies matching your filters. Try changing your filters and search again.
             </p>
 
             <button

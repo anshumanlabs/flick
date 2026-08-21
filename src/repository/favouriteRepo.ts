@@ -21,15 +21,8 @@ export async function getFavoutiteMovieByUserId(userId: string): Promise<Favouri
     return data;
 }
 
-export async function removeFavouriteMovieByUserId(
-    userId: string,
-    movieId: number,
-): Promise<boolean> {
-    const { error } = await supabase
-        .from('favorites')
-        .delete()
-        .eq('user_id', userId)
-        .eq('movie_id', movieId);
+export async function removeFavouriteMovieByUserId(userId: string, movieId: number): Promise<boolean> {
+    const { error } = await supabase.from('favorites').delete().eq('user_id', userId).eq('movie_id', movieId);
 
     if (error) {
         console.error('Failed to fetch favorites:', error);

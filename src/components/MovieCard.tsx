@@ -31,29 +31,18 @@ function MovieCard({ movie, config }: MovieCardProps) {
         >
             <div className="group relative overflow-hidden">
                 <img
-                    src={
-                        BASE_IMG_URL +
-                        getMovieFolder(movie.medium_cover_image) +
-                        '/medium-cover.jpg'
-                    }
+                    src={BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + '/medium-cover.jpg'}
                     onError={(e) => {
                         e.currentTarget.src =
                             'https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD';
                     }}
                     alt={movie.title}
                     style={{ border: config.border }}
-                    className="
-            contrast-110
-            saturate-110
-            block
-            w-full
-            transition-transform
-            duration-1000
-            group-hover:scale-110
-        "
+                    className="contrast-110 saturate-110 block w-full transition-transform duration-1000
+            group-hover:scale-110"
                 />
                 {config.hover && (
-                    <div className="absolute top-2 right-2 z-10">
+                    <div className="absolute top-1 right-1 z-10">
                         <AddOrRemoveFavourite movie={movie} />
                     </div>
                 )}

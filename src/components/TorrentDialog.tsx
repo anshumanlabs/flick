@@ -42,13 +42,7 @@ function TorrentDialog({ title, torrent }: TorrentInfoProps) {
             >
                 Click To see Torrent Info
             </Button>
-            <Dialog
-                open={open}
-                onClose={() => setOpen(false)}
-                maxWidth="lg"
-                fullWidth
-                className="p-2"
-            >
+            <Dialog open={open} onClose={() => setOpen(false)} maxWidth="lg" fullWidth className="p-2">
                 <IconButton
                     aria-label="close"
                     onClick={() => setOpen(false)}
@@ -72,9 +66,7 @@ function TorrentDialog({ title, torrent }: TorrentInfoProps) {
                     }}
                 >
                     <div className="font-bold mb-3">Download Torrent File</div>
-                    {sortedBySeeds.length === 0 && (
-                        <div className="text-center">No torrent available</div>
-                    )}
+                    {sortedBySeeds.length === 0 && <div className="text-center">No torrent available</div>}
                     {sortedBySeeds.map((torrent) => (
                         <div
                             key={`${torrent.quality}-${torrent.size}`}
