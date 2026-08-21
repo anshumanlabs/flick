@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
 interface DescriptionProps {
     description?: string;
@@ -18,10 +18,7 @@ function Description({ description }: DescriptionProps) {
 
     return (
         <div>
-            <p
-                ref={descriptionRef}
-                className={!expanded ? "line-clamp-4" : ""}
-            >
+            <p ref={descriptionRef} className={!expanded ? 'line-clamp-4' : ''}>
                 {description}
             </p>
 
@@ -30,7 +27,7 @@ function Description({ description }: DescriptionProps) {
                     onClick={() => setExpanded((prev) => !prev)}
                     className="mt-2 text-[#49c916] hover:underline"
                 >
-                    {expanded ? "See less" : "See more"}
+                    {expanded ? 'See less' : 'See more'}
                 </button>
             )}
         </div>

@@ -1,6 +1,6 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 body {
     background-color: black;
-    color:white
+    color: white;
 }

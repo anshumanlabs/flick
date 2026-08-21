@@ -1,10 +1,10 @@
 .movie-card {
-  transition:
-    transform 0.25s ease,
-    border-color 0.25s ease;
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease;
 }
 
 .movie-card:hover {
-  border-color: #203319;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    border-color: #203319;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
 }

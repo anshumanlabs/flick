@@ -1,25 +1,23 @@
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from 'react-router-dom';
 
 export default function RecordNotFound() {
     const [, setSearchParams] = useSearchParams();
 
     function resetFilter() {
         setSearchParams({
-            page: "1"
-        })
+            page: '1',
+        });
     }
 
     return (
         <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4">
             <div className="text-7xl mb-4">🎬</div>
 
-            <h1 className="text-4xl font-bold text-white mb-3">
-                Movie Not Found
-            </h1>
+            <h1 className="text-4xl font-bold text-white mb-3">Movie Not Found</h1>
 
             <p className="text-gray-400 max-w-md mb-6">
-                We couldn't find any movies matching your filters. Try changing your
-                filters and search again.
+                We couldn't find any movies matching your filters. Try changing your filters and
+                search again.
             </p>
 
             <button
