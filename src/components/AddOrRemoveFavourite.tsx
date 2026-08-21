@@ -26,7 +26,10 @@ function AddOrRemoveFavourite({ movie }: { movie: Movie }) {
     const { openSnackbar } = useSnackbar();
 
     async function addOrRemoveMovie() {
-        if (!userId) return;
+        if (!userId) {
+            openSnackbar('Login to add favourite', 'error');
+            return;
+        }
 
         if (isFavourite) {
             const success = await removeFavouriteMovie(userId, movie.id);

@@ -70,7 +70,7 @@ export default function Filter() {
                     }}
                     onClick={() => setShowFilter(true)}
                 >
-                    Open Filter
+                    Filter
                 </Button>
             )}
             {showFilter && (

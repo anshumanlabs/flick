@@ -81,10 +81,9 @@ function MovieDetails() {
             <Box
                 className="movie-hero"
                 sx={{
-                    width: '100vw',
                     position: 'relative',
                     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
-          url(${BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + '/background.jpg'})`,
+                    url(${BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + '/background.jpg'})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
