@@ -5,7 +5,7 @@ const Footer = () => {
                 <p>© {new Date().getFullYear()} Movie App</p>
             </div>
         </footer>
-    )
+    );
 };
 
 export default Footer;

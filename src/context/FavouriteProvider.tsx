@@ -1,6 +1,6 @@
-import { useReducer, type ReactNode } from "react";
-import { FavouriteContext } from "./FavouriteContext";
-import { favouriteReducer } from "../hooks/useFavourite";
+import { useReducer, type ReactNode } from 'react';
+import { FavouriteContext } from './FavouriteContext';
+import { favouriteReducer } from '../hooks/useFavourite';
 
 export function FavouriteProvider({ children }: { children: ReactNode }) {
     const [favourites, dispatch] = useReducer(favouriteReducer, []);

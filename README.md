@@ -6,26 +6,26 @@ A modern movie discovery app built with **React, TypeScript, Vite, MUI & Tailwin
 
 ## Features
 
-* Search & discover movies
-* Movie details & cast
-* Ratings, genres & runtime
-* YouTube trailers
-* Favorites
-* Pagination
-* Responsive UI
-* Loading skeletons
-* Type-safe API integration
+- Search & discover movies
+- Movie details & cast
+- Ratings, genres & runtime
+- YouTube trailers
+- Favorites
+- Pagination
+- Responsive UI
+- Loading skeletons
+- Type-safe API integration
 
 ## Tech Stack
 
-* React 19
-* TypeScript
-* Vite
-* React Router
-* Material UI
-* Tailwind CSS
-* Redux
-* ESLint
+- React 19
+- TypeScript
+- Vite
+- React Router
+- Material UI
+- Tailwind CSS
+- Redux
+- ESLint
 
 ## Getting Started
 

@@ -12,11 +12,11 @@ export interface FavouriteMovie {
     name: string;
     rating: number;
     genres: string[];
-    medium_cover_image:string;
+    medium_cover_image: string;
 }
 
 export interface CreateFavourite {
-  user_id: string | null | undefined;
-  movie_id: number;
-  movie: FavouriteMovie;
+    user_id: string | null | undefined;
+    movie_id: number;
+    movie: FavouriteMovie;
 }
