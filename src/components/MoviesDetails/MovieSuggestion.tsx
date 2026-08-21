@@ -33,7 +33,7 @@ function MovieSuggestion() {
             </div>
             <div className="grid grid-cols-2">
                 {suggestedMovies.map((suggestedMovie) => (
-                    <div className="grid grid-row-2 mt-2 justify-center">
+                    <div className="grid grid-row-2 mt-2 justify-start">
                         <MovieCard key={suggestedMovie.imdb_code} movie={suggestedMovie} config={configs} />
                     </div>
                 ))}

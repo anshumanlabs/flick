@@ -47,11 +47,11 @@ function Home() {
     return (
         <div className="p-5">
             {homePageConfig.map(
-                (page) =>
+                (page, index) =>
                     page?.data?.length > 0 && (
                         <div key={page.title}>
                             <div className="mt-5 ml-1 mr-5 flex items-center justify-between">
-                                <SectionTitle title={page.title} />
+                                <SectionTitle title={page.title} index={index + 1} />
                             </div>
                             <div
                                 style={{ justifyItems: 'center' }}
