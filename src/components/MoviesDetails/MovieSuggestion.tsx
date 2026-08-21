@@ -28,12 +28,12 @@ function MovieSuggestion() {
 
     return (
         <>
-            <div className="mt-5 flex items-center">
+            <div className="mt-5 flex">
                 <SectionTitle title={'Similar Movies'} />
             </div>
             <div className="grid grid-cols-2">
                 {suggestedMovies.map((suggestedMovie) => (
-                    <div className="grid grid-row-2 mt-2 justify-start">
+                    <div className="grid grid-row-2 mt-2 justify-center">
                         <MovieCard key={suggestedMovie.imdb_code} movie={suggestedMovie} config={configs} />
                     </div>
                 ))}

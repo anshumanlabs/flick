@@ -15,7 +15,7 @@ function Movies() {
     return (
         <div>
             <div className="grid grid-cols-12 items-center">
-                <div className="col-span-10 justify-center ">
+                <div className="col-span-10 justify-center">
                     <PaginationUI
                         paginationData={paginationData}
                         onPageChange={(page) => {
@@ -26,7 +26,7 @@ function Movies() {
                         }}
                     />
                 </div>
-                <div className="col-span-2 justify-end">
+                <div className="col-span-2 justify-end mr-3">
                     <Filter />
                 </div>
             </div>

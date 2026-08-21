@@ -106,37 +106,44 @@ function MovieDetails() {
                             <AddToFavourite movie={movie} />
                         </h1>
                         <div className="movie-meta">
-                            <img
-                                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/IMDB_Logo_2016.svg"
-                                alt="IMDb"
-                                className="h-6"
-                            />
-                            <span>{movie?.rating} / 10</span>
-                            <span>
-                                <span className="text-xl">🕒 </span>
-                                {movie?.runtime} min
-                            </span>
+                            <div className="grid grid-cols-12 items-center items-center">
+                                <div className="flex items-center gap-2 col-span-6 md:col-span-3">
+                                    <img
+                                        src="https://commons.wikimedia.org/wiki/Special:Redirect/file/IMDB_Logo_2016.svg"
+                                        alt="IMDb"
+                                        className="h-6 w-auto"
+                                    />
+                                    <span>{movie?.rating} / 10</span>
+                                </div>
+
+                                <div className="flex items-center gap-2 col-span-6 md:col-span-3">
+                                    <span className="text-xl">🕒</span>
+                                    <span>{movie?.runtime} min</span>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            {movie.like_count !== undefined && movie.like_count !== null && (
-                                <>
-                                    <span className="text-xl">
-                                        <ThumbUpIcon
-                                            sx={{
-                                                color: '#49c916',
-                                                marginRight: 2,
-                                            }}
-                                        />
-                                    </span>
-                                    {movie.like_count}
-                                </>
-                            )}
-                            {movie.language && (
-                                <>
-                                    <span className="text-xl ml-5">🗣️ </span>
-                                    {movie.language.toUpperCase()}
-                                </>
-                            )}
+                        <div className="movie-meta">
+                            <div className="grid grid-cols-12 items-center items-center">
+                                {movie.like_count !== undefined && movie.like_count !== null && (
+                                    <div className="flex items-center gap-2 col-span-6 md:col-span-3">
+                                        <span className="text-xl">
+                                            <ThumbUpIcon
+                                                sx={{
+                                                    color: '#49c916',
+                                                    marginRight: 2,
+                                                }}
+                                            />
+                                        </span>
+                                        {movie.like_count}
+                                    </div>
+                                )}
+                                {movie.language && (
+                                    <div className="flex items-center gap-2 col-span-6 md:col-span-3">
+                                        <span className="text-xl">🗣️ </span>
+                                        {movie.language.toUpperCase()}
+                                    </div>
+                                )}
+                            </div>
                         </div>
 
                         <div className="flex flex-wrap gap-2 mb-4 mt-4">

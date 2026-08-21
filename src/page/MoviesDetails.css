@@ -23,9 +23,7 @@
     margin-bottom: 20px;
 }
 
-.movie-meta {
-    display: flex;
-    gap: 20px;
+.movie-meta {   
     margin-bottom: 20px;
     align-items: center;
 }
