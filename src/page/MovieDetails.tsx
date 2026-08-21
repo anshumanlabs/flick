@@ -35,22 +35,19 @@ function MovieDetails() {
             setMediumScreenshots(
                 movie.medium_screenshot_image1
                     ? [
-                          {
-                              medium:
-                                  movie.medium_screenshot_image1?.replace(olderUrl, newUrl) ?? '',
-                              large: movie.large_screenshot_image1?.replace(olderUrl, newUrl) ?? '',
-                          },
-                          {
-                              medium:
-                                  movie.medium_screenshot_image2?.replace(olderUrl, newUrl) ?? '',
-                              large: movie.large_screenshot_image2?.replace(olderUrl, newUrl) ?? '',
-                          },
-                          {
-                              medium:
-                                  movie.medium_screenshot_image3?.replace(olderUrl, newUrl) ?? '',
-                              large: movie.large_screenshot_image3?.replace(olderUrl, newUrl) ?? '',
-                          },
-                      ]
+                        {
+                            medium: movie.medium_screenshot_image1?.replace(olderUrl, newUrl) ?? '',
+                            large: movie.large_screenshot_image1?.replace(olderUrl, newUrl) ?? '',
+                        },
+                        {
+                            medium: movie.medium_screenshot_image2?.replace(olderUrl, newUrl) ?? '',
+                            large: movie.large_screenshot_image2?.replace(olderUrl, newUrl) ?? '',
+                        },
+                        {
+                            medium: movie.medium_screenshot_image3?.replace(olderUrl, newUrl) ?? '',
+                            large: movie.large_screenshot_image3?.replace(olderUrl, newUrl) ?? '',
+                        },
+                    ]
                     : [],
             );
         });
@@ -94,9 +91,7 @@ function MovieDetails() {
                         <img
                             className="border-[6px] border-[#49c916]"
                             src={
-                                BASE_IMG_URL +
-                                getMovieFolder(movie.medium_cover_image) +
-                                '/medium-cover.jpg'
+                                BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + '/medium-cover.jpg'
                             }
                             onError={(e) => {
                                 e.currentTarget.src =
@@ -193,7 +188,9 @@ function MovieDetails() {
                         </div>
                     </div>
                 )}
-                <SectionTitle title={'Trailor and Screenshots'} />
+                <div className="m-3">
+                    <SectionTitle title={'Trailor and Screenshots'} />
+                </div>
                 <div className="grid lg:grid-cols-4 mt-3 md:grid-cols-3 sm:grid-cols-2 gap-3">
                     {movie?.yt_trailer_code && (
                         <div className="aspect-video w-full p-2">

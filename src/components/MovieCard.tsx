@@ -31,11 +31,7 @@ function MovieCard({ movie, config }: MovieCardProps) {
         >
             <div className="group relative overflow-hidden">
                 <img
-                    src={
-                        BASE_IMG_URL +
-                        getMovieFolder(movie.medium_cover_image) +
-                        '/medium-cover.jpg'
-                    }
+                    src={BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + '/medium-cover.jpg'}
                     onError={(e) => {
                         e.currentTarget.src =
                             'https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD';

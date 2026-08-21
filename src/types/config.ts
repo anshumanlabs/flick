@@ -17,3 +17,13 @@ export const defaultConfig: Config = {
     border: '4px solid #f7f7f7',
     hover: true,
 };
+
+export const homeConfig: Config = {
+    width: '90%',
+    height: '90%',
+    titleSize: 20,
+    ratingSize: 10,
+    fontWeight: 'bold',
+    border: '4px solid #f7f7f7',
+    hover: true,
+};

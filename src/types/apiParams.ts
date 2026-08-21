@@ -1,14 +1,7 @@
 export type MovieQuality = '480p' | '720p' | '1080p' | '1080p.x265' | '2160p' | '3D';
 
 export type MovieSortBy =
-    | 'title'
-    | 'year'
-    | 'rating'
-    | 'peers'
-    | 'seeds'
-    | 'download_count'
-    | 'like_count'
-    | 'date_added';
+    'title' | 'year' | 'rating' | 'peers' | 'seeds' | 'download_count' | 'like_count' | 'date_added';
 
 export type MovieOrderBy = 'desc' | 'asc';
 

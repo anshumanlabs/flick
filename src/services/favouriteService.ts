@@ -6,10 +6,7 @@ import {
 import type { Favourite } from '../types/favourites';
 import type { Movie } from '../types/movies';
 
-export async function addAsFavMovie(
-    movie: Movie,
-    userId: string | null | undefined,
-): Promise<boolean> {
+export async function addAsFavMovie(movie: Movie, userId: string | null | undefined): Promise<boolean> {
     const favouriteMovie = {
         id: movie.id,
         name: movie.title_long,

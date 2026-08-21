@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { Show, SignInButton, UserButton } from '@clerk/react';
 import { useDebounce } from '../hooks/useDebounce';
 
@@ -14,9 +14,8 @@ const pages = [
 
 function Navbar() {
     const location = useLocation();
+    const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
-
-    const showSearchBar = location.pathname === '/movies';
 
     const [search, setSearch] = useState(searchParams.get('query_term') ?? '');
 
@@ -25,13 +24,14 @@ function Navbar() {
     const debouncedSearch = useDebounce(search, 1000);
 
     useEffect(() => {
-        if (!showSearchBar) {
-            return;
-        }
         if (!debouncedSearch.trim()) {
             setSearchParams({
                 page: '1',
             });
+            return;
+        }
+        if (location.pathname !== '/movies') {
+            navigate(`/movies?page=1&query_term=${encodeURIComponent(search)}`);
             return;
         }
         setSearchParams({
@@ -234,68 +234,68 @@ function Navbar() {
                             </Button>
                         ))}
                     </Box>
-                    {showSearchBar && (
+
+                    <Box
+                        sx={{
+                            width: {
+                                xs: 'auto',
+                                sm: 220,
+                                md: 260,
+                            },
+                            flex: {
+                                xs: 1,
+                                sm: '0 1 220px',
+                                md: '0 1 260px',
+                            },
+                            minWidth: 0,
+
+                            backgroundColor: '#151516',
+                            border: '1px solid #292929',
+                            borderRadius: 2,
+                            overflow: 'hidden',
+                        }}
+                    >
                         <Box
+                            component="input"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            placeholder="Search movies..."
                             sx={{
-                                width: {
-                                    xs: 'auto',
-                                    sm: 220,
-                                    md: 260,
-                                },
-                                flex: {
+                                width: '100%',
+                                boxSizing: 'border-box',
+
+                                px: {
                                     xs: 1,
-                                    sm: '0 1 220px',
-                                    md: '0 1 260px',
+                                    sm: 1.5,
                                 },
-                                minWidth: 0,
+                                py: {
+                                    xs: 1,
+                                    sm: 1.2,
+                                },
 
-                                backgroundColor: '#151516',
-                                border: '1px solid #292929',
-                                borderRadius: 2,
-                                overflow: 'hidden',
+                                background: 'transparent',
+                                border: 'none',
+                                outline: 'none',
+
+                                color: '#fff',
+                                fontSize: {
+                                    xs: 12,
+                                    sm: 13,
+                                    md: 14,
+                                },
+
+                                '&::placeholder': {
+                                    color: '#777',
+                                },
                             }}
-                        >
-                            <Box
-                                component="input"
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                                placeholder="Search movies..."
-                                sx={{
-                                    width: '100%',
-                                    boxSizing: 'border-box',
-
-                                    px: {
-                                        xs: 1,
-                                        sm: 1.5,
-                                    },
-                                    py: {
-                                        xs: 1,
-                                        sm: 1.2,
-                                    },
-
-                                    background: 'transparent',
-                                    border: 'none',
-                                    outline: 'none',
-
-                                    color: '#fff',
-                                    fontSize: {
-                                        xs: 12,
-                                        sm: 13,
-                                        md: 14,
-                                    },
-
-                                    '&::placeholder': {
-                                        color: '#777',
-                                    },
-                                }}
-                            />
-                        </Box>
-                    )}
+                        />
+                    </Box>
                     <Box
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
                             flexShrink: 0,
+                            ml: 'auto',
                         }}
                     >
                         <Show when="signed-out">
