@@ -9,9 +9,11 @@ import AddOrRemoveFavourite from './AddOrRemoveFavourite';
 interface MovieCardProps {
     movie: Movie;
     config: Config;
+    touchHoveredMovieId: number | null;
+    setTouchHoveredMovieId: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-function MovieCard({ movie, config }: MovieCardProps) {
+function MovieCard({ movie, config, touchHoveredMovieId, setTouchHoveredMovieId }: MovieCardProps) {
     const BASE_IMG_URL = 'https://img.yts.gg/assets/images/movies/';
     const navigate = useNavigate();
 
@@ -20,6 +22,18 @@ function MovieCard({ movie, config }: MovieCardProps) {
         return new URL(url).pathname?.split('/').at(-2) ?? '';
     }
 
+    const handlePointerEnter = (e: React.PointerEvent) => {
+        if (e.pointerType === 'touch') {
+            setTouchHoveredMovieId(movie.id);
+        }
+    };
+
+    const handlePointerDown = (e: React.PointerEvent) => {
+        if (e.pointerType === 'touch') {
+            setTouchHoveredMovieId(movie.id);
+        }
+    };
+
     return (
         <div
             style={{
@@ -27,6 +41,8 @@ function MovieCard({ movie, config }: MovieCardProps) {
                 height: config.height,
             }}
             className="movie-card"
+            onPointerEnter={handlePointerEnter}
+            onPointerDown={handlePointerDown}
             onClick={() => navigate(`/movies/${movie.id}`)}
         >
             <div className="group relative overflow-hidden">
@@ -47,7 +63,11 @@ function MovieCard({ movie, config }: MovieCardProps) {
                     </div>
                 )}
                 {config.hover && (
-                    <div className="absolute inset-0 border-[4px] border-transparent group-hover:border-[#49c916] bg-black/50 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                    <div
+                        className={`absolute inset-0 border-[4px] border-transparent bg-black/50 backdrop-blur-[2px] opacity-0 flex items-center justify-center transition-all duration-300 group-hover:opacity-100 group-hover:border-[#49c916] ${
+                            touchHoveredMovieId === movie.id ? 'opacity-100 border-[#49c916]' : ''
+                        }`}
+                    >
                         <HoverDetails movie={movie} config={config} />
                     </div>
                 )}
