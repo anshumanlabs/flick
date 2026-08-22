@@ -38,7 +38,7 @@ const Popup = ({ open, imageUrl, onClose }: PopupProps) => {
                     backgroundColor: '#000',
                 }}
             >
-                {!imageLoaded && <Skeletons config={{ width: 1200, height: 500 }} />}
+                {!imageLoaded && <Skeletons width={'80vw'} height={'80vh'} />}
                 <img
                     className="contrast-120 saturate-120"
                     src={imageUrl}

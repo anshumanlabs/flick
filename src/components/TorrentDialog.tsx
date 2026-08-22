@@ -2,6 +2,7 @@ import { Button, Dialog, DialogContent, IconButton } from '@mui/material';
 import type { Torrent } from '../types/movies';
 import CloseIcon from '@mui/icons-material/Close';
 import { useMemo, useState } from 'react';
+import { useAuth } from '@clerk/react';
 interface TorrentInfoProps {
     title: string;
     torrent: Torrent[];
@@ -24,7 +25,7 @@ function TorrentDialog({ title, torrent }: TorrentInfoProps) {
         return sorted;
     }, [torrent]);
 
-    const torrentEnabled = import.meta.env.VITE_TORRENT === 'true';
+    const { isSignedIn } = useAuth();
 
     return (
         <>
@@ -113,7 +114,7 @@ function TorrentDialog({ title, torrent }: TorrentInfoProps) {
                                     <div>{torrent.peers}</div>
                                 </div>
 
-                                {torrentEnabled && (
+                                {isSignedIn && (
                                     <Button
                                         sx={{
                                             mt: 2,

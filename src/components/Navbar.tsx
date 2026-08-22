@@ -16,27 +16,27 @@ function Navbar() {
     const location = useLocation();
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
-
     const [search, setSearch] = useState(searchParams.get('query_term') ?? '');
-
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-
     const debouncedSearch = useDebounce(search, 1000);
 
     useEffect(() => {
+        const currentQuery = searchParams.get('query_term') ?? '';
         if (!debouncedSearch.trim()) {
-            setSearchParams({
-                page: '1',
-            });
+            if (currentQuery) {
+                setSearchParams({
+                    page: '1',
+                });
+            }
             return;
         }
         if (location.pathname !== '/movies') {
-            navigate(`/movies?page=1&query_term=${encodeURIComponent(search)}`);
+            navigate(`/movies?page=1&query_term=${encodeURIComponent(debouncedSearch)}`);
             return;
         }
         setSearchParams({
             page: '1',
-            query_term: search,
+            query_term: debouncedSearch,
         });
     }, [debouncedSearch]);
 

@@ -4,11 +4,14 @@ interface SkeletonsProps {
     height: number | string;
 }
 
-function Skeletons({ config }: { config: SkeletonsProps }) {
+function Skeletons({ width, height }: SkeletonsProps) {
     return (
         <Skeleton
             variant="rectangular"
-            style={{ width: config.width, height: config.height }}
+            style={{
+                width: width,
+                height: height,
+            }}
             sx={{
                 bgcolor: 'rgba(255, 255, 255, 0.59)',
             }}

@@ -28,7 +28,7 @@ function MovieSuggestion() {
 
     return (
         <>
-            <div className="mt-5 flex">
+            <div className="mt-5 flex mb-3">
                 <SectionTitle title={'Similar Movies'} />
             </div>
             <div className="grid grid-cols-2">
