@@ -1,5 +1,5 @@
 import { SignInButton, useAuth } from '@clerk/react';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { getFavoutiteMovieForUserId } from '../services/favouriteService';
 import MovieCard from '../components/MovieCard';
 import { defaultConfig } from '../types/config';
@@ -16,6 +16,7 @@ function Favorites() {
         throw new Error('Favorites must be used inside FavouriteProvider');
     }
     const { favourites, dispatch } = favouriteContext;
+    const [touchHoveredMovieId, setTouchHoveredMovieId] = useState<number | null>(null);
 
     useEffect(() => {
         if (!isSignedIn || !userId) {
@@ -97,6 +98,8 @@ function Favorites() {
                                 } as Movie
                             }
                             config={defaultConfig}
+                            touchHoveredMovieId={touchHoveredMovieId}
+                            setTouchHoveredMovieId={setTouchHoveredMovieId}
                         />
                     ))}
                 </div>

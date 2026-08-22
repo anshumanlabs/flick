@@ -18,6 +18,8 @@ function MovieSuggestion() {
         hover: false,
     };
 
+    const [touchHoveredMovieId, setTouchHoveredMovieId] = useState<number | null>(null);
+
     const params = useParams();
 
     useEffect(() => {
@@ -34,7 +36,12 @@ function MovieSuggestion() {
             <div className="grid grid-cols-2">
                 {suggestedMovies.map((suggestedMovie) => (
                     <div className="grid grid-row-2 mt-2 justify-center" key={suggestedMovie.imdb_code}>
-                        <MovieCard movie={suggestedMovie} config={configs} />
+                        <MovieCard
+                            movie={suggestedMovie}
+                            config={configs}
+                            touchHoveredMovieId={touchHoveredMovieId}
+                            setTouchHoveredMovieId={setTouchHoveredMovieId}
+                        />
                     </div>
                 ))}
             </div>
