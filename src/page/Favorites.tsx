@@ -6,6 +6,7 @@ import { defaultConfig } from '../types/config';
 import type { Movie } from '../types/movies';
 import { FavouriteContext } from '../context/FavouriteContext';
 import { useNavigate } from 'react-router-dom';
+import { Box, CircularProgress } from '@mui/material';
 
 function Favorites() {
     const { userId, isSignedIn, isLoaded } = useAuth();
@@ -31,7 +32,18 @@ function Favorites() {
     }, [userId]);
 
     if (!isLoaded) {
-        return <div>Loading...</div>;
+        return (
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    minHeight: '300px',
+                }}
+            >
+                <CircularProgress aria-label="Loading…" />
+            </Box>
+        );
     }
     if (!isSignedIn) {
         return (

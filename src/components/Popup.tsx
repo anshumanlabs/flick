@@ -33,12 +33,12 @@ const Popup = ({ open, imageUrl, onClose }: PopupProps) => {
                 key={imageUrl}
                 sx={{
                     p: 0,
-                    display: 'flex',
                     justifyContent: 'center',
                     backgroundColor: '#000',
+                    height: '80vh',
                 }}
             >
-                {!imageLoaded && <Skeletons width={'80vw'} height={'80vh'} />}
+                {!imageLoaded && <Skeletons width={'100%'} height={'80%'} />}
                 <img
                     className="contrast-120 saturate-120"
                     src={imageUrl}
@@ -49,9 +49,9 @@ const Popup = ({ open, imageUrl, onClose }: PopupProps) => {
                     alt="Screenshot"
                     onLoad={() => setImageLoaded(true)}
                     style={{
+                        width: '100vw',
+                        height: '80vh',
                         display: imageLoaded ? 'block' : 'none',
-                        maxWidth: '100%',
-                        maxHeight: '100%',
                         borderRadius: '8px',
                         backdropFilter: 'blur(15px)',
                     }}
