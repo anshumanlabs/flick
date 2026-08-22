@@ -9,6 +9,27 @@
     padding: 60px 5%;
 }
 
+@media (max-width: 1024px) {
+    .hero-overlay {
+        gap: 30px;
+        padding: 50px 4%;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-overlay {
+        gap: 20px;
+        padding: 35px 5%;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-overlay {
+        gap: 15px;
+        padding: 25px 4%;
+    }
+}
+
 .movie-poster {
     border-radius: 8px;
 }

@@ -41,6 +41,8 @@ function AddOrRemoveFavourite({ movie }: { movie: Movie }) {
                     payload: favorites,
                 });
                 openSnackbar('Movie removed from favourites');
+            } else {
+                openSnackbar('Something went wrong. Try again', 'error');
             }
         } else {
             const success = await addAsFavMovie(movie, userId);
@@ -52,6 +54,8 @@ function AddOrRemoveFavourite({ movie }: { movie: Movie }) {
                     payload: favorites,
                 });
                 openSnackbar('Movie added to favourites');
+            } else {
+                openSnackbar('Something went wrong. Try again', 'error');
             }
         }
     }

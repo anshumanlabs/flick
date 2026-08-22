@@ -58,7 +58,7 @@ function Home() {
                             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:p-4 mg:p-4 sm:p-4"
                         >
                             {Array.from({ length: limit }).map((_, index) => (
-                                <Skeletons key={index} width={homeConfig.width} height={'300px'} />
+                                <Skeletons key={index} width={homeConfig.width} height={'250px'} />
                             ))}
                         </div>
                     ))}
@@ -69,7 +69,7 @@ function Home() {
                         (page, index) =>
                             page?.data?.length > 0 && (
                                 <div key={page.title}>
-                                    <div className="mt-5 ml-1 mr-5 flex items-center justify-between mb-2">
+                                    <div className="mt-1 ml-1 mr-5 flex items-center justify-between mb-2">
                                         <SectionTitle title={page.title} index={index + 1} />
                                     </div>
                                     <div
