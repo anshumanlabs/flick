@@ -58,7 +58,7 @@ function AddOrRemoveFavourite({ movie }: { movie: Movie }) {
 
     return (
         <Button
-            sx={{ color: isFavourite ? 'red' : 'white' }}
+            sx={{ color: isFavourite ? 'red' : 'white', justifyContent: 'right' }}
             onClick={(e) => {
                 e.stopPropagation();
                 addOrRemoveMovie();

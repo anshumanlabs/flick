@@ -15,7 +15,7 @@ function Movies() {
     return (
         <div>
             <div className="grid grid-cols-12 items-center">
-                <div className="col-span-10 justify-center">
+                <div className="col-span-10 lg:col-span-11 md:col-span-10 sm:col-span-9 justify-center">
                     <PaginationUI
                         paginationData={paginationData}
                         onPageChange={(page) => {
@@ -26,7 +26,7 @@ function Movies() {
                         }}
                     />
                 </div>
-                <div className="col-span-2 justify-end mr-3">
+                <div className="col-span-2 lg:col-span-1 md:col-span-2 sm:col-span-3 justify-end mr-3">
                     <Filter />
                 </div>
             </div>
@@ -40,10 +40,8 @@ function Movies() {
                         {Array.from({ length: limit }).map((_, index) => (
                             <Skeletons
                                 key={index}
-                                config={{
-                                    width: 210,
-                                    height: 250,
-                                }}
+                                width={defaultConfig.width}
+                                height={defaultConfig.height}
                             />
                         ))}
                     </div>

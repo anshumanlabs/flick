@@ -5,10 +5,12 @@ import MovieCard from '../components/MovieCard';
 import { homeConfig } from '../types/config';
 import { removeDuplicate } from '../utils/movies';
 import SectionTitle from '../components/SectionTitle';
+import Skeletons from '../components/Skeletons';
 
 function Home() {
     const limit = 6;
     const [homePageConfig, setHomePageConfig] = useState<{ title: string; data: Movie[] }[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         Promise.all([
@@ -41,28 +43,47 @@ function Home() {
                 },
             ];
             setHomePageConfig(data);
+            setLoading(false);
         });
-    }, [limit]);
+    }, []);
 
     return (
         <div className="p-5">
-            {homePageConfig.map(
-                (page, index) =>
-                    page?.data?.length > 0 && (
-                        <div key={page.title}>
-                            <div className="mt-5 ml-1 mr-5 flex items-center justify-between">
-                                <SectionTitle title={page.title} index={index + 1} />
-                            </div>
-                            <div
-                                style={{ justifyItems: 'center' }}
-                                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 p-4"
-                            >
-                                {page?.data?.map((movie) => (
-                                    <MovieCard key={movie.id} movie={movie} config={homeConfig} />
-                                ))}
-                            </div>
+            {loading ? (
+                <>
+                    {Array.from({ length: 3 }).map((_, index) => (
+                        <div
+                            key={index}
+                            style={{ justifyItems: 'center' }}
+                            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:p-4 mg:p-4 sm:p-4"
+                        >
+                            {Array.from({ length: limit }).map((_, index) => (
+                                <Skeletons key={index} width={homeConfig.width} height={'300px'} />
+                            ))}
                         </div>
-                    ),
+                    ))}
+                </>
+            ) : (
+                <>
+                    {homePageConfig.map(
+                        (page, index) =>
+                            page?.data?.length > 0 && (
+                                <div key={page.title}>
+                                    <div className="mt-5 ml-1 mr-5 flex items-center justify-between mb-2">
+                                        <SectionTitle title={page.title} index={index + 1} />
+                                    </div>
+                                    <div
+                                        style={{ justifyItems: 'center' }}
+                                        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:p-4 mg:p-3 sm:p-2"
+                                    >
+                                        {page?.data?.map((movie) => (
+                                            <MovieCard key={movie.id} movie={movie} config={homeConfig} />
+                                        ))}
+                                    </div>
+                                </div>
+                            ),
+                    )}
+                </>
             )}
         </div>
     );

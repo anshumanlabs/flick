@@ -35,19 +35,19 @@ function MovieDetails() {
             setMediumScreenshots(
                 movie.medium_screenshot_image1
                     ? [
-                        {
-                            medium: movie.medium_screenshot_image1?.replace(olderUrl, newUrl) ?? '',
-                            large: movie.large_screenshot_image1?.replace(olderUrl, newUrl) ?? '',
-                        },
-                        {
-                            medium: movie.medium_screenshot_image2?.replace(olderUrl, newUrl) ?? '',
-                            large: movie.large_screenshot_image2?.replace(olderUrl, newUrl) ?? '',
-                        },
-                        {
-                            medium: movie.medium_screenshot_image3?.replace(olderUrl, newUrl) ?? '',
-                            large: movie.large_screenshot_image3?.replace(olderUrl, newUrl) ?? '',
-                        },
-                    ]
+                          {
+                              medium: movie.medium_screenshot_image1?.replace(olderUrl, newUrl) ?? '',
+                              large: movie.large_screenshot_image1?.replace(olderUrl, newUrl) ?? '',
+                          },
+                          {
+                              medium: movie.medium_screenshot_image2?.replace(olderUrl, newUrl) ?? '',
+                              large: movie.large_screenshot_image2?.replace(olderUrl, newUrl) ?? '',
+                          },
+                          {
+                              medium: movie.medium_screenshot_image3?.replace(olderUrl, newUrl) ?? '',
+                              large: movie.large_screenshot_image3?.replace(olderUrl, newUrl) ?? '',
+                          },
+                      ]
                     : [],
             );
         });
