@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import ScrollToTop from './utils/ScrollToTop';
 
 const Home = lazy(() => import('./page/Home'));
 const Movies = lazy(() => import('./page/Movies'));
@@ -27,6 +28,7 @@ function App() {
                     </Box>
                 }
             >
+                <ScrollToTop />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/movies" element={<Movies />} />

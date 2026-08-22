@@ -33,9 +33,9 @@ const Popup = ({ open, imageUrl, onClose }: PopupProps) => {
                 key={imageUrl}
                 sx={{
                     p: 0,
+                    display: 'flex',
                     justifyContent: 'center',
                     backgroundColor: '#000',
-                    height: '80vh',
                 }}
             >
                 {!imageLoaded && <Skeletons width={'100%'} height={'80%'} />}
@@ -50,7 +50,6 @@ const Popup = ({ open, imageUrl, onClose }: PopupProps) => {
                     onLoad={() => setImageLoaded(true)}
                     style={{
                         width: '100vw',
-                        height: '80vh',
                         display: imageLoaded ? 'block' : 'none',
                         borderRadius: '8px',
                         backdropFilter: 'blur(15px)',

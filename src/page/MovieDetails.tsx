@@ -24,7 +24,6 @@ function MovieDetails() {
     const [popUpImage, setPopUpImage] = useState<string | undefined>(undefined);
     const olderUrl = 'https://yts.gg/';
     const newUrl = 'https://img.yts.gg/';
-
     const params = useParams();
 
     useEffect(() => {
@@ -89,10 +88,9 @@ function MovieDetails() {
                 <div className="hero-overlay grid lg:grid-cols-20 md:grid-cols-12">
                     <div className="lg:col-span-5 md:col-span-4 sm:col-span-1 flex justify-center">
                         <img
-                            className="border-[6px] border-[#49c916]"
-                            src={
-                                BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + '/medium-cover.jpg'
-                            }
+                            style={{ maxWidth: '255px', maxHeight: '375px' }}
+                            className="border-[4px] border-[#49c916]"
+                            src={BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + '/large-cover.jpg'}
                             onError={(e) => {
                                 e.currentTarget.src =
                                     'https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD';
@@ -100,10 +98,14 @@ function MovieDetails() {
                             alt={movie?.title}
                         />
                     </div>
-                    <div className="lg:col-span-10 md:col-span-4">
-                        <h1 className="mb-6 text-xl font-bold leading-tight sm:text-3xl md:text-3xl lg:text-[2.5rem] lg:leading-[42px]">
-                            {movie.title_long}
-                            <AddToFavourite movie={movie} />
+                    <div className="lg:col-span-10 md:col-span-4 p-2 lg:p-0 md:p-1">
+                        <h1 className="mb-6 text-2xl font-bold leading-tight sm:text-3xl md:text-3xl lg:text-[2.5rem] lg:leading-[42px]">
+                            <div className="grid grid-cols-12">
+                                <div className="col-span-10">{movie.title_long}</div>
+                                <div className="col-span-2">
+                                    <AddToFavourite movie={movie} />
+                                </div>
+                            </div>
                         </h1>
                         <div className="movie-meta">
                             <div className="grid grid-cols-12 items-center items-center">
@@ -188,7 +190,7 @@ function MovieDetails() {
                         </div>
                     </div>
                 )}
-                <div className="m-3">
+                <div className="m-3 mt-5">
                     <SectionTitle title={'Trailor and Screenshots'} />
                 </div>
                 <div className="grid lg:grid-cols-4 mt-3 md:grid-cols-3 sm:grid-cols-2 gap-3">

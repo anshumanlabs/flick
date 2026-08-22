@@ -11,7 +11,7 @@ function AppSnackbar({ open, message, onClose, type }: AppSnackbarProps) {
     return (
         <Snackbar
             open={open}
-            autoHideDuration={3000}
+            autoHideDuration={1000}
             onClose={onClose}
             anchorOrigin={{
                 vertical: 'top',
