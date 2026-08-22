@@ -6,7 +6,6 @@ import { getMovieById } from '../services/movieService';
 import Popup from '../components/Popup';
 import MovieSuggestion from '../components/MoviesDetails/MovieSuggestion';
 import CastDetails from '../components/MoviesDetails/CastDetails';
-import TorrentInfo from '../components/TorrentDialog';
 import { Box, CircularProgress } from '@mui/material';
 import SectionTitle from '../components/SectionTitle';
 import Description from '../components/Description';
@@ -170,9 +169,6 @@ function MovieDetails() {
                             ))}
                         </div>
                         <Description description={movie?.description_full} />
-                        {movie.torrents?.length > 0 && (
-                            <TorrentInfo title={movie.title_long} torrent={movie.torrents} />
-                        )}
                     </div>
                     <div className="lg:col-span-5 md:col-span-4">
                         <MovieSuggestion />

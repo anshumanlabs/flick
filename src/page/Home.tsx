@@ -69,7 +69,7 @@ function Home() {
                         (page, index) =>
                             page?.data?.length > 0 && (
                                 <div key={page.title}>
-                                    <div className="mt-1 ml-1 mr-5 flex items-center justify-between mb-2">
+                                    <div className="mt-1 ml-1 mr-5 flex items-center justify-between mt-5 mb-5">
                                         <SectionTitle title={page.title} index={index + 1} />
                                     </div>
                                     <div

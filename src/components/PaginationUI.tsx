@@ -20,14 +20,14 @@ function PaginationUI({ paginationData, onPageChange }: PaginationUIProps) {
                     borderColor: '#3f3f46',
                     backgroundColor: '#18181b',
                     minWidth: {
-                        xs: '32px',
-                        sm: '38px',
-                        md: '44px',
+                        xs: '42px',
+                        sm: '48px',
+                        md: '50px',
                     },
                     height: {
-                        xs: '32px',
-                        sm: '38px',
-                        md: '44px',
+                        xs: '42px',
+                        sm: '48px',
+                        md: '50px',
                     },
                     borderRadius: '10px',
                     margin: {
@@ -73,9 +73,9 @@ function PaginationUI({ paginationData, onPageChange }: PaginationUIProps) {
                         md: '0 4px',
                     },
                     fontSize: {
-                        xs: '0.75rem',
-                        sm: '0.875rem',
-                        md: '1rem',
+                        xs: '1rem',
+                        sm: '1.1rem',
+                        md: '1.2rem',
                     },
                     fontWeight: 600,
                 }}
@@ -90,14 +90,14 @@ function PaginationUI({ paginationData, onPageChange }: PaginationUIProps) {
                     borderColor: '#3f3f46',
                     backgroundColor: '#18181b',
                     minWidth: {
-                        xs: '32px',
-                        sm: '38px',
-                        md: '44px',
+                        xs: '42px',
+                        sm: '48px',
+                        md: '50px',
                     },
                     height: {
-                        xs: '32px',
-                        sm: '38px',
-                        md: '44px',
+                        xs: '42px',
+                        sm: '48px',
+                        md: '50px',
                     },
                     borderRadius: '10px',
                     margin: {
