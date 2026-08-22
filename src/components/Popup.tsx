@@ -9,6 +9,7 @@ interface PopupProps {
 }
 
 const Popup = ({ open, imageUrl, onClose }: PopupProps) => {
+
     const [imageLoaded, setImageLoaded] = useState(false);
 
     return (
@@ -40,7 +41,7 @@ const Popup = ({ open, imageUrl, onClose }: PopupProps) => {
             >
                 {!imageLoaded && <Skeletons width={'100%'} height={'80%'} />}
                 <img
-                    className="contrast-120 saturate-120"
+                    className="contrast-120 saturate-120 h-[35vh] sm:h-[50vh] md:h-[70vh] lg:h-[90vh]"
                     src={imageUrl}
                     onError={(e) => {
                         e.currentTarget.src =

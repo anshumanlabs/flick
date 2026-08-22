@@ -11,6 +11,7 @@ function Home() {
     const limit = 6;
     const [homePageConfig, setHomePageConfig] = useState<{ title: string; data: Movie[] }[]>([]);
     const [loading, setLoading] = useState(true);
+    const [touchHoveredMovieId, setTouchHoveredMovieId] = useState<number | null>(null);
 
     useEffect(() => {
         Promise.all([
@@ -48,7 +49,7 @@ function Home() {
     }, []);
 
     return (
-        <div className="p-5">
+        <div className="px-3">
             {loading ? (
                 <>
                     {Array.from({ length: 3 }).map((_, index) => (
@@ -69,7 +70,7 @@ function Home() {
                         (page, index) =>
                             page?.data?.length > 0 && (
                                 <div key={page.title}>
-                                    <div className="mt-1 ml-1 mr-5 flex items-center justify-between mt-5 mb-5">
+                                    <div className="ml-1 mr-5 flex items-center justify-between m-5">
                                         <SectionTitle title={page.title} index={index + 1} />
                                     </div>
                                     <div
@@ -77,7 +78,13 @@ function Home() {
                                         className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:p-4 mg:p-3 sm:p-2"
                                     >
                                         {page?.data?.map((movie) => (
-                                            <MovieCard key={movie.id} movie={movie} config={homeConfig} />
+                                            <MovieCard
+                                                key={movie.id}
+                                                movie={movie}
+                                                config={homeConfig}
+                                                touchHoveredMovieId={touchHoveredMovieId}
+                                                setTouchHoveredMovieId={setTouchHoveredMovieId}
+                                            />
                                         ))}
                                     </div>
                                 </div>

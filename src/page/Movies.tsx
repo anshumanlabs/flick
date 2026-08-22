@@ -6,12 +6,15 @@ import Filter from '../components/Filter';
 import RecordNotFound from '../components/RecordNotFound';
 import { defaultConfig } from '../types/config';
 import { useMovies } from '../hooks/useMovies';
+import { useState } from 'react';
 
 function Movies() {
     const [searchParams, setSearchParams] = useSearchParams();
     const queryString = searchParams.toString();
     const limit = Number(import.meta.env.VITE_LIMIT ?? 20);
     const { movies, loading, paginationData } = useMovies(queryString, limit);
+    const [touchHoveredMovieId, setTouchHoveredMovieId] = useState<number | null>(null);
+
     return (
         <div>
             <div className="grid grid-cols-12 items-center">
@@ -49,7 +52,7 @@ function Movies() {
             ) : (
                 <>
                     {movies?.length > 0 ? (
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-4 lg:p-4 p-2">
                             {movies.map((movie) => (
                                 <div
                                     key={movie.id}
@@ -60,7 +63,12 @@ function Movies() {
                                     }}
                                     className="mb-5"
                                 >
-                                    <MovieCard movie={movie} config={defaultConfig} />
+                                    <MovieCard
+                                        movie={movie}
+                                        config={defaultConfig}
+                                        touchHoveredMovieId={touchHoveredMovieId}
+                                        setTouchHoveredMovieId={setTouchHoveredMovieId}
+                                    />
                                 </div>
                             ))}
                         </div>
