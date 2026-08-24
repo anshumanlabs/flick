@@ -1,5 +1,11 @@
 import { QueryClient } from '@tanstack/react-query';
 
+declare global {
+    interface Window {
+        queryClient: QueryClient;
+    }
+}
+
 export const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
@@ -10,3 +16,7 @@ export const queryClient = new QueryClient({
         },
     },
 });
+
+if (import.meta.env.DEV) {
+    window.queryClient = queryClient;
+}

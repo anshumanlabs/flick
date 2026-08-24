@@ -22,7 +22,6 @@ export function useMovies(queryString: string, limit: number): UseMoviesResult {
     const query = useQuery({
         queryKey: ['movies', queryString],
         queryFn: ({ signal }) => getMovies(params, signal),
-        staleTime: 5 * 60 * 1000,
     });
 
     const movies = query.data ? removeDuplicate(query.data.data.movies) : [];
