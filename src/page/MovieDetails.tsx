@@ -27,7 +27,6 @@ function MovieDetails() {
 
     useEffect(() => {
         getMovieById(params.id).then((fetchedMovie) => {
-            setMovie(fetchedMovie.data.movie);
             const movie = fetchedMovie.data.movie;
             setMovie(movie);
             setMediumScreenshots(
@@ -107,7 +106,7 @@ function MovieDetails() {
                             </div>
                         </h1>
                         <div className="movie-meta">
-                            <div className="grid grid-cols-12 items-center items-center">
+                            <div className="grid grid-cols-12 items-center">
                                 <div className="flex items-center gap-2 col-span-6 md:col-span-3">
                                     <img
                                         src="https://commons.wikimedia.org/wiki/Special:Redirect/file/IMDB_Logo_2016.svg"
@@ -124,7 +123,7 @@ function MovieDetails() {
                             </div>
                         </div>
                         <div className="movie-meta">
-                            <div className="grid grid-cols-12 items-center items-center">
+                            <div className="grid grid-cols-12 items-center">
                                 {movie.like_count !== undefined && movie.like_count !== null && (
                                     <div className="flex items-center gap-2 col-span-6 md:col-span-3">
                                         <span className="text-xl">
@@ -209,6 +208,8 @@ function MovieDetails() {
                         >
                             <img
                                 src={screenshot.medium}
+                                loading="lazy"
+                                decoding="async"
                                 alt="Screenshot"
                                 className="w-full h-full object-cover rounded-xl"
                                 onError={(e) => {

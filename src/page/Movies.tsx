@@ -12,7 +12,7 @@ function Movies() {
     const [searchParams, setSearchParams] = useSearchParams();
     const queryString = searchParams.toString();
     const limit = Number(import.meta.env.VITE_LIMIT ?? 20);
-    const { movies, loading, paginationData } = useMovies(queryString, limit);
+    const { movies, loading, error, paginationData } = useMovies(queryString, limit);
     const [touchHoveredMovieId, setTouchHoveredMovieId] = useState<number | null>(null);
 
     return (
@@ -35,50 +35,39 @@ function Movies() {
             </div>
 
             {loading ? (
-                <>
-                    <div
-                        style={{ justifyItems: 'center' }}
-                        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4"
-                    >
-                        {Array.from({ length: limit }).map((_, index) => (
-                            <Skeletons
-                                key={index}
-                                width={defaultConfig.width}
-                                height={defaultConfig.height}
+                <div
+                    style={{ justifyItems: 'center' }}
+                    className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4"
+                >
+                    {Array.from({ length: limit }).map((_, index) => (
+                        <Skeletons key={index} width={defaultConfig.width} height={defaultConfig.height} />
+                    ))}
+                </div>
+            ) : movies?.length > 0 ? (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-4 lg:p-4 p-2">
+                    {movies.map((movie) => (
+                        <div
+                            key={movie.id}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                justifyItems: 'center',
+                            }}
+                            className="mb-5"
+                        >
+                            <MovieCard
+                                movie={movie}
+                                config={defaultConfig}
+                                touchHoveredMovieId={touchHoveredMovieId}
+                                setTouchHoveredMovieId={setTouchHoveredMovieId}
                             />
-                        ))}
-                    </div>
-                </>
-            ) : (
-                <>
-                    {movies?.length > 0 ? (
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-4 lg:p-4 p-2">
-                            {movies.map((movie) => (
-                                <div
-                                    key={movie.id}
-                                    style={{
-                                        width: '100%',
-                                        height: '100%',
-                                        justifyItems: 'center',
-                                    }}
-                                    className="mb-5"
-                                >
-                                    <MovieCard
-                                        movie={movie}
-                                        config={defaultConfig}
-                                        touchHoveredMovieId={touchHoveredMovieId}
-                                        setTouchHoveredMovieId={setTouchHoveredMovieId}
-                                    />
-                                </div>
-                            ))}
                         </div>
-                    ) : (
-                        <>
-                            <RecordNotFound />
-                        </>
-                    )}
-                </>
+                    ))}
+                </div>
+            ) : (
+                <RecordNotFound />
             )}
+            {error && <RecordNotFound />}
         </div>
     );
 }

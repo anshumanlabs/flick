@@ -16,13 +16,13 @@ function HoverDetails({ movie, config }: HoverDetailsProps) {
                     fontWeight: config.fontWeight,
                 }}
             >
-                {movie.title_long}
+                {movie?.title_long}
             </div>
 
-            <div className="text-xs sm:text-sm md:text-base lg:text-xl">⭐ {movie.rating} / 10</div>
+            <div className="text-xs sm:text-sm md:text-base lg:text-xl">⭐ {movie?.rating} / 10</div>
 
             <div className="flex justify-center gap-1 sm:gap-2 flex-wrap mt-2 sm:mt-3">
-                {movie.genres.slice(0, 2).map((genre) => (
+                {movie?.genres?.slice(0, 2).map((genre) => (
                     <span
                         key={genre}
                         className="rounded-full bg-[#1b5e20]/80 text-[#7cff6b] px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-xs md:text-sm"
