@@ -18,12 +18,12 @@ export async function getMovies(params: MovieSearchParams, signal?: AbortSignal)
     return apiClient<ListMovieResponse>('/list_movies.json?' + searchParams.toString(), signal);
 }
 
-export async function getMovieById(id: string | undefined) {
+export async function getMovieById(id: string | undefined, signal?: AbortSignal) {
     const uri = `/movie_details.json?movie_id=${id}&with_images=true&with_cast=true`;
-    return apiClient<MovieResponse>(uri);
+    return apiClient<MovieResponse>(uri, signal);
 }
 
-export async function getSuggestedMovies(id: string | undefined) {
+export async function getSuggestedMovies(id: string | undefined, signal?: AbortSignal) {
     const uri = `/movie_suggestions.json?movie_id=${id}`;
-    return apiClient<ListMovieResponse>(uri);
+    return apiClient<ListMovieResponse>(uri, signal);
 }

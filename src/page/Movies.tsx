@@ -17,14 +17,14 @@ function Movies() {
 
     return (
         <div>
-            <div className="grid grid-cols-12 items-center">
+            <div className="grid grid-cols-12 items-center sticky top-[64px] z-40 bg-black">
                 <div className="col-span-9 lg:col-span-11 md:col-span-10 sm:col-span-9 justify-center">
                     <PaginationUI
                         paginationData={paginationData}
                         onPageChange={(page) => {
-                            setSearchParams({
-                                ...Object.fromEntries(searchParams),
-                                page: String(page),
+                            setSearchParams((prev) => {
+                                prev.set('page', String(page));
+                                return prev;
                             });
                         }}
                     />

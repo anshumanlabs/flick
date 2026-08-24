@@ -55,7 +55,7 @@ function MovieCard({ movie, config, touchHoveredMovieId, setTouchHoveredMovieId 
                     alt={movie.title}
                     style={{ border: config.border }}
                     className="contrast-110 saturate-110 block w-full transition-transform duration-1000
-            group-hover:scale-110"
+                    group-hover:scale-110"
                 />
                 {config.hover && (
                     <div className="absolute top-1 right-1 z-10">

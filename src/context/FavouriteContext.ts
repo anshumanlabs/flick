@@ -5,4 +5,5 @@ import type { Favourite } from '../types/favourites';
 export const FavouriteContext = createContext<{
     favourites: Favourite[];
     dispatch: Dispatch<FavouriteAction>;
+    favouriteIds: Set<number>;
 } | null>(null);

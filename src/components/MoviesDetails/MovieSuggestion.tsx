@@ -1,13 +1,12 @@
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import type { Movie } from '../../types/movies';
+import { useState } from 'react';
 import { getSuggestedMovies } from '../../services/movieService';
 import MovieCard from '../MovieCard';
 import { removeDuplicate } from '../../utils/movies';
 import SectionTitle from '../SectionTitle';
+import { useQuery } from '@tanstack/react-query';
 
 function MovieSuggestion() {
-    const [suggestedMovies, setSuggestedMovie] = useState<Movie[]>([]);
     const configs = {
         width: 92,
         height: 140,
@@ -17,16 +16,15 @@ function MovieSuggestion() {
         border: '4px solid #f7f7f7',
         hover: false,
     };
-
     const [touchHoveredMovieId, setTouchHoveredMovieId] = useState<number | null>(null);
-
     const params = useParams();
-
-    useEffect(() => {
-        getSuggestedMovies(params.id).then((fetchedMovies) => {
-            setSuggestedMovie(removeDuplicate(fetchedMovies.data.movies));
-        });
-    }, [params.id]);
+    const { data: movies } = useQuery({
+        queryKey: ['suggested-movies', String(params.id)],
+        queryFn: async ({ signal }) => {
+            const response = await getSuggestedMovies(params.id, signal);
+            return removeDuplicate(response.data.movies);
+        },
+    });
 
     return (
         <>
@@ -34,7 +32,7 @@ function MovieSuggestion() {
                 <SectionTitle title={'Similar Movies'} />
             </div>
             <div className="grid grid-cols-2">
-                {suggestedMovies.map((suggestedMovie) => (
+                {movies?.map((suggestedMovie) => (
                     <div className="grid grid-row-2 mt-2 justify-center" key={suggestedMovie.imdb_code}>
                         <MovieCard
                             movie={suggestedMovie}

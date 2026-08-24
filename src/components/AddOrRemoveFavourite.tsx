@@ -19,9 +19,8 @@ function AddOrRemoveFavourite({ movie }: { movie: Movie }) {
         throw new Error('AddOrRemoveFavourite must be used inside FavouriteProvider');
     }
 
-    const { favourites, dispatch } = favouriteContext;
-
-    const isFavourite = favourites.some((favourite) => favourite.movie_id == movie.id);
+    const { dispatch, favouriteIds } = favouriteContext;
+    const isFavourite = favouriteIds.has(movie.id);
 
     const { openSnackbar } = useSnackbar();
 
@@ -62,13 +61,35 @@ function AddOrRemoveFavourite({ movie }: { movie: Movie }) {
 
     return (
         <Button
-            sx={{ color: isFavourite ? 'red' : 'white', justifyContent: 'right' }}
             onClick={(e) => {
                 e.stopPropagation();
                 addOrRemoveMovie();
             }}
         >
-            <FavoriteIcon />
+            <FavoriteIcon
+                sx={{
+                    color: isFavourite ? 'red' : 'white',
+
+                    ...(isFavourite && {
+                        animation: 'favoritePop 0.4s ease',
+                    }),
+
+                    '@keyframes favoritePop': {
+                        '0%': {
+                            transform: 'scale(1)',
+                        },
+                        '40%': {
+                            transform: 'scale(1.4)',
+                        },
+                        '70%': {
+                            transform: 'scale(0.9)',
+                        },
+                        '100%': {
+                            transform: 'scale(1)',
+                        },
+                    },
+                }}
+            />
         </Button>
     );
 }

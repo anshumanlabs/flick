@@ -12,7 +12,9 @@ function CastDetails({ cast }: { cast: Cast }) {
             <img
                 src={getActorFolder(cast.url_small_image)}
                 className="w-24 h-24 rounded-full object-cover mb-2 contrast-120
-            saturate-120"
+                saturate-120"
+                loading="lazy"
+                decoding="async"
                 onError={(e) => {
                     e.currentTarget.src =
                         'https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD';

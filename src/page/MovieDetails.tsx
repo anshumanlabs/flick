@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import type { Movie, Screenshot } from '../types/movies';
+import { useState } from 'react';
 import './MoviesDetails.css';
 import { useParams } from 'react-router-dom';
 import { getMovieById } from '../services/movieService';
@@ -11,44 +10,43 @@ import SectionTitle from '../components/SectionTitle';
 import Description from '../components/Description';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import AddToFavourite from '../components/AddOrRemoveFavourite';
+import { useQuery } from '@tanstack/react-query';
 
 function MovieDetails() {
     const BASE_IMG_URL = 'https://img.yts.gg/assets/images/movies/';
     function getMovieFolder(url: string): string {
         return new URL(url).pathname.split('/').at(-2) ?? '';
     }
-    const [movie, setMovie] = useState<Movie>();
-    const [mediumScreenshots, setMediumScreenshots] = useState<Screenshot[]>([]);
     const [showPopUp, setShowPopUp] = useState(false);
     const [popUpImage, setPopUpImage] = useState<string | undefined>(undefined);
     const olderUrl = 'https://yts.gg/';
     const newUrl = 'https://img.yts.gg/';
     const params = useParams();
 
-    useEffect(() => {
-        getMovieById(params.id).then((fetchedMovie) => {
-            const movie = fetchedMovie.data.movie;
-            setMovie(movie);
-            setMediumScreenshots(
-                movie.medium_screenshot_image1
-                    ? [
-                          {
-                              medium: movie.medium_screenshot_image1?.replace(olderUrl, newUrl) ?? '',
-                              large: movie.large_screenshot_image1?.replace(olderUrl, newUrl) ?? '',
-                          },
-                          {
-                              medium: movie.medium_screenshot_image2?.replace(olderUrl, newUrl) ?? '',
-                              large: movie.large_screenshot_image2?.replace(olderUrl, newUrl) ?? '',
-                          },
-                          {
-                              medium: movie.medium_screenshot_image3?.replace(olderUrl, newUrl) ?? '',
-                              large: movie.large_screenshot_image3?.replace(olderUrl, newUrl) ?? '',
-                          },
-                      ]
-                    : [],
-            );
-        });
-    }, [params.id]);
+    const { data: movie } = useQuery({
+        queryKey: ['movie', String(params.id)],
+        queryFn: async ({ signal }) => {
+            const response = await getMovieById(params.id, signal);
+            return response.data.movie;
+        },
+    });
+
+    const mediumScreenshots = movie?.medium_screenshot_image1
+        ? [
+              {
+                  medium: movie.medium_screenshot_image1?.replace(olderUrl, newUrl) ?? '',
+                  large: movie.large_screenshot_image1?.replace(olderUrl, newUrl) ?? '',
+              },
+              {
+                  medium: movie.medium_screenshot_image2?.replace(olderUrl, newUrl) ?? '',
+                  large: movie.large_screenshot_image2?.replace(olderUrl, newUrl) ?? '',
+              },
+              {
+                  medium: movie.medium_screenshot_image3?.replace(olderUrl, newUrl) ?? '',
+                  large: movie.large_screenshot_image3?.replace(olderUrl, newUrl) ?? '',
+              },
+          ]
+        : [];
 
     const openPopUp = (imageUrl: string | undefined) => () => {
         setPopUpImage(imageUrl);
@@ -94,6 +92,7 @@ function MovieDetails() {
                                     'https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD';
                             }}
                             alt={movie?.title}
+                            loading="eager"
                         />
                     </div>
                     <div className="lg:col-span-10 md:col-span-4 p-2 lg:p-0 md:p-1">

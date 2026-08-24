@@ -15,11 +15,11 @@ import { genreOptions, resolutionOption, sortByOption } from '../types/filterOpt
 export default function Filter() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [showFilter, setShowFilter] = useState<boolean | null>(false);
-    const [resolution, setResolution] = useState<string | null>(searchParams.get('quality'));
-    const [genre, setGenre] = useState<string | null>(searchParams.get('genre'));
-    const [orderBy, setOrderBy] = useState<string | null>(searchParams.get('order_by'));
+    const [resolution, setResolution] = useState<string | null>(searchParams.get('quality') ?? '');
+    const [genre, setGenre] = useState<string | null>(searchParams.get('genre') ?? '');
+    const [orderBy, setOrderBy] = useState<string | null>(searchParams.get('order_by') ?? '');
     const [minimumRating, setMinimumRating] = useState<number | undefined>(
-        Number(searchParams.get('minimum_rating')),
+        Number(searchParams.get('minimum_rating') ?? ''),
     );
     const [sortBy, setSortBy] = useState<string | null>(searchParams.get('sort_by'));
 
