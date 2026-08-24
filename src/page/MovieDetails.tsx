@@ -94,6 +94,7 @@ function MovieDetails() {
                                     'https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD';
                             }}
                             alt={movie?.title}
+                            loading="eager"
                         />
                     </div>
                     <div className="lg:col-span-10 md:col-span-4 p-2 lg:p-0 md:p-1">

@@ -55,7 +55,7 @@ function Home() {
                       <div
                           key={index}
                           style={{ justifyItems: 'center' }}
-                          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:p-4 mg:p-4 sm:p-4"
+                          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:p-4 mg:p-4 sm:p-4 mt-5"
                       >
                           {Array.from({ length: limit }).map((_, index) => (
                               <Skeletons key={index} width={homeConfig.width} height={'250px'} />

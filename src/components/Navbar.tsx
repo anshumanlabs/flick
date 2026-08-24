@@ -137,6 +137,7 @@ function Navbar() {
                                     sx={{
                                         p: 0,
                                     }}
+                                    key={page.label}
                                 >
                                     <Box
                                         component={NavLink}

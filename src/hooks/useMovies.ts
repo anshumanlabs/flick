@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
 import { getMovies } from '../services/movieService';
 import type { Movie } from '../types/movies';
 import type { MovieSearchParams } from '../types/apiParams';
 import { removeDuplicate } from '../utils/movies';
+import { useQuery } from '@tanstack/react-query';
 
 interface PaginationData {
     currentPage: number;
@@ -12,55 +12,30 @@ interface PaginationData {
 interface UseMoviesResult {
     movies: Movie[];
     loading: boolean;
-    error: boolean;
+    error: Error | null;
     paginationData: PaginationData;
 }
 
 export function useMovies(queryString: string, limit: number): UseMoviesResult {
-    const [movies, setMovies] = useState<Movie[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+    const params = Object.fromEntries(new URLSearchParams(queryString).entries()) as MovieSearchParams;
 
-    const [paginationData, setPaginationData] = useState<PaginationData>({
-        currentPage: 1,
-        totalPages: 1,
+    const query = useQuery({
+        queryKey: ['movies', queryString],
+        queryFn: ({ signal }) => getMovies(params, signal),
+        staleTime: 5 * 60 * 1000,
     });
 
-    useEffect(() => {
-        const controller = new AbortController();
-        const params = Object.fromEntries(new URLSearchParams(queryString).entries()) as MovieSearchParams;
-        const fetchMovies = async () => {
-            try {
-                setLoading(true);
-                const response = await getMovies(params, controller.signal);
-                setMovies(removeDuplicate(response.data.movies));
-                const currentPage = Number(params.page ?? 1);
-                setPaginationData({
-                    currentPage,
-                    totalPages: Math.ceil(response.data.movie_count / limit),
-                });
-            } catch (error) {
-                if (error instanceof DOMException && error.name === 'AbortError') {
-                    return;
-                }
-                setLoading(false);
-                setError(true);
-            } finally {
-                if (!controller.signal.aborted) {
-                    setLoading(false);
-                }
-            }
-        };
-        fetchMovies();
-        return () => {
-            controller.abort();
-        };
-    }, [queryString, limit]);
+    const movies = query.data ? removeDuplicate(query.data.data.movies) : [];
+    const currentPage = Number(params.page ?? 1);
+    const totalPages = query.data ? Math.ceil(query.data.data.movie_count / limit) : 1;
 
     return {
         movies,
-        loading,
-        error,
-        paginationData,
+        loading: query.isLoading,
+        error: query.error,
+        paginationData: {
+            currentPage,
+            totalPages,
+        },
     };
 }
