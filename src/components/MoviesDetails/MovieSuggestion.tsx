@@ -19,7 +19,7 @@ function MovieSuggestion() {
     const [touchHoveredMovieId, setTouchHoveredMovieId] = useState<number | null>(null);
     const params = useParams();
     const { data: movies } = useQuery({
-        queryKey: ['suggested-movies', params.id],
+        queryKey: ['suggested-movies', String(params.id)],
         queryFn: async ({ signal }) => {
             const response = await getSuggestedMovies(params.id, signal);
             return removeDuplicate(response.data.movies);

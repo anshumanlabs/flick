@@ -24,7 +24,7 @@ function MovieDetails() {
     const params = useParams();
 
     const { data: movie } = useQuery({
-        queryKey: ['movie', params.id],
+        queryKey: ['movie', String(params.id)],
         queryFn: async ({ signal }) => {
             const response = await getMovieById(params.id, signal);
             return response.data.movie;
