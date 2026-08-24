@@ -50,48 +50,42 @@ function Home() {
 
     return (
         <div className="px-3">
-            {loading ? (
-                <>
-                    {Array.from({ length: 3 }).map((_, index) => (
-                        <div
-                            key={index}
-                            style={{ justifyItems: 'center' }}
-                            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:p-4 mg:p-4 sm:p-4"
-                        >
-                            {Array.from({ length: limit }).map((_, index) => (
-                                <Skeletons key={index} width={homeConfig.width} height={'250px'} />
-                            ))}
-                        </div>
-                    ))}
-                </>
-            ) : (
-                <>
-                    {homePageConfig.map(
-                        (page, index) =>
-                            page?.data?.length > 0 && (
-                                <div key={page.title}>
-                                    <div className="ml-1 mr-5 flex items-center justify-between m-5">
-                                        <SectionTitle title={page.title} index={index + 1} />
-                                    </div>
-                                    <div
-                                        style={{ justifyItems: 'center' }}
-                                        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:p-4 mg:p-3 sm:p-2"
-                                    >
-                                        {page?.data?.map((movie) => (
-                                            <MovieCard
-                                                key={movie.id}
-                                                movie={movie}
-                                                config={homeConfig}
-                                                touchHoveredMovieId={touchHoveredMovieId}
-                                                setTouchHoveredMovieId={setTouchHoveredMovieId}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
-                            ),
-                    )}
-                </>
-            )}
+            {loading
+                ? Array.from({ length: 3 }).map((_, index) => (
+                      <div
+                          key={index}
+                          style={{ justifyItems: 'center' }}
+                          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:p-4 mg:p-4 sm:p-4"
+                      >
+                          {Array.from({ length: limit }).map((_, index) => (
+                              <Skeletons key={index} width={homeConfig.width} height={'250px'} />
+                          ))}
+                      </div>
+                  ))
+                : homePageConfig.map(
+                      (page, index) =>
+                          page?.data?.length > 0 && (
+                              <div key={page.title}>
+                                  <div className="ml-1 mr-5 flex items-center justify-between m-5">
+                                      <SectionTitle title={page.title} index={index + 1} />
+                                  </div>
+                                  <div
+                                      style={{ justifyItems: 'center' }}
+                                      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:p-4 mg:p-3 sm:p-2"
+                                  >
+                                      {page?.data?.map((movie) => (
+                                          <MovieCard
+                                              key={movie.id}
+                                              movie={movie}
+                                              config={homeConfig}
+                                              touchHoveredMovieId={touchHoveredMovieId}
+                                              setTouchHoveredMovieId={setTouchHoveredMovieId}
+                                          />
+                                      ))}
+                                  </div>
+                              </div>
+                          ),
+                  )}
         </div>
     );
 }

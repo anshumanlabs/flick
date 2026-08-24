@@ -12,14 +12,14 @@ interface PaginationData {
 interface UseMoviesResult {
     movies: Movie[];
     loading: boolean;
-    error: Error | null;
+    error: boolean;
     paginationData: PaginationData;
 }
 
 export function useMovies(queryString: string, limit: number): UseMoviesResult {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<Error | null>(null);
+    const [error, setError] = useState(false);
 
     const [paginationData, setPaginationData] = useState<PaginationData>({
         currentPage: 1,
@@ -32,7 +32,6 @@ export function useMovies(queryString: string, limit: number): UseMoviesResult {
         const fetchMovies = async () => {
             try {
                 setLoading(true);
-                setError(null);
                 const response = await getMovies(params, controller.signal);
                 setMovies(removeDuplicate(response.data.movies));
                 const currentPage = Number(params.page ?? 1);
@@ -44,7 +43,8 @@ export function useMovies(queryString: string, limit: number): UseMoviesResult {
                 if (error instanceof DOMException && error.name === 'AbortError') {
                     return;
                 }
-                setError(error instanceof Error ? error : new Error('Failed to fetch movies'));
+                setLoading(false);
+                setError(true);
             } finally {
                 if (!controller.signal.aborted) {
                     setLoading(false);
