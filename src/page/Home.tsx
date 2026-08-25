@@ -23,7 +23,8 @@ function Home() {
             {
                 queryKey: ['moveies', 'top-rated-action', limit],
                 queryFn: async ({ signal }) => {
-                    const response = await getMovies({limit,genre: 'Action',sort_by: 'rating',order_by: 'desc'},
+                    const response = await getMovies(
+                        { limit, genre: 'Action', sort_by: 'rating', order_by: 'desc' },
                         signal,
                     );
                     return removeDuplicate(response.data.movies);

@@ -15,6 +15,7 @@ import { useQuery } from '@tanstack/react-query';
 function MovieDetails() {
     const BASE_IMG_URL = 'https://img.yts.gg/assets/images/movies/';
     function getMovieFolder(url: string): string {
+        if (!url) return '';
         return new URL(url).pathname.split('/').at(-2) ?? '';
     }
     const [showPopUp, setShowPopUp] = useState(false);
