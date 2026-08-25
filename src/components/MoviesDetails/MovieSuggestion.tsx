@@ -29,7 +29,7 @@ function MovieSuggestion() {
     return (
         <>
             <div className="mt-5 flex mb-3">
-                <SectionTitle title={'Similar Movies'} />
+                <SectionTitle title={'You may also like'} />
             </div>
             <div className="grid grid-cols-2">
                 {movies?.map((suggestedMovie) => (
