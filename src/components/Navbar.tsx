@@ -18,6 +18,7 @@ function Navbar() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [search, setSearch] = useState(searchParams.get('query_term') ?? '');
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+    const [scrolled, setScrolled] = useState(false);
     const debouncedSearch = useDebounce(search, 1000);
 
     useEffect(() => {
@@ -40,6 +41,14 @@ function Navbar() {
         });
     }, [debouncedSearch]);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 10);
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -53,9 +62,11 @@ function Navbar() {
             position="sticky"
             elevation={0}
             sx={{
-                backgroundColor: 'rgba(7, 7, 8, 0.92)',
-                backdropFilter: 'blur(12px)',
-                borderBottom: '1px solid #222',
+                backgroundColor: scrolled ? 'rgba(7, 7, 8, 0.95)' : 'rgba(7, 7, 8, 0.85)',
+                backdropFilter: scrolled ? 'blur(16px)' : 'blur(12px)',
+                borderBottom: scrolled ? '1px solid #1f1f23' : '1px solid #222',
+                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                boxShadow: scrolled ? '0 4px 30px rgba(0, 0, 0, 0.5)' : 'none',
             }}
         >
             <Container
@@ -82,6 +93,7 @@ function Navbar() {
                             sm: 2,
                             md: 3,
                         },
+                        transition: 'min-height 0.3s ease',
                     }}
                 >
                     <Box
@@ -96,10 +108,11 @@ function Navbar() {
                             onClick={handleOpenNavMenu}
                             sx={{
                                 color: '#fff',
-
+                                transition: 'all 0.2s ease',
                                 '&:hover': {
                                     color: '#fff',
-                                    backgroundColor: 'rgba(255,255,255,0.06)',
+                                    backgroundColor: 'rgba(73, 201, 22, 0.12)',
+                                    transform: 'scale(1.05)',
                                 },
                             }}
                         >
@@ -121,12 +134,14 @@ function Navbar() {
                             slotProps={{
                                 paper: {
                                     sx: {
-                                        mt: 1,
-                                        minWidth: 180,
+                                        mt: 1.5,
+                                        minWidth: 200,
                                         backgroundColor: '#111112',
                                         backgroundImage: 'none',
                                         border: '1px solid #292929',
-                                        borderRadius: 2,
+                                        borderRadius: 3,
+                                        boxShadow: '0 20px 60px rgba(0,0,0,0.7)',
+                                        animation: 'fadeInUp 0.2s ease forwards',
                                     },
                                 },
                             }}
@@ -144,21 +159,23 @@ function Navbar() {
                                         to={page.path}
                                         sx={{
                                             width: '100%',
-                                            px: 2,
-                                            py: 1.2,
-
+                                            px: 2.5,
+                                            py: 1.5,
                                             color: '#fff',
                                             fontSize: 15,
                                             fontWeight: 500,
                                             textDecoration: 'none',
+                                            transition: 'all 0.2s ease',
+                                            position: 'relative',
 
                                             '&:hover': {
                                                 color: '#fff',
-                                                backgroundColor: 'rgba(255, 255, 255, 0.06)',
+                                                backgroundColor: 'rgba(73, 201, 22, 0.08)',
                                             },
 
                                             '&.active': {
                                                 color: '#49c916',
+                                                backgroundColor: 'rgba(73, 201, 22, 0.06)',
                                             },
                                         }}
                                     >
@@ -175,9 +192,9 @@ function Navbar() {
                             color: '#fff',
                             textDecoration: 'none',
                             fontSize: {
-                                xs: 20,
-                                sm: 22,
-                                md: 26,
+                                xs: 22,
+                                sm: 24,
+                                md: 28,
                             },
                             fontWeight: 800,
                             letterSpacing: {
@@ -185,6 +202,10 @@ function Navbar() {
                                 md: 2,
                             },
                             flexShrink: 0,
+                            transition: 'opacity 0.2s ease',
+                            '&:hover': {
+                                opacity: 0.85,
+                            },
                         }}
                     >
                         FLICK
@@ -192,6 +213,7 @@ function Navbar() {
                             component="span"
                             sx={{
                                 color: '#49c916',
+                                textShadow: '0 0 20px rgba(73, 201, 22, 0.5)',
                             }}
                         >
                             .
@@ -204,7 +226,7 @@ function Navbar() {
                                 md: 'flex',
                             },
                             alignItems: 'center',
-                            gap: 2,
+                            gap: 1,
                             flex: 1,
                         }}
                     >
@@ -214,12 +236,16 @@ function Navbar() {
                                 component={NavLink}
                                 to={page.path}
                                 sx={{
-                                    color: '#fff',
+                                    color: '#a1a1aa',
                                     fontSize: 15,
                                     fontWeight: 500,
                                     textTransform: 'none',
                                     minWidth: 'auto',
-                                    px: 1,
+                                    px: 1.5,
+                                    py: 1,
+                                    position: 'relative',
+                                    borderRadius: 2,
+                                    transition: 'all 0.25s ease',
 
                                     '&:hover': {
                                         color: '#fff',
@@ -228,6 +254,24 @@ function Navbar() {
 
                                     '&.active': {
                                         color: '#49c916',
+                                        backgroundColor: 'rgba(73, 201, 22, 0.08)',
+                                    },
+
+                                    '&::after': {
+                                        content: '""',
+                                        position: 'absolute',
+                                        bottom: 4,
+                                        left: '50%',
+                                        transform: 'translateX(-50%) scaleX(0)',
+                                        width: '60%',
+                                        height: '2px',
+                                        backgroundColor: '#49c916',
+                                        borderRadius: 2,
+                                        transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                                    },
+
+                                    '&.active::after': {
+                                        transform: 'translateX(-50%) scaleX(1)',
                                     },
                                 }}
                             >
@@ -252,8 +296,15 @@ function Navbar() {
 
                             backgroundColor: '#151516',
                             border: '1px solid #292929',
-                            borderRadius: 2,
+                            borderRadius: 2.5,
                             overflow: 'hidden',
+                            transition: 'all 0.25s ease',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+
+                            '&:focus-within': {
+                                borderColor: '#49c916',
+                                boxShadow: '0 0 0 3px rgba(73, 201, 22, 0.12), 0 2px 8px rgba(0,0,0,0.2)',
+                            },
                         }}
                     >
                         <Box
@@ -266,8 +317,8 @@ function Navbar() {
                                 boxSizing: 'border-box',
 
                                 px: {
-                                    xs: 1,
-                                    sm: 1.5,
+                                    xs: 1.5,
+                                    sm: 2,
                                 },
                                 py: {
                                     xs: 1,
@@ -286,6 +337,11 @@ function Navbar() {
                                 },
 
                                 '&::placeholder': {
+                                    color: '#555',
+                                    transition: 'color 0.2s ease',
+                                },
+
+                                '&:focus::placeholder': {
                                     color: '#777',
                                 },
                             }}
@@ -306,13 +362,20 @@ function Navbar() {
                         <Show when="signed-in">
                             <Box
                                 sx={{
-                                    width: 35,
-                                    height: 35,
-                                    border: '1px solid rgba(255,255,255,0.276)',
+                                    width: 36,
+                                    height: 36,
+                                    border: '1px solid rgba(255,255,255,0.2)',
                                     borderRadius: '50%',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
+                                    transition: 'all 0.25s ease',
+                                    cursor: 'pointer',
+                                    '&:hover': {
+                                        borderColor: '#49c916',
+                                        boxShadow: '0 0 0 3px rgba(73, 201, 22, 0.15)',
+                                        transform: 'scale(1.05)',
+                                    },
                                 }}
                             >
                                 <UserButton />

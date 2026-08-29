@@ -11,9 +11,10 @@ interface MovieCardProps {
     config: Config;
     touchHoveredMovieId: number | null;
     setTouchHoveredMovieId: React.Dispatch<React.SetStateAction<number | null>>;
+    index?: number;
 }
 
-function MovieCard({ movie, config, touchHoveredMovieId, setTouchHoveredMovieId }: MovieCardProps) {
+function MovieCard({ movie, config, touchHoveredMovieId, setTouchHoveredMovieId, index }: MovieCardProps) {
     const BASE_IMG_URL = 'https://img.yts.gg/assets/images/movies/';
     const navigate = useNavigate();
 
@@ -34,18 +35,20 @@ function MovieCard({ movie, config, touchHoveredMovieId, setTouchHoveredMovieId 
         }
     };
 
+    const staggerClass = index !== undefined ? `stagger-${(index % 6) + 1}` : '';
+
     return (
         <div
             style={{
                 width: config.width,
                 height: config.height,
             }}
-            className="movie-card"
+            className={`movie-card ${staggerClass}`}
             onPointerEnter={handlePointerEnter}
             onPointerDown={handlePointerDown}
             onClick={() => navigate(`/movies/${movie.id}`)}
         >
-            <div className="group relative overflow-hidden">
+            <div className="group relative overflow-hidden rounded-lg">
                 <img
                     src={BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + '/medium-cover.jpg'}
                     onError={(e) => {
@@ -54,19 +57,20 @@ function MovieCard({ movie, config, touchHoveredMovieId, setTouchHoveredMovieId 
                     }}
                     alt={movie.title}
                     style={{ border: config.border }}
-                    className="contrast-110 saturate-110 block w-full transition-transform duration-1000
+                    className="contrast-110 saturate-110 block w-full transition-transform duration-700
                     group-hover:scale-110"
                 />
                 {config.hover && (
-                    <div className="absolute top-1 right-1 z-10">
+                    <div className="absolute top-1.5 right-1.5 z-10">
                         <AddOrRemoveFavourite movie={movie} />
                     </div>
                 )}
                 {config.hover && (
                     <div
-                        className={`absolute inset-0 border-[4px] border-transparent bg-black/50 backdrop-blur-[2px] opacity-0 flex items-center justify-center transition-all duration-300 group-hover:opacity-100 group-hover:border-[#49c916] ${
-                            touchHoveredMovieId === movie.id ? 'opacity-100 border-[#49c916]' : ''
+                        className={`hover-overlay absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 flex items-center justify-center ${
+                            touchHoveredMovieId === movie.id ? 'opacity-100' : ''
                         }`}
+                        style={{ border: 'none' }}
                     >
                         <HoverDetails movie={movie} config={config} />
                     </div>

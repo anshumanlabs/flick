@@ -9,6 +9,8 @@ import { Box, CircularProgress } from '@mui/material';
 import SectionTitle from '../components/SectionTitle';
 import Description from '../components/Description';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import LanguageIcon from '@mui/icons-material/Language';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AddToFavourite from '../components/AddOrRemoveFavourite';
 import { useQuery } from '@tanstack/react-query';
 
@@ -64,21 +66,21 @@ function MovieDetails() {
                     minHeight: '300px',
                 }}
             >
-                <CircularProgress aria-label="Loading…" />
+                <CircularProgress aria-label="Loading…" sx={{ color: '#49c916' }} />
             </Box>
         );
     }
 
     return (
-        <div className="movie-details">
+        <div className="movie-details page-enter">
             <Box
                 className="movie-hero"
                 sx={{
                     position: 'relative',
-                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+                    backgroundImage: `linear-gradient(to bottom, rgba(7, 7, 8, 0.3) 0%, rgba(7, 7, 8, 0.6) 50%, rgba(7, 7, 8, 0.95) 100%),
                     url(${BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + '/background.jpg'})`,
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center',
+                    backgroundPosition: 'center top',
                     backgroundRepeat: 'no-repeat',
                 }}
             >
@@ -86,7 +88,7 @@ function MovieDetails() {
                     <div className="lg:col-span-5 md:col-span-4 sm:col-span-1 flex justify-center">
                         <img
                             style={{ maxWidth: '255px', maxHeight: '375px' }}
-                            className="border-[4px] border-[#49c916]"
+                            className="movie-poster border-[4px] border-brand"
                             src={BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + '/large-cover.jpg'}
                             onError={(e) => {
                                 e.currentTarget.src =
@@ -98,70 +100,66 @@ function MovieDetails() {
                     </div>
                     <div className="lg:col-span-10 md:col-span-4 p-2 lg:p-0 md:p-1">
                         <h1 className="mb-6 text-2xl font-bold leading-tight sm:text-3xl md:text-3xl lg:text-[2.5rem] lg:leading-[42px]">
-                            <div className="grid grid-cols-12">
+                            <div className="grid grid-cols-12 items-center">
                                 <div className="col-span-10">{movie.title_long}</div>
-                                <div className="col-span-2">
+                                <div className="col-span-2 flex justify-end">
                                     <AddToFavourite movie={movie} />
                                 </div>
                             </div>
                         </h1>
                         <div className="movie-meta">
-                            <div className="grid grid-cols-12 items-center">
-                                <div className="flex items-center gap-2 col-span-6 md:col-span-3">
-                                    <img
-                                        src="https://commons.wikimedia.org/wiki/Special:Redirect/file/IMDB_Logo_2016.svg"
-                                        alt="IMDb"
-                                        className="h-6 w-auto"
-                                    />
-                                    <span>{movie?.rating} / 10</span>
+                            <div className="grid grid-cols-12 items-center gap-4">
+                                <div className="flex items-center gap-2.5 col-span-6 md:col-span-3">
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            width: 32,
+                                            height: 32,
+                                            borderRadius: '50%',
+                                            backgroundColor: 'rgba(255,255,255,0.08)',
+                                        }}
+                                    >
+                                        <img
+                                            src="https://commons.wikimedia.org/wiki/Special:Redirect/file/IMDB_Logo_2016.svg"
+                                            alt="IMDb"
+                                            className="h-4 w-auto"
+                                        />
+                                    </Box>
+                                    <span className="text-sm font-semibold">{movie?.rating} / 10</span>
                                 </div>
 
-                                <div className="flex items-center gap-2 col-span-6 md:col-span-3">
-                                    <span className="text-xl">🕒</span>
-                                    <span>{movie?.runtime} min</span>
+                                <div className="flex items-center gap-2.5 col-span-6 md:col-span-3">
+                                    <AccessTimeIcon sx={{ color: '#71717a', fontSize: 20 }} />
+                                    <span className="text-sm">{movie?.runtime} min</span>
                                 </div>
                             </div>
                         </div>
                         <div className="movie-meta">
-                            <div className="grid grid-cols-12 items-center">
+                            <div className="grid grid-cols-12 items-center gap-4">
                                 {movie.like_count !== undefined && movie.like_count !== null && (
-                                    <div className="flex items-center gap-2 col-span-6 md:col-span-3">
-                                        <span className="text-xl">
-                                            <ThumbUpIcon
-                                                sx={{
-                                                    color: '#49c916',
-                                                    marginRight: 2,
-                                                }}
-                                            />
-                                        </span>
-                                        {movie.like_count}
+                                    <div className="flex items-center gap-2.5 col-span-6 md:col-span-3">
+                                        <ThumbUpIcon sx={{ color: '#49c916', fontSize: 20 }} />
+                                        <span className="text-sm font-medium">{movie.like_count.toLocaleString()}</span>
                                     </div>
                                 )}
                                 {movie.language && (
-                                    <div className="flex items-center gap-2 col-span-6 md:col-span-3">
-                                        <span className="text-xl">🗣️ </span>
-                                        {movie.language.toUpperCase()}
+                                    <div className="flex items-center gap-2.5 col-span-6 md:col-span-3">
+                                        <LanguageIcon sx={{ color: '#71717a', fontSize: 20 }} />
+                                        <span className="text-sm font-medium">{movie.language.toUpperCase()}</span>
                                     </div>
                                 )}
                             </div>
                         </div>
 
-                        <div className="flex flex-wrap gap-2 mb-4 mt-4">
+                        <div className="flex flex-wrap gap-2 mb-4 mt-5">
                             {movie?.genres?.map((genre) => (
                                 <span
                                     key={genre}
-                                    className="
-                          px-3 py-1
-                          rounded-md
-                          bg-black/40
-                          border border-green-500/40
-                          text-green-400
-                          text-xs
-                          font-semibold
-                          uppercase
-                          tracking-wide
-                          backdrop-blur-md
-                        "
+                                    className="px-3 py-1.5 rounded-full border text-xs font-semibold uppercase tracking-wide backdrop-blur-md
+                           bg-black/40 border-green-500/30 text-green-400
+                           transition-all duration-300 hover:bg-green-500/10 hover:border-green-500/50 hover:-translate-y-0.5"
                                 >
                                     {genre}
                                 </span>
@@ -174,29 +172,32 @@ function MovieDetails() {
                     </div>
                 </div>
             </Box>
-            <section className="p-5">
+            <section className="px-4 sm:px-6 lg:px-8">
                 {movie?.cast?.length > 0 && (
-                    <div className="cast-details m-3">
+                    <div className="cast-details mx-3 mt-5">
                         <SectionTitle title={'Cast'} />
-                        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mt-4">
+                        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mt-6">
                             {movie?.cast.map((castMember) => (
                                 <CastDetails key={castMember.imdb_code} cast={castMember} />
                             ))}
                         </div>
                     </div>
                 )}
-                <div className="m-3 mt-5">
-                    <SectionTitle title={'Trailor and Screenshots'} />
+                <div className="mx-3 mt-8">
+                    <SectionTitle title={'Trailer & Screenshots'} />
                 </div>
-                <div className="grid lg:grid-cols-4 mt-3 md:grid-cols-3 sm:grid-cols-2 gap-3">
+                <div className="grid lg:grid-cols-4 mt-5 md:grid-cols-3 sm:grid-cols-2 gap-3">
                     {movie?.yt_trailer_code && (
                         <div className="aspect-video w-full p-2">
-                            <iframe
-                                className="w-full h-full rounded-xl"
-                                src={`https://www.youtube.com/embed/${movie.yt_trailer_code}`}
-                                title={`${movie.title_long} Trailer`}
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            />
+                            <div className="relative w-full h-full rounded-xl overflow-hidden group">
+                                <iframe
+                                    className="w-full h-full rounded-xl"
+                                    src={`https://www.youtube.com/embed/${movie.yt_trailer_code}`}
+                                    title={`${movie.title_long} Trailer`}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                />
+                            </div>
                         </div>
                     )}
 
@@ -206,17 +207,20 @@ function MovieDetails() {
                             className="aspect-video w-full p-2 cursor-pointer"
                             onClick={openPopUp(screenshot.large)}
                         >
-                            <img
-                                src={screenshot.medium}
-                                loading="lazy"
-                                decoding="async"
-                                alt="Screenshot"
-                                className="w-full h-full object-cover rounded-xl"
-                                onError={(e) => {
-                                    e.currentTarget.src =
-                                        'https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD';
-                                }}
-                            />
+                            <div className="relative w-full h-full rounded-xl overflow-hidden group">
+                                <img
+                                    src={screenshot.medium}
+                                    loading="lazy"
+                                    decoding="async"
+                                    alt="Screenshot"
+                                    className="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
+                                    onError={(e) => {
+                                        e.currentTarget.src =
+                                            'https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD';
+                                    }}
+                                />
+                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-xl" />
+                            </div>
                         </div>
                     ))}
                 </div>
