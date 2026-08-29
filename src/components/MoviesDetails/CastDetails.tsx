@@ -8,11 +8,12 @@ function CastDetails({ cast }: { cast: Cast }) {
         return BASE_IMG_URL + 'default_avatar.jpg';
     }
     return (
-        <div className="flex flex-col items-center">
+        <div className="cast-card flex flex-col items-center">
             <img
                 src={getActorFolder(cast.url_small_image)}
-                className="w-24 h-24 rounded-full object-cover mb-2 contrast-120
-                saturate-120"
+                className="cast-image w-24 h-24 rounded-full object-cover mb-3 contrast-110
+                saturate-110 border-2 border-transparent hover:border-brand/40
+                transition-all duration-300"
                 loading="lazy"
                 decoding="async"
                 onError={(e) => {
@@ -21,8 +22,10 @@ function CastDetails({ cast }: { cast: Cast }) {
                 }}
             />
             <div className="flex flex-col items-center justify-center text-center">
-                <h3 className="text-lg font-semibold">{cast.name}</h3>
-                <p className="text-sm text-gray-600">{cast.character_name}</p>
+                <h3 className="text-base font-semibold text-white transition-colors duration-200 hover:text-brand">
+                    {cast.name}
+                </h3>
+                <p className="text-sm text-text-muted mt-0.5">{cast.character_name}</p>
             </div>
         </div>
     );

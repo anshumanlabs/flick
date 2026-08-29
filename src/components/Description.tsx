@@ -18,16 +18,22 @@ function Description({ description }: DescriptionProps) {
 
     return (
         <div>
-            <p ref={descriptionRef} className={!expanded ? 'line-clamp-4' : ''}>
+            <p
+                ref={descriptionRef}
+                className={`text-text-secondary leading-relaxed transition-all duration-300 ${!expanded ? 'line-clamp-4' : ''}`}
+            >
                 {description}
             </p>
 
             {showMore && (
                 <button
                     onClick={() => setExpanded((prev) => !prev)}
-                    className="mt-2 text-[#49c916] hover:underline"
+                    className="mt-3 text-brand hover:text-brand-light transition-colors duration-200 text-sm font-semibold flex items-center gap-1 group"
                 >
                     {expanded ? 'See less' : 'See more'}
+                    <span className={`transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`}>
+                        ↓
+                    </span>
                 </button>
             )}
         </div>

@@ -90,7 +90,7 @@ function Home() {
                 : homePageConfig.map(
                       (page, index) =>
                           page?.data?.length > 0 && (
-                              <div key={page.title}>
+                              <div key={page.title} className="mb-8">
                                   <div className="ml-1 mr-5 flex items-center justify-between m-5">
                                       <SectionTitle title={page.title} index={index + 1} />
                                   </div>
@@ -98,13 +98,14 @@ function Home() {
                                       style={{ justifyItems: 'center' }}
                                       className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:p-4 mg:p-3 sm:p-2"
                                   >
-                                      {page?.data?.map((movie) => (
+                                      {page?.data?.map((movie, i) => (
                                           <MovieCard
                                               key={movie.id}
                                               movie={movie}
                                               config={homeConfig}
                                               touchHoveredMovieId={touchHoveredMovieId}
                                               setTouchHoveredMovieId={setTouchHoveredMovieId}
+                                              index={i}
                                           />
                                       ))}
                                   </div>

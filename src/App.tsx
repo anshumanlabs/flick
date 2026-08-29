@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import ScrollToTop from './utils/ScrollToTop';
+import './App.css';
 
 const Home = lazy(() => import('./page/Home'));
 const Movies = lazy(() => import('./page/Movies'));
@@ -24,7 +25,7 @@ function App() {
                             minHeight: '300px',
                         }}
                     >
-                        <CircularProgress aria-label="Loading…" />
+                        <CircularProgress aria-label="Loading…" sx={{ color: '#49c916' }} />
                     </Box>
                 }
             >
