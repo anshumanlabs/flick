@@ -11,7 +11,7 @@ import { useState } from 'react';
 function Movies() {
     const [searchParams, setSearchParams] = useSearchParams();
     const queryString = searchParams.toString();
-    const limit = Number(import.meta.env.VITE_LIMIT ?? 20);
+    const limit = Number(import.meta.env.VITE_LIMIT ?? 18);
     const { movies, loading, error, paginationData } = useMovies(queryString, limit);
     const [touchHoveredMovieId, setTouchHoveredMovieId] = useState<number | null>(null);
 
@@ -37,14 +37,14 @@ function Movies() {
             {loading ? (
                 <div
                     style={{ justifyItems: 'center' }}
-                    className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-4 lg:p-4 p-2"
+                    className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:p-4 mg:p-3 sm:p-2"
                 >
                     {Array.from({ length: limit }).map((_, index) => (
                         <Skeletons key={index} width={defaultConfig.width} height={'45vh'} />
                     ))}
                 </div>
             ) : movies?.length > 0 ? (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-4 lg:p-4 p-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:p-4 mg:p-3 sm:p-2">
                     {movies.map((movie) => (
                         <div
                             key={movie.id}

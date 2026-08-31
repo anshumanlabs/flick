@@ -35,7 +35,7 @@ function Favorites() {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    minHeight: '300px',
+                    height: '90vh',
                 }}
             >
                 <CircularProgress aria-label="Loading…" />
@@ -77,7 +77,7 @@ function Favorites() {
     return favourites?.length > 0 ? (
         <div
             style={{ justifyItems: 'center' }}
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:p-4 mg:p-3 sm:p-2 mt-3"
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:p-4 mg:p-3 sm:p-2"
         >
             {favourites?.map((favourite) => (
                 <MovieCard

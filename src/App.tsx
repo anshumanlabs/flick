@@ -21,7 +21,7 @@ function App() {
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            minHeight: '300px',
+                            height: '90vh',
                         }}
                     >
                         <CircularProgress aria-label="Loading…" />

@@ -15,9 +15,9 @@ import type { RootState } from '../store/store';
 function AddOrRemoveFavourite({ movie }: { movie: Movie }) {
     const { userId } = useAuth();
     const dispatch = useDispatch();
-    const favourites = useSelector((state: RootState) => state.favourite.favourites);
+    const favouriteIds = useSelector((state: RootState) => state.favourite.favouriteIds);
     const { openSnackbar } = useSnackbar();
-    const isFavourite = favourites.some((fav) => Number(fav.movie.id) === movie.id);
+    const isFavourite = favouriteIds.includes(movie.id);
 
     async function addOrRemoveMovie() {
         if (!userId) {
