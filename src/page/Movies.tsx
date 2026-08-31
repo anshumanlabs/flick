@@ -36,11 +36,11 @@ function Movies() {
 
             {loading ? (
                 <div
-                    style={{ justifyItems: 'center' }}
+                    style={{ justifyItems: 'center', height: '100vh' }}
                     className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:p-4 mg:p-3 sm:p-2"
                 >
                     {Array.from({ length: limit }).map((_, index) => (
-                        <Skeletons key={index} width={defaultConfig.width} height={'45vh'} />
+                        <Skeletons key={index} width={defaultConfig.width} height={defaultConfig.height} />
                     ))}
                 </div>
             ) : movies?.length > 0 ? (

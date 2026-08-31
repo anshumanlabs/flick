@@ -49,7 +49,7 @@ function Navbar() {
     };
 
     const handleNavigation = (path: string) => {
-        setSearch("");
+        setSearch('');
         navigate(path);
         setAnchorElNav(null);
     };

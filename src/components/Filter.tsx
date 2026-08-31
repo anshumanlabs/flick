@@ -81,7 +81,7 @@ export default function Filter() {
                     slotProps={{
                         paper: {
                             sx: {
-                                marginRight:'2px',
+                                marginRight: '2px',
                                 height: 650,
                                 width: 352,
                                 top: '50%',

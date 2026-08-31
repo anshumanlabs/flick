@@ -11,6 +11,7 @@ function Skeletons({ width, height }: SkeletonsProps) {
             style={{
                 width: width,
                 height: height,
+                padding: 0,
             }}
             sx={{
                 bgcolor: 'rgba(255, 255, 255, 0.59)',
