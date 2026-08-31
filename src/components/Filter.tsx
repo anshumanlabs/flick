@@ -82,9 +82,11 @@ export default function Filter() {
                         paper: {
                             sx: {
                                 height: 650,
-                                width: 350,
+                                width: 355,
                                 top: '50%',
                                 transform: 'translateY(-50%)',
+                                border: '1px solid #555',
+                                borderRadius: '10px',
                             },
                         },
                     }}
@@ -92,7 +94,7 @@ export default function Filter() {
                     <Box
                         sx={{
                             width: 350,
-                            height: '650px !important',
+                            height: 650,
                             padding: 2,
                             background: 'black',
                             color: 'white',

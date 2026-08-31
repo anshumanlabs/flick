@@ -7,22 +7,17 @@ import {
     removeFavouriteMovie,
 } from '../services/favouriteService';
 import { useAuth } from '@clerk/react';
-import { useContext } from 'react';
-import { FavouriteContext } from '../context/FavouriteContext';
 import { useSnackbar } from '../context/SnackbarContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFavourite } from '../store/favouriteSlice';
+import type { RootState } from '../store/store';
 
 function AddOrRemoveFavourite({ movie }: { movie: Movie }) {
     const { userId } = useAuth();
-    const favouriteContext = useContext(FavouriteContext);
-
-    if (!favouriteContext) {
-        throw new Error('AddOrRemoveFavourite must be used inside FavouriteProvider');
-    }
-
-    const { dispatch, favouriteIds } = favouriteContext;
-    const isFavourite = favouriteIds.has(movie.id);
-
+    const dispatch = useDispatch();
+    const favouriteIds = useSelector((state: RootState) => state.favourite.favouriteIds);
     const { openSnackbar } = useSnackbar();
+    const isFavourite = favouriteIds.includes(movie.id);
 
     async function addOrRemoveMovie() {
         if (!userId) {
@@ -32,26 +27,18 @@ function AddOrRemoveFavourite({ movie }: { movie: Movie }) {
 
         if (isFavourite) {
             const success = await removeFavouriteMovie(userId, movie.id);
-
             if (success) {
                 const favorites = await getFavoutiteMovieForUserId(userId);
-                dispatch({
-                    type: 'SET_FAVOURITES',
-                    payload: favorites,
-                });
+                dispatch(setFavourite(favorites));
                 openSnackbar('Movie removed from favourites');
             } else {
                 openSnackbar('Something went wrong. Try again', 'error');
             }
         } else {
             const success = await addAsFavMovie(movie, userId);
-
             if (success) {
                 const favorites = await getFavoutiteMovieForUserId(userId);
-                dispatch({
-                    type: 'SET_FAVOURITES',
-                    payload: favorites,
-                });
+                dispatch(setFavourite(favorites));
                 openSnackbar('Movie added to favourites');
             } else {
                 openSnackbar('Something went wrong. Try again', 'error');

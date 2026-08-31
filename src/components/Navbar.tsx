@@ -48,6 +48,12 @@ function Navbar() {
         setAnchorElNav(null);
     };
 
+    const handleNavigation = (path: string) => {
+        setSearch("");
+        navigate(path);
+        setAnchorElNav(null);
+    };
+
     return (
         <AppBar
             position="sticky"
@@ -133,7 +139,7 @@ function Navbar() {
                         >
                             {pages.map((page) => (
                                 <MenuItem
-                                    onClick={handleCloseNavMenu}
+                                    onClick={() => handleNavigation(page.path)}
                                     sx={{
                                         p: 0,
                                     }}
@@ -211,8 +217,7 @@ function Navbar() {
                         {pages.map((page) => (
                             <Button
                                 key={page.path}
-                                component={NavLink}
-                                to={page.path}
+                                onClick={() => handleNavigation(page.path)}
                                 sx={{
                                     color: '#fff',
                                     fontSize: 15,
