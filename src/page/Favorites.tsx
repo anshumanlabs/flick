@@ -46,11 +46,11 @@ function Favorites() {
         return (
             <div className="min-h-[70vh] flex items-center justify-center px-4">
                 <div className="flex flex-col items-center text-center max-w-md">
-                    <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+                    <div className="mb-6 flex h-18 w-18 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
                         <span className="text-3xl">❤️</span>
                     </div>
 
-                    <h2 className="text-2xl font-bold text-white mb-3">Your Favorites Await</h2>
+                    <h2 className="text-xl font-bold text-white mb-3">Your Favorites Await</h2>
 
                     <p className="text-gray-400 text-sm sm:text-base leading-relaxed mb-7">
                         Sign in to save your favorite movies and access them anytime.
@@ -59,7 +59,7 @@ function Favorites() {
                     <SignInButton>
                         <button
                             type="button"
-                            className="group flex items-center gap-2 rounded-lg bg-[#49c916] px-6 py-3
+                            className="group flex items-center gap-2 rounded-lg bg-[#49c916] px-3 py-2
                            font-semibold text-black transition-all duration-200
                            hover:bg-[#55df1c] hover:shadow-lg hover:shadow-[#49c916]/20
                            active:scale-95"
