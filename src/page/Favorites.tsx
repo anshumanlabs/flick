@@ -2,7 +2,7 @@ import { SignInButton, useAuth } from '@clerk/react';
 import { useEffect, useState } from 'react';
 import { getFavoutiteMovieForUserId } from '../services/favouriteService';
 import MovieCard from '../components/MovieCard';
-import { defaultConfig } from '../types/config';
+import { layoutConfig } from '../types/config';
 import type { Movie } from '../types/movies';
 import { useNavigate } from 'react-router-dom';
 import { Box, CircularProgress } from '@mui/material';
@@ -91,7 +91,7 @@ function Favorites() {
                             medium_cover_image: favourite.movie.medium_cover_image,
                         } as Movie
                     }
-                    config={defaultConfig}
+                    config={layoutConfig}
                     touchHoveredMovieId={touchHoveredMovieId}
                     setTouchHoveredMovieId={setTouchHoveredMovieId}
                 />

@@ -4,14 +4,14 @@ import { useSearchParams } from 'react-router-dom';
 import Skeletons from '../components/Skeletons';
 import Filter from '../components/Filter';
 import RecordNotFound from '../components/RecordNotFound';
-import { defaultConfig } from '../types/config';
+import { layoutConfig } from '../types/config';
 import { useMovies } from '../hooks/useMovies';
 import { useState } from 'react';
 
 function Movies() {
     const [searchParams, setSearchParams] = useSearchParams();
     const queryString = searchParams.toString();
-    const limit = Number(import.meta.env.VITE_LIMIT ?? 18);
+    const limit = 18;
     const { movies, loading, error, paginationData } = useMovies(queryString, limit);
     const [touchHoveredMovieId, setTouchHoveredMovieId] = useState<number | null>(null);
 
@@ -36,11 +36,21 @@ function Movies() {
 
             {loading ? (
                 <div
-                    style={{ justifyItems: 'center', height: '100vh' }}
+                    style={{ justifyItems: 'center' }}
                     className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:p-4 mg:p-3 sm:p-2"
                 >
                     {Array.from({ length: limit }).map((_, index) => (
-                        <Skeletons key={index} width={defaultConfig.width} height={defaultConfig.height} />
+                        <div
+                            key={index}
+                            style={{
+                                width: layoutConfig.width,
+                                aspectRatio: '2/3',
+                                justifyItems: 'center',
+                            }}
+                            className="mb-5"
+                        >
+                            <Skeletons width="100%" height="100%" />
+                        </div>
                     ))}
                 </div>
             ) : movies?.length > 0 ? (
@@ -57,7 +67,7 @@ function Movies() {
                         >
                             <MovieCard
                                 movie={movie}
-                                config={defaultConfig}
+                                config={layoutConfig}
                                 touchHoveredMovieId={touchHoveredMovieId}
                                 setTouchHoveredMovieId={setTouchHoveredMovieId}
                             />

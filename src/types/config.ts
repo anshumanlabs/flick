@@ -6,24 +6,16 @@ export interface Config {
     fontWeight: string;
     border: string;
     hover: boolean;
+    borderRadius: string;
 }
 
-export const defaultConfig: Config = {
-    width: '80%',
+export const layoutConfig: Config = {
+    width: '90%',
     height: '80%',
     titleSize: 20,
     ratingSize: 10,
     fontWeight: 'bold',
-    border: '4px solid #f7f7f7',
+    border: '3px solid #f7f7f7',
     hover: true,
-};
-
-export const homeConfig: Config = {
-    width: '90%',
-    height: '90%',
-    titleSize: 20,
-    ratingSize: 10,
-    fontWeight: 'bold',
-    border: '4px solid #f7f7f7',
-    hover: true,
+    borderRadius: '10px',
 };

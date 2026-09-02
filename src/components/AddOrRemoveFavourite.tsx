@@ -55,6 +55,7 @@ function AddOrRemoveFavourite({ movie }: { movie: Movie }) {
         >
             <FavoriteIcon
                 sx={{
+                    marginLeft: '2rem',
                     color: isFavourite ? 'red' : 'white',
 
                     ...(isFavourite && {

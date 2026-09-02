@@ -12,7 +12,7 @@ export async function getMovies(params: MovieSearchParams, signal?: AbortSignal)
     });
 
     if (!params?.limit) {
-        searchParams.append('limit', import.meta.env.VITE_LIMIT);
+        searchParams.append('limit', '18');
     }
 
     return apiClient<ListMovieResponse>('/list_movies.json?' + searchParams.toString(), signal);

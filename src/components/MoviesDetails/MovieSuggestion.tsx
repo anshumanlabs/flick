@@ -13,7 +13,8 @@ function MovieSuggestion() {
         titleSize: 15,
         ratingSize: 15,
         fontWeight: 'bold',
-        border: '4px solid #f7f7f7',
+        border: '2px solid #f7f7f7',
+        borderRadius: '10px',
         hover: false,
     };
     const [touchHoveredMovieId, setTouchHoveredMovieId] = useState<number | null>(null);
