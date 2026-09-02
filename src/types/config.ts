@@ -6,6 +6,7 @@ export interface Config {
     fontWeight: string;
     border: string;
     hover: boolean;
+    borderRadius: string;
 }
 
 export const layoutConfig: Config = {
@@ -14,6 +15,7 @@ export const layoutConfig: Config = {
     titleSize: 20,
     ratingSize: 10,
     fontWeight: 'bold',
-    border: '4px solid #f7f7f7',
+    border: '4px solid rgba(255, 255, 255, 0.5)',
     hover: true,
+    borderRadius: '10px',
 };

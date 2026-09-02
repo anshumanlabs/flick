@@ -86,7 +86,7 @@ function MovieDetails() {
                     <div className="lg:col-span-5 md:col-span-4 sm:col-span-1 flex justify-center">
                         <img
                             style={{ maxWidth: '255px', maxHeight: '375px' }}
-                            className="border-[4px] border-[#49c916]"
+                            className="border-[4px] border-[#49c916] rounded-[10px]"
                             src={BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + '/large-cover.jpg'}
                             onError={(e) => {
                                 e.currentTarget.src =

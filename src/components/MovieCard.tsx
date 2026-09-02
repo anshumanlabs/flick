@@ -45,7 +45,7 @@ function MovieCard({ movie, config, touchHoveredMovieId, setTouchHoveredMovieId 
             onPointerDown={handlePointerDown}
             onClick={() => navigate(`/movies/${movie.id}`)}
         >
-            <div className="group relative overflow-hidden">
+            <div className="group relative overflow-hidden rounded-[10px]">
                 <img
                     src={BASE_IMG_URL + getMovieFolder(movie.medium_cover_image) + '/medium-cover.jpg'}
                     onError={(e) => {
@@ -53,7 +53,7 @@ function MovieCard({ movie, config, touchHoveredMovieId, setTouchHoveredMovieId 
                             'https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD';
                     }}
                     alt={movie.title}
-                    style={{ border: config.border }}
+                    style={{ border: config.border, borderRadius: config.borderRadius}}
                     className="contrast-110 saturate-110 block w-full transition-transform duration-1000
                     group-hover:scale-110"
                 />
@@ -64,7 +64,7 @@ function MovieCard({ movie, config, touchHoveredMovieId, setTouchHoveredMovieId 
                 )}
                 {config.hover && (
                     <div
-                        className={`absolute inset-0 border-[4px] border-transparent bg-black/50 backdrop-blur-[2px] opacity-0 flex items-center justify-center transition-all duration-300 group-hover:opacity-100 group-hover:border-[#49c916] ${
+                        className={`absolute inset-0 border-[4px] rounded-[10px] border-transparent bg-black/50 backdrop-blur-[2px] opacity-0 flex items-center justify-center transition-all duration-300 group-hover:opacity-100 group-hover:border-[#49c916] ${
                             touchHoveredMovieId === movie.id ? 'opacity-100 border-[#49c916]' : ''
                         }`}
                     >
