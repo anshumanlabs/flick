@@ -297,7 +297,7 @@ function Navbar() {
                                 },
                                 '&:focus::placeholder': {
                                     color: '#777',
-                                }
+                                },
                             }}
                         />
                     </Box>
