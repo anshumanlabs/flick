@@ -64,7 +64,7 @@ function MovieCard({ movie, config, touchHoveredMovieId, setTouchHoveredMovieId 
                 )}
                 {config.hover && (
                     <div
-                        className={`absolute inset-0 border-[4px] rounded-[10px] border-transparent bg-black/50 backdrop-blur-[2px] opacity-0 flex items-center justify-center transition-all duration-300 group-hover:opacity-100 group-hover:border-[#49c916] ${
+                        className={`absolute inset-0 border-[3px] rounded-[10px] border-transparent bg-black/50 backdrop-blur-[2px] opacity-0 flex items-center justify-center transition-all duration-300 group-hover:opacity-100 group-hover:border-[#49c916] ${
                             touchHoveredMovieId === movie.id ? 'opacity-100 border-[#49c916]' : ''
                         }`}
                     >

@@ -15,7 +15,7 @@ export const layoutConfig: Config = {
     titleSize: 20,
     ratingSize: 10,
     fontWeight: 'bold',
-    border: '4px solid rgba(255, 255, 255, 0.5)',
+    border: '3px solid #f7f7f7',
     hover: true,
     borderRadius: '10px',
 };

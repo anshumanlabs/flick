@@ -70,8 +70,8 @@ function Navbar() {
                     maxWidth: 1400,
                     mx: 'auto',
                     px: {
-                        xs: 2,
-                        sm: 3,
+                        xs: 1,
+                        sm: 2,
                         md: 3.75,
                     },
                 }}
@@ -181,13 +181,13 @@ function Navbar() {
                             color: '#fff',
                             textDecoration: 'none',
                             fontSize: {
-                                xs: 20,
+                                xs: 18,
                                 sm: 22,
                                 md: 26,
                             },
                             fontWeight: 800,
                             letterSpacing: {
-                                xs: 1.5,
+                                xs: 1,
                                 md: 2,
                             },
                             flexShrink: 0,
