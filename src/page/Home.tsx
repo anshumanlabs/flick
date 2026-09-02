@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { getMovies } from '../services/movieService';
 import MovieCard from '../components/MovieCard';
-import { homeConfig } from '../types/config';
+import { layoutConfig } from '../types/config';
 import { removeDuplicate } from '../utils/movies';
 import SectionTitle from '../components/SectionTitle';
 import Skeletons from '../components/Skeletons';
@@ -86,7 +86,7 @@ function Home() {
                               <div
                                   key={index}
                                   style={{
-                                      width: homeConfig.width,
+                                      width: layoutConfig.width,
                                       aspectRatio: '2/3',
                                       justifyItems: 'center',
                                   }}
@@ -112,7 +112,7 @@ function Home() {
                                           <MovieCard
                                               key={movie.id}
                                               movie={movie}
-                                              config={homeConfig}
+                                              config={layoutConfig}
                                               touchHoveredMovieId={touchHoveredMovieId}
                                               setTouchHoveredMovieId={setTouchHoveredMovieId}
                                           />

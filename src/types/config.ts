@@ -8,19 +8,9 @@ export interface Config {
     hover: boolean;
 }
 
-export const defaultConfig: Config = {
-    width: '80%',
-    height: '80%',
-    titleSize: 20,
-    ratingSize: 10,
-    fontWeight: 'bold',
-    border: '4px solid #f7f7f7',
-    hover: true,
-};
-
-export const homeConfig: Config = {
+export const layoutConfig: Config = {
     width: '90%',
-    height: '90%',
+    height: '80%',
     titleSize: 20,
     ratingSize: 10,
     fontWeight: 'bold',

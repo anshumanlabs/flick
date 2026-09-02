@@ -4,14 +4,14 @@ import { useSearchParams } from 'react-router-dom';
 import Skeletons from '../components/Skeletons';
 import Filter from '../components/Filter';
 import RecordNotFound from '../components/RecordNotFound';
-import { defaultConfig } from '../types/config';
+import { layoutConfig } from '../types/config';
 import { useMovies } from '../hooks/useMovies';
 import { useState } from 'react';
 
 function Movies() {
     const [searchParams, setSearchParams] = useSearchParams();
     const queryString = searchParams.toString();
-    const limit = Number(import.meta.env.VITE_LIMIT ?? 18);
+    const limit = 18;
     const { movies, loading, error, paginationData } = useMovies(queryString, limit);
     const [touchHoveredMovieId, setTouchHoveredMovieId] = useState<number | null>(null);
 
@@ -43,7 +43,7 @@ function Movies() {
                         <div
                             key={index}
                             style={{
-                                width: defaultConfig.width,
+                                width: layoutConfig.width,
                                 aspectRatio: '2/3',
                                 justifyItems: 'center',
                             }}
@@ -67,7 +67,7 @@ function Movies() {
                         >
                             <MovieCard
                                 movie={movie}
-                                config={defaultConfig}
+                                config={layoutConfig}
                                 touchHoveredMovieId={touchHoveredMovieId}
                                 setTouchHoveredMovieId={setTouchHoveredMovieId}
                             />

@@ -217,6 +217,8 @@ function Navbar() {
                         {pages.map((page) => (
                             <Button
                                 key={page.path}
+                                component={NavLink}
+                                to={page.path}
                                 onClick={() => handleNavigation(page.path)}
                                 sx={{
                                     color: '#fff',
