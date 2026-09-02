@@ -83,7 +83,17 @@ function Home() {
                           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:p-4 mg:p-4 sm:p-4 mt-5"
                       >
                           {Array.from({ length: limit }).map((_, index) => (
-                              <Skeletons key={index} width={homeConfig.width} height={'45vh'} />
+                              <div
+                                  key={index}
+                                  style={{
+                                      width: homeConfig.width,
+                                      aspectRatio: '2/3',
+                                      justifyItems: 'center',
+                                  }}
+                                  className="mb-5"
+                              >
+                                  <Skeletons width="100%" height="100%" />
+                              </div>
                           ))}
                       </div>
                   ))

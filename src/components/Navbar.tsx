@@ -289,10 +289,13 @@ function Navbar() {
                                     sm: 13,
                                     md: 14,
                                 },
-
                                 '&::placeholder': {
-                                    color: '#777',
+                                    color: '#555',
+                                    transition: 'color 0.2s ease',
                                 },
+                                '&:focus::placeholder': {
+                                    color: '#777',
+                                }
                             }}
                         />
                     </Box>
