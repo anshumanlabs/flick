@@ -13,6 +13,7 @@ function Skeletons({ width, height }: SkeletonsProps) {
                 height: height,
                 overflow: 'hidden',
                 position: 'relative',
+                borderRadius: '10px',
                 '&::after': {
                     content: '""',
                     position: 'absolute',
