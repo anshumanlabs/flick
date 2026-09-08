@@ -8,6 +8,7 @@ import {
     ToggleButton,
     ToggleButtonGroup,
 } from '@mui/material';
+import TuneIcon from '@mui/icons-material/Tune';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { genreOptions, resolutionOption, sortByOption } from '../types/filterOptions';
@@ -60,17 +61,27 @@ export default function Filter() {
         <>
             {!showFilter && (
                 <Button
+                    startIcon={<TuneIcon />}
                     sx={{
                         color: '#aaa',
                         border: '1px solid #555',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '4px',
+
+                        '& .MuiButton-startIcon': {
+                            margin: 0,
+                        },
+
                         '&:hover': {
                             backgroundColor: '#333',
                             color: '#fff',
+                            borderColor: '#777',
                         },
                     }}
                     onClick={() => setShowFilter(true)}
                 >
-                    Filter
                 </Button>
             )}
             {showFilter && (
