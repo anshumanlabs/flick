@@ -61,17 +61,20 @@ export default function Filter() {
         <>
             {!showFilter && (
                 <Button
-                    startIcon={<TuneIcon />}
                     sx={{
                         color: '#aaa',
                         border: '1px solid #555',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '4px',
-
-                        '& .MuiButton-startIcon': {
-                            margin: 0,
+                        padding: 0,
+                        width: 0,
+                        minWidth: {
+                            xs: '38px',
+                            sm: '40px',
+                            md: '42px',
+                        },
+                        height: {
+                            xs: '38px',
+                            sm: '40px',
+                            md: '42px',
                         },
 
                         '&:hover': {
@@ -82,6 +85,7 @@ export default function Filter() {
                     }}
                     onClick={() => setShowFilter(true)}
                 >
+                    <TuneIcon />
                 </Button>
             )}
             {showFilter && (
