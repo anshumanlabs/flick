@@ -52,10 +52,24 @@ function AddOrRemoveFavourite({ movie }: { movie: Movie }) {
                 e.stopPropagation();
                 addOrRemoveMovie();
             }}
+            sx={{
+                padding: 0,
+                width: 0,
+                minWidth: {
+                    xs: '38px',
+                    sm: '40px',
+                    md: '42px',
+                },
+                height: {
+                    xs: '38px',
+                    sm: '40px',
+                    md: '42px',
+                },
+                marginLeft: '2rem',
+            }}
         >
             <FavoriteIcon
                 sx={{
-                    marginLeft: '2rem',
                     color: isFavourite ? 'red' : 'white',
 
                     ...(isFavourite && {
