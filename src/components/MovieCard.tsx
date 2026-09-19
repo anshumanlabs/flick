@@ -53,7 +53,7 @@ function MovieCard({ movie, config, touchHoveredMovieId, setTouchHoveredMovieId 
                             'https://placehold.co/300x450/111111/aaaaaa?text=FAILED%20TO%20LOAD';
                     }}
                     alt={movie.title}
-                    style={{ border: config.border, borderRadius: config.borderRadius}}
+                    style={{ border: config.border, borderRadius: config.borderRadius }}
                     className="contrast-110 saturate-110 block w-full transition-transform duration-1000
                     group-hover:scale-110"
                 />
