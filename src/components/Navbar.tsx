@@ -9,8 +9,7 @@ import { useDebounce } from '../hooks/useDebounce';
 const pages = [
     { label: 'Home', path: '/' },
     { label: 'Movies', path: '/movies?page=1' },
-    { label: 'Favorites', path: '/favorites' },
-    // { label: 'Test', path: '/test' },
+    { label: 'Favorites', path: '/favorites' }
 ];
 
 function Navbar() {

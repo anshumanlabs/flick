@@ -9,7 +9,6 @@ const Home = lazy(() => import('./page/Home'));
 const Movies = lazy(() => import('./page/Movies'));
 const Favorites = lazy(() => import('./page/Favorites'));
 const MovieDetails = lazy(() => import('./page/MovieDetails'));
-// const Test = lazy(() => import('./page/Test'));
 
 function App() {
     return (
@@ -35,7 +34,6 @@ function App() {
                     <Route path="/movies" element={<Movies />} />
                     <Route path="/favorites" element={<Favorites />} />
                     <Route path="/movies/:id" element={<MovieDetails />} />
-                    {/* <Route path="/test" element={<Test />} /> */}
                 </Routes>
             </Suspense>
         </BrowserRouter>
