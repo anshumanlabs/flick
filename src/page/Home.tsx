@@ -14,14 +14,14 @@ function Home() {
     const results = useQueries({
         queries: [
             {
-                queryKey: ['moveies', 'recent', limit],
+                queryKey: ['movies', 'recent', limit],
                 queryFn: async ({ signal }) => {
                     const response = await getMovies({ limit }, signal);
                     return removeDuplicate(response.data.movies);
                 },
             },
             {
-                queryKey: ['moveies', 'top-rated-action', limit],
+                queryKey: ['movies', 'top-rated-action', limit],
                 queryFn: async ({ signal }) => {
                     const response = await getMovies(
                         { limit, genre: 'Action', sort_by: 'rating', order_by: 'desc' },
@@ -31,7 +31,7 @@ function Home() {
                 },
             },
             {
-                queryKey: ['moveies', 'best-rated-animation', limit],
+                queryKey: ['movies', 'best-rated-animation', limit],
                 queryFn: async ({ signal }) => {
                     const response = await getMovies(
                         { limit, genre: 'Animation', sort_by: 'rating' },
@@ -41,7 +41,7 @@ function Home() {
                 },
             },
             {
-                queryKey: ['moveies', 'most-liked', limit],
+                queryKey: ['movies', 'most-liked', limit],
                 queryFn: async ({ signal }) => {
                     const response = await getMovies({ limit, sort_by: 'like_count' }, signal);
                     return removeDuplicate(response.data.movies);
